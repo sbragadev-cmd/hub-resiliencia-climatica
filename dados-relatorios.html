@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hub • Dados e Relatórios (Público)</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            regen: "#1B7F5A",
+            regenLight: "#4CAF8F",
+            deepBlue: "#0D3B66",
+            energy: "#F2C94C",
+            graphite: "#2E2E2E",
+            grayClean: "#F5F7F6",
+          },
+          boxShadow: { soft: "0 10px 30px rgba(13,59,102,.12)" }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-mesh{
+      background:
+        radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
+        radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
+        radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
+        linear-gradient(180deg, #F5F7F6, #FFFFFF);
+    }
+    .glass{
+      background: rgba(245,247,246,.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(13,59,102,.10);
+    }
+    .nice-scroll::-webkit-scrollbar{ height:10px; width:10px; }
+    .nice-scroll::-webkit-scrollbar-thumb{ background: rgba(13,59,102,.20); border-radius: 999px; }
+    .nice-scroll::-webkit-scrollbar-track{ background: rgba(13,59,102,.06); border-radius: 999px; }
+    .btn:focus{ outline:none; box-shadow: 0 0 0 6px rgba(27,127,90,.14); }
+  </style>
+</head>
+
+<body class="bg-mesh text-graphite min-h-screen">
+  <header class="mx-auto max-w-7xl px-4 pt-6">
+    <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft">
+          <span class="font-semibold">H</span>
+        </div>
+        <div class="min-w-0">
+          <div class="font-semibold leading-tight truncate">Dados e Relatórios</div>
+          <div class="text-xs text-graphite/70 truncate">Transparência pública • Hub Resiliência Climática</div>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <a href="conteudos.html" class="btn hidden sm:inline-flex px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+          Conteúdos
+        </a>
+        <a href="login.html" class="btn px-4 py-2 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+          Entrar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6">
+    <section class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Painel público</div>
+          <h1 class="text-2xl md:text-3xl font-semibold mt-2">Visão global com filtro por território</h1>
+          <p class="text-graphite/70 mt-3 max-w-3xl">
+            Indicadores consolidados para decisão pública, imprensa e sociedade: resíduos coletados, CRGR ativos,
+            famílias cadastradas nas coletas solidárias e evolução temporal.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2">
+          <select id="territorio" class="px-4 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm">
+            <option value="global">Visão global</option>
+            <option value="vila-pinto">Vila Pinto</option>
+            <option value="farrapos">Farrapos</option>
+            <option value="ilha">Ilha Grande dos Marinheiros</option>
+          </select>
+          <button id="btnExport" class="btn px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Exportar CSV (demo)
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-xs text-graphite/70">Resíduos coletados</div>
+          <div class="text-2xl font-semibold mt-1" id="k1">—</div>
+          <div class="text-xs text-graphite/60 mt-1">Total consolidado</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-xs text-graphite/70">CRGR ativos</div>
+          <div class="text-2xl font-semibold mt-1" id="k2">—</div>
+          <div class="text-xs text-graphite/60 mt-1">Unidades em operação</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-xs text-graphite/70">Famílias cadastradas</div>
+          <div class="text-2xl font-semibold mt-1" id="k3">—</div>
+          <div class="text-xs text-graphite/60 mt-1">Coletas solidárias</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-xs text-graphite/70">Territórios</div>
+          <div class="text-2xl font-semibold mt-1" id="k4">—</div>
+          <div class="text-xs text-graphite/60 mt-1">Cobertura</div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-7 rounded-3xl bg-white border border-deepBlue/10 p-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-semibold">Evolução mensal (kg)</div>
+              <div class="text-xs text-graphite/70">Série temporal (demo)</div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <canvas id="chartLine" height="120"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 rounded-3xl bg-white border border-deepBlue/10 p-5">
+          <div>
+            <div class="text-sm font-semibold">Mix de materiais</div>
+            <div class="text-xs text-graphite/70">Participação por categoria (demo)</div>
+          </div>
+          <div class="mt-3">
+            <canvas id="chartDonut" height="150"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-3xl bg-white border border-deepBlue/10 p-5">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="text-sm font-semibold">Metodologia e fontes</div>
+            <div class="text-xs text-graphite/70 mt-1">
+              Descreva aqui o protocolo de medição (balança/romaneio), periodicidade de registro e governança de validação.
+            </div>
+          </div>
+          <a href="conteudos.html" class="btn px-4 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Acessar documentos
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 text-center text-xs text-graphite/60">
+      © <span id="year"></span> Hub Resiliência Climática • Transparência pública
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // DADOS DEMO (trocar por API depois)
+    const DATA = {
+      global: {
+        kpis: { k1: "1.280.000 kg", k2: "3", k3: "2.450", k4: "3" },
+        serie: [82000, 90000, 98000, 104000, 110000, 120000, 118000, 125000, 132000, 138000, 141000, 150000],
+        mix:  { papel: 32, plastico: 28, metal: 12, vidro: 10, outros: 18 }
+      },
+      "vila-pinto": {
+        kpis: { k1: "510.000 kg", k2: "1", k3: "980", k4: "1" },
+        serie: [32000, 34000, 36000, 38000, 39000, 42000, 41000, 43000, 44000, 46000, 47000, 48000],
+        mix:  { papel: 34, plastico: 26, metal: 10, vidro: 12, outros: 18 }
+      },
+      farrapos: {
+        kpis: { k1: "420.000 kg", k2: "1", k3: "820", k4: "1" },
+        serie: [26000, 28000, 30000, 31000, 32000, 34000, 35000, 36000, 37000, 38000, 39000, 40000],
+        mix:  { papel: 30, plastico: 30, metal: 14, vidro: 8, outros: 18 }
+      },
+      ilha: {
+        kpis: { k1: "350.000 kg", k2: "1", k3: "650", k4: "1" },
+        serie: [24000, 26000, 27000, 29000, 30000, 31000, 32000, 33000, 34000, 35000, 36000, 37000],
+        mix:  { papel: 33, plastico: 27, metal: 12, vidro: 10, outros: 18 }
+      }
+    };
+
+    const labels = ["Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez","Jan","Fev"];
+
+    let chartLine = null;
+    let chartDonut = null;
+
+    function render(key){
+      const d = DATA[key] || DATA.global;
+
+      document.getElementById("k1").textContent = d.kpis.k1;
+      document.getElementById("k2").textContent = d.kpis.k2;
+      document.getElementById("k3").textContent = d.kpis.k3;
+      document.getElementById("k4").textContent = d.kpis.k4;
+
+      chartLine?.destroy();
+      chartDonut?.destroy();
+
+      chartLine = new Chart(document.getElementById("chartLine"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [{ label: "kg/mês", data: d.serie, tension: .25, fill: true, borderWidth: 2, pointRadius: 2 }]
+        },
+        options: { responsive:true, plugins:{ legend:{ display:false } } }
+      });
+
+      chartDonut = new Chart(document.getElementById("chartDonut"), {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(d.mix).map(x => x[0].toUpperCase()+x.slice(1)),
+          datasets: [{ label: "%", data: Object.values(d.mix), borderWidth: 1 }]
+        },
+        options: { responsive:true, plugins:{ legend:{ position:"bottom" } } }
+      });
+    }
+
+    render("global");
+    document.getElementById("territorio").addEventListener("change", (e)=> render(e.target.value));
+
+    document.getElementById("btnExport").addEventListener("click", () => {
+      const key = document.getElementById("territorio").value;
+      const d = DATA[key] || DATA.global;
+
+      const header = "territorio,residuos_kg,crgr_ativos,familias_cadastradas\n";
+      const row = `${key},${d.kpis.k1.replaceAll(".","").replace(" kg","")},${d.kpis.k2},${d.kpis.k3}\n`;
+      const blob = new Blob([header+row], { type:"text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `dados_publicos_${key}.csv`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  </script>
+</body>
+</html>
