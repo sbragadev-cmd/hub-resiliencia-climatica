@@ -5,595 +5,1323 @@
   <meta http-equiv="Content-Language" content="pt-BR">
   <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hub Resiliência Climática • Landing Page</title>
+  <title>Hub Resiliência Climática • Home</title>
 
-  <!-- Tailwind (CDN) -->
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            inter: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"],
+            poppins: ["Poppins", "Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"]
+          },
           colors: {
-            regen: "#1B7F5A",
-            regenLight: "#4CAF8F",
-            deepBlue: "#0D3B66",
-            energy: "#F2C94C",
-            graphite: "#2E2E2E",
-            grayClean: "#F5F7F6",
+            "regen-green": "#1B7F5A",
+            "regen-greenLight": "#4CAF8F",
+            "regen-blue": "#0D3B66",
+            "regen-yellow": "#F2C94C",
+            "regen-graphite": "#232323",
+            "regen-bg": "#F5F7F6",
+            "muted": "#667085"
           },
           boxShadow: {
             soft: "0 10px 30px rgba(13,59,102,.12)",
-            glow: "0 0 0 6px rgba(27,127,90,.12)",
+            hero: "0 24px 60px rgba(13,59,102,.14)",
+            hero2: "0 16px 40px rgba(27,127,90,.16)"
           },
+          borderRadius: {
+            xxl: "20px",
+            xxxl: "28px"
+          }
         }
       }
     }
   </script>
 
   <style>
-    .glass{
-      background: rgba(245,247,246,.82);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(13,59,102,.10);
-    }
-    .bg-mesh{
+    html, body { height: 100%; }
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
-        radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
-        radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
-        linear-gradient(180deg, #F5F7F6, #FFFFFF);
+        radial-gradient(1200px 700px at 18% 8%, rgba(76,175,143,.24), transparent 55%),
+        radial-gradient(900px 600px at 82% 14%, rgba(13,59,102,.20), transparent 55%),
+        radial-gradient(800px 500px at 50% 90%, rgba(242,201,76,.18), transparent 55%),
+        linear-gradient(180deg, #f7fbf9 0%, #F5F7F6 65%, #f3f6f5 100%);
+      overflow-x: hidden;
     }
-    .nice-scroll::-webkit-scrollbar{ height:10px; width:10px; }
-    .nice-scroll::-webkit-scrollbar-thumb{ background: rgba(13,59,102,.20); border-radius: 999px; }
-    .nice-scroll::-webkit-scrollbar-track{ background: rgba(13,59,102,.06); border-radius: 999px; }
-    .btn:focus{ outline:none; box-shadow: 0 0 0 6px rgba(27,127,90,.14); }
-    .fade{ animation: fade .22s ease-out both; }
-    @keyframes fade{ from{ opacity:0; transform: translateY(6px);} to{opacity:1; transform:none;} }
+    .bg-grid{
+      position: fixed; inset: 0;
+      pointer-events: none;
+      opacity: .75;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(13,59,102,.09) 1px, transparent 0),
+        linear-gradient(transparent 0, transparent 95%, rgba(13,59,102,.05) 100%);
+      background-size: 34px 34px, 100% 100%;
+      mix-blend-mode: multiply;
+      mask-image: radial-gradient(closest-side at 50% 18%, black 0%, transparent 66%);
+      z-index: 0;
+    }
+    .noise{
+      position: fixed; inset: 0;
+      pointer-events: none;
+      opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      z-index: 0;
+    }
+    .cursor-glow{
+      position: fixed;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(76,175,143,.22) 0%, rgba(13,59,102,.12) 28%, transparent 62%);
+      filter: blur(4px);
+      opacity: 0;
+      transition: opacity .25s ease;
+      z-index: 2;
+    }
+    @media (pointer: coarse){
+      .cursor-glow{ display:none !important; }
+    }
+
+    /* Reveal helpers */
+    .in{ transform: translateY(0) !important; opacity: 1 !important; }
+    [data-reveal]{ transform: translateY(10px); opacity: 0; transition: transform .55s ease, opacity .55s ease; }
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .cursor-glow{ display:none; }
+      [data-reveal]{ transform:none; opacity: 1; }
+    }
+
+    /* Pulse dot */
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity: 1; }
+      50%{ transform: scale(1.25); opacity: .75; }
+    }
+    .pulse-dot{
+      animation: pulse 2.2s ease-in-out infinite;
+    }
   </style>
 </head>
 
-<body class="bg-mesh text-graphite">
-  <!-- Topbar -->
-  <header class="sticky top-0 z-40">
-    <div class="mx-auto max-w-7xl px-4 py-3">
-      <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
-        <a href="#top" class="flex items-center gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft">
-            <span class="font-semibold">H</span>
-          </div>
-          <div class="min-w-0">
-            <div class="font-semibold leading-tight truncate">Hub Resiliência Climática</div>
-            <div class="text-xs text-graphite/70 truncate">Transparência, gestão e ação territorial</div>
-          </div>
-        </a>
+<body class="text-regen-graphite">
+  <div class="bg-grid"></div>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-        <nav class="hidden md:flex items-center gap-2 text-sm">
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#como-funciona">Como funciona</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#publicos">Públicos</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#dados">Dados</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#conteudos">Conteúdos</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#noticias">Notícias</a>
-        </nav>
-
-        <div class="flex items-center gap-2">
-          <!-- Ajuste os links abaixo para suas páginas reais -->
-          <a href="dados-relatorios.html" class="btn hidden sm:inline-flex px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Acessar dados públicos
-          </a>
-          <a href="login.html" class="btn inline-flex px-4 py-2 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Entrar / Cadastro
-          </a>
-          <button id="btnMobile" class="btn md:hidden px-3 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Menu
-          </button>
+  <!-- TOPBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-regen-bg/80 border-b border-regen-blue/10">
+    <div class="mx-auto max-w-[1180px] px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <a class="flex items-center gap-3 min-w-0" href="#top" aria-label="Ir para o topo">
+        <div class="w-10 h-10 rounded-2xl shadow-soft overflow-hidden"
+             style="background:conic-gradient(from 180deg, #1B7F5A, #4CAF8F, #0D3B66, #1B7F5A);">
+          <div class="w-full h-full" style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%);"></div>
         </div>
+        <div class="min-w-0">
+          <div class="font-poppins font-semibold tracking-tight text-sm leading-tight truncate">Hub Resiliência Climática</div>
+          <div class="text-xs text-muted truncate">Plataforma • Territórios & CRGR</div>
+        </div>
+      </a>
+
+      <!-- Mobile menu button -->
+      <button id="menuBtn"
+        class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-2xl border border-regen-blue/15 bg-white/80 font-extrabold text-sm"
+        type="button" aria-expanded="false" aria-controls="mainNav">
+        <span aria-hidden="true">≡</span> Menu
+      </button>
+
+      <nav id="mainNav" class="hidden md:flex items-center gap-3 flex-wrap justify-center" aria-label="Navegação principal">
+        <a class="px-3 py-2 rounded-2xl font-semibold text-sm text-black/80 hover:bg-regen-green/10 hover:text-regen-green transition" href="#top">Início</a>
+        <a class="px-3 py-2 rounded-2xl font-semibold text-sm text-black/80 hover:bg-regen-green/10 hover:text-regen-green transition" href="quem-somos.html">Quem Somos</a>
+        <a class="px-3 py-2 rounded-2xl font-semibold text-sm text-black/80 hover:bg-regen-green/10 hover:text-regen-green transition" href="#para-quem">Conteúdos</a>
+        <a class="px-3 py-2 rounded-2xl font-semibold text-sm text-black/80 hover:bg-regen-green/10 hover:text-regen-green transition" href="#dados">Dados e Relatórios</a>
+        <a class="px-3 py-2 rounded-2xl font-semibold text-sm text-black/80 hover:bg-regen-green/10 hover:text-regen-green transition" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="btnEntrar"
+          class="px-4 py-2 rounded-2xl font-extrabold text-sm border border-regen-yellow/50
+                 bg-gradient-to-br from-regen-yellow to-[#ffe08a] text-black/90
+                 shadow-[0_18px_34px_rgba(242,201,76,.26)] hover:brightness-[1.02] hover:-translate-y-[1px] transition">
+          Cadastrar / Login <span aria-hidden="true">→</span>
+        </button>
       </div>
 
-      <!-- Mobile menu -->
-      <div id="mobileMenu" class="md:hidden hidden fade mt-3 glass shadow-soft rounded-3xl p-3">
-        <div class="grid grid-cols-2 gap-2 text-sm">
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#como-funciona">Como funciona</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#publicos">Públicos</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#dados">Dados</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#conteudos">Conteúdos</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#noticias">Notícias</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="dados-relatorios.html">Dados públicos</a>
-          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="login.html">Login/Cadastro</a>
+      <!-- Mobile nav dropdown -->
+      <div id="mobileNavWrap" class="md:hidden w-full hidden">
+        <div class="mt-2 rounded-2xl border border-regen-blue/10 bg-white/90 shadow-soft p-2">
+          <a class="block px-3 py-3 rounded-2xl font-semibold text-sm hover:bg-regen-bg" href="#top">Início</a>
+          <a class="block px-3 py-3 rounded-2xl font-semibold text-sm hover:bg-regen-bg" href="quem-somos.html">Quem Somos</a>
+          <a class="block px-3 py-3 rounded-2xl font-semibold text-sm hover:bg-regen-bg" href="#para-quem">Conteúdos</a>
+          <a class="block px-3 py-3 rounded-2xl font-semibold text-sm hover:bg-regen-bg" href="#dados">Dados e Relatórios</a>
+          <a class="block px-3 py-3 rounded-2xl font-semibold text-sm hover:bg-regen-bg" href="#faq">FAQ</a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="top" class="mx-auto max-w-7xl px-4 pt-6 md:pt-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-      <div class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8 fade">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-deepBlue/10 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-regen"></span>
-          Plataforma de governança climática territorial
+  <main id="top" class="mx-auto max-w-[1180px] px-4 pb-24 relative z-[3]">
+    <!-- HERO -->
+    <section class="pt-8 pb-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <div data-reveal class="relative overflow-hidden rounded-3xl border border-regen-blue/10 bg-white/70 shadow-hero p-6 md:p-7">
+          <div class="absolute inset-[-80px] opacity-75 pointer-events-none"
+            style="background:
+              radial-gradient(circle at 20% 30%, rgba(76,175,143,.25), transparent 55%),
+              radial-gradient(circle at 85% 25%, rgba(13,59,102,.20), transparent 55%),
+              radial-gradient(circle at 55% 95%, rgba(242,201,76,.22), transparent 55%);
+              transform: rotate(-8deg);"></div>
+
+          <div class="relative z-[1] inline-flex items-center gap-3 px-3 py-2 rounded-full bg-regen-green/10 border border-regen-green/20 text-regen-green font-extrabold text-xs w-fit">
+            <span class="w-2 h-2 rounded-full bg-regen-greenLight shadow-[0_0_0_5px_rgba(76,175,143,.22)] pulse-dot"></span>
+            Hub • Territórios & CRGR
+          </div>
+
+          <h1 class="relative z-[1] mt-4 font-poppins tracking-tight text-4xl md:text-5xl leading-tight">
+            Um Hub para estabelecer a <span class="text-regen-green">Resiliência climática</span> em Porto Alegre
+          </h1>
+
+          <p class="relative z-[1] mt-4 text-sm md:text-[15px] leading-relaxed text-black/80 max-w-[60ch]">
+            O Hub Resiliência Climática é um ponto de encontro digital que conecta cooperativas, comunidades, técnicos e gestores públicos.
+            Aqui você encontra apoio prático para fortalecer a reciclagem, a economia circular e a resposta aos desafios climáticos nos territórios.
+          </p>
+
+          <div class="relative z-[1] mt-5 flex flex-wrap gap-2">
+            <button id="btnScroll2"
+              class="px-4 py-2 rounded-2xl font-extrabold text-sm border border-regen-yellow/50
+                     bg-gradient-to-br from-regen-yellow to-[#ffe08a] text-black/90
+                     shadow-[0_18px_34px_rgba(242,201,76,.26)] hover:brightness-[1.02] hover:-translate-y-[1px] transition">
+              Ver conteúdos <span aria-hidden="true">→</span>
+            </button>
+            <button id="btnCadastrar"
+              class="px-4 py-2 rounded-2xl font-extrabold text-sm bg-white/80 border border-regen-blue/15 text-black/80
+                     hover:-translate-y-[1px] hover:shadow-soft transition">
+              Entrar no Hub <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+
+          <div class="relative z-[1] mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rounded-2xl border border-regen-blue/10 bg-white/80 shadow-[0_10px_22px_rgba(13,59,102,.08)] p-3 hover:-translate-y-[2px] hover:shadow-[0_18px_34px_rgba(13,59,102,.12)] transition">
+              <div class="font-poppins font-semibold text-lg"><span class="kcount" data-count="12">0</span></div>
+              <div class="text-xs text-muted">CRGR ativos</div>
+            </div>
+            <div class="rounded-2xl border border-regen-blue/10 bg-white/80 shadow-[0_10px_22px_rgba(13,59,102,.08)] p-3 hover:-translate-y-[2px] hover:shadow-[0_18px_34px_rgba(13,59,102,.12)] transition">
+              <div class="font-poppins font-semibold text-lg"><span class="kcount" data-count="684">0</span></div>
+              <div class="text-xs text-muted">Usuários cadastrados</div>
+            </div>
+            <div class="rounded-2xl border border-regen-blue/10 bg-white/80 shadow-[0_10px_22px_rgba(13,59,102,.08)] p-3 hover:-translate-y-[2px] hover:shadow-[0_18px_34px_rgba(13,59,102,.12)] transition">
+              <div class="font-poppins font-semibold text-lg"><span class="kcount" data-count="38">0</span></div>
+              <div class="text-xs text-muted">Planos em andamento</div>
+            </div>
+          </div>
         </div>
 
-        <h1 class="mt-4 text-3xl md:text-4xl font-semibold leading-tight">
-          Transparência pública + gestão cooperativa + impacto climático mensurável.
-        </h1>
-
-        <p class="mt-4 text-base md:text-lg text-graphite/70">
-          O Hub conecta <span class="font-semibold text-graphite">cooperativas, territórios e instituições</span> para fortalecer
-          a resiliência climática — com dados confiáveis, metas claras e trilhas de capacitação.
-        </p>
-
-        <div class="mt-6 flex flex-col sm:flex-row gap-2">
-          <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Ver dashboard executivo
-          </a>
-          <a href="#publicos" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Quem usa e por quê
-          </a>
-        </div>
-
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Transparência</div>
-            <div class="text-sm font-semibold mt-1">Relatórios públicos</div>
-            <div class="text-xs text-graphite/60 mt-1">Indicadores consolidados e rastreáveis.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Gestão</div>
-            <div class="text-sm font-semibold mt-1">Metas & operação</div>
-            <div class="text-xs text-graphite/60 mt-1">Triagem por material, gargalos e ritmo.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Formação</div>
-            <div class="text-sm font-semibold mt-1">Trilhas</div>
-            <div class="text-xs text-graphite/60 mt-1">Capacitação por perfil (do básico à gestão).</div>
-          </div>
+        <div data-reveal class="relative overflow-hidden rounded-3xl border border-regen-blue/10 bg-white/70 shadow-hero2 min-h-[320px] lg:min-h-[520px] grid place-items-center p-3">
+          <div class="absolute inset-[-140px] opacity-90 pointer-events-none"
+            style="background:
+              radial-gradient(circle at 25% 30%, rgba(76,175,143,.28), transparent 55%),
+              radial-gradient(circle at 80% 20%, rgba(13,59,102,.24), transparent 55%),
+              radial-gradient(circle at 60% 90%, rgba(242,201,76,.26), transparent 55%);
+              transform: rotate(-8deg);"></div>
+          <img class="relative z-[1] w-[min(520px,92%)] drop-shadow-[0_34px_70px_rgba(13,59,102,.24)]"
+               src="img/Design sem nome (4) (1).png" alt="Hub Resiliência Climática" />
         </div>
       </div>
+    </section>
 
-      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8 fade">
-        <div class="flex items-start justify-between gap-3">
+    <!-- PARA QUEM É -->
+    <section id="para-quem" data-reveal class="mt-2 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-140px] opacity-85 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 18% 35%, rgba(76,175,143,.22), transparent 55%),
+          radial-gradient(circle at 82% 25%, rgba(242,201,76,.20), transparent 56%),
+          radial-gradient(circle at 55% 95%, rgba(13,59,102,.15), transparent 56%);
+          transform: rotate(-8deg);"></div>
+
+      <div class="relative z-[1]">
+        <h2 class="font-poppins tracking-tight text-2xl md:text-[26px]">O Hub é para quem atua ou se importa com o território</h2>
+
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">
+              <span class="text-regen-green font-black">♻</span>
+            </div>
+            <h3 class="font-semibold text-sm">Cooperativas de triagem</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Boas práticas, instrumentos e apoio para fortalecer operação, gestão e organização territorial.</p>
+          </article>
+
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">
+              <span class="text-regen-green font-black">👥</span>
+            </div>
+            <h3 class="font-semibold text-sm">Cidadãos & lideranças</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Informação simples, mobilização local e caminhos para participação e ação coletiva.</p>
+          </article>
+
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">
+              <span class="text-regen-green font-black">🏛</span>
+            </div>
+            <h3 class="font-semibold text-sm">Gestores & técnicos</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Dados, relatórios, modelos e governança para planejar e acompanhar ações por território/CRGR.</p>
+          </article>
+
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">
+              <span class="text-regen-green font-black">🛡</span>
+            </div>
+            <h3 class="font-semibold text-sm">Brigadistas & resposta climática</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Protocolos, materiais e organização local para apoiar antes, durante e depois de eventos climáticos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRGR -->
+    <section id="crgr" data-reveal class="mt-6 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-160px] opacity-90 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 20% 30%, rgba(76,175,143,.22), transparent 55%),
+          radial-gradient(circle at 85% 25%, rgba(13,59,102,.18), transparent 56%),
+          radial-gradient(circle at 60% 95%, rgba(242,201,76,.18), transparent 56%);
+          transform: rotate(-8deg);"></div>
+
+      <div class="relative z-[1] grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/70 border border-regen-blue/15 text-regen-blue font-black text-xs w-fit">
+            📍 CRGR no território
+          </div>
+
+          <h2 class="mt-3 font-poppins tracking-tight text-2xl md:text-[26px]">CRGR é o Centro de Referência na Gestão de Resíduos.</h2>
+          <p class="mt-2 text-sm md:text-[13.5px] leading-relaxed text-black/80 max-w-[72ch]">
+            É um espaço local que apoia a comunidade <strong>antes, durante e depois</strong> de eventos climáticos,
+            fortalecendo a reciclagem, a organização do território e a resposta a emergências.
+            <br><br>
+            O <strong>Hub conecta esses centros</strong>, organiza informações e dá suporte técnico contínuo para que a rede funcione melhor,
+            com mais coordenação e agilidade.
+          </p>
+        </div>
+
+        <aside class="rounded-xxl border border-regen-blue/10 bg-white/70 shadow-[0_16px_38px_rgba(13,59,102,.10)] p-4">
+          <strong class="block font-poppins tracking-tight mb-2">Na prática, o CRGR ajuda a:</strong>
+
+          <div class="grid gap-3">
+            <div class="grid grid-cols-[44px_1fr] gap-3 p-3 rounded-xxl border border-regen-blue/10 bg-white/80 hover:-translate-y-[2px] hover:shadow-[0_22px_60px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+              <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20">✅</div>
+              <div>
+                <div class="font-semibold text-sm">Prevenção e preparação</div>
+                <div class="text-sm text-black/75">Organizar rotinas, fluxos e materiais para reduzir impacto em momentos críticos.</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-[44px_1fr] gap-3 p-3 rounded-xxl border border-regen-blue/10 bg-white/80 hover:-translate-y-[2px] hover:shadow-[0_22px_60px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+              <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20">⚠️</div>
+              <div>
+                <div class="font-semibold text-sm">Resposta a emergências</div>
+                <div class="text-sm text-black/75">Ativar informações e coordenação local para agir com mais rapidez e clareza.</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-[44px_1fr] gap-3 p-3 rounded-xxl border border-regen-blue/10 bg-white/80 hover:-translate-y-[2px] hover:shadow-[0_22px_60px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+              <div class="w-11 h-11 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20">⚙️</div>
+              <div>
+                <div class="font-semibold text-sm">Recuperação e continuidade</div>
+                <div class="text-sm text-black/75">Retomar serviços, fortalecer reciclagem e registrar aprendizados com suporte técnico contínuo.</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dados" data-reveal class="mt-6 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-180px] opacity-90 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 20% 25%, rgba(13,59,102,.18), transparent 55%),
+          radial-gradient(circle at 85% 22%, rgba(76,175,143,.22), transparent 55%),
+          radial-gradient(circle at 60% 95%, rgba(242,201,76,.18), transparent 56%);
+          transform: rotate(-7deg);"></div>
+
+      <div class="relative z-[1]">
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-regen-green/10 border border-regen-green/20 text-regen-green font-black text-xs w-fit">
+          📊 Dados & Relatórios
+        </div>
+
+        <div class="mt-3 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <div class="text-sm text-graphite/70">Visão pública rápida</div>
-            <div class="text-lg font-semibold mt-1">Impacto consolidado</div>
-          </div>
-          <span class="px-3 py-1 rounded-full bg-energy/30 border border-energy/40 text-xs font-semibold">Demo</span>
-        </div>
-
-        <div class="mt-5 grid grid-cols-2 gap-3">
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Resíduos coletados</div>
-            <div class="text-2xl font-semibold mt-1" id="kpiResiduos">—</div>
-            <div class="text-xs text-graphite/60 mt-1">Total consolidado</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">CRGR ativos</div>
-            <div class="text-2xl font-semibold mt-1" id="kpiCrgr">—</div>
-            <div class="text-xs text-graphite/60 mt-1">Unidades em operação</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Famílias cadastradas</div>
-            <div class="text-2xl font-semibold mt-1" id="kpiFamilias">—</div>
-            <div class="text-xs text-graphite/60 mt-1">Coletas solidárias</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Territórios</div>
-            <div class="text-2xl font-semibold mt-1" id="kpiTerritorios">—</div>
-            <div class="text-xs text-graphite/60 mt-1">Com filtro por área</div>
+            <h2 class="font-poppins tracking-tight text-2xl md:text-[26px]">Resultados que importam</h2>
+            <p class="mt-1 text-sm md:text-[13.5px] text-black/75 max-w-[72ch]">
+              Números que ajudam a entender como os territórios estão avançando na gestão de resíduos
+            </p>
           </div>
         </div>
 
-        <div class="mt-5 rounded-2xl bg-white border border-deepBlue/10 p-4">
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-semibold">Explorar dados por território</div>
-              <div class="text-xs text-graphite/70 mt-1">Escolha um território e veja os indicadores.</div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="text-xs font-bold text-black/70">CRGR ativos</div>
+            <div class="font-poppins font-semibold text-2xl mt-1"><span class="kcount" data-count="12">0</span></div>
+            <div class="text-xs text-muted mt-1">Centros conectados no Hub (últimos 30 dias).</div>
+          </div>
+          <div class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="text-xs font-bold text-black/70">Usuários cadastrados</div>
+            <div class="font-poppins font-semibold text-2xl mt-1"><span class="kcount" data-count="684">0</span></div>
+            <div class="text-xs text-muted mt-1">Cooperativas, cidadãos, técnicos, gestores e brigadistas.</div>
+          </div>
+          <div class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="text-xs font-bold text-black/70">Planos em andamento</div>
+            <div class="font-poppins font-semibold text-2xl mt-1"><span class="kcount" data-count="38">0</span></div>
+            <div class="text-xs text-muted mt-1">Metas e prazos sendo acompanhados pelos territórios.</div>
+          </div>
+          <div class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="text-xs font-bold text-black/70">Indicadores em alerta</div>
+            <div class="font-poppins font-semibold text-2xl mt-1"><span class="kcount" data-count="5">0</span></div>
+            <div class="text-xs text-muted mt-1">Itens críticos que pedem atenção e coordenação.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ PAINEL TABS (comunicados/serviços/mapa/calendário/treinamentos/coleta/ouvidoria) -->
+    <section class="mt-6" aria-label="Painel do território" data-reveal>
+      <div data-tabs-card class="bg-white border border-slate-200 rounded-3xl shadow-soft overflow-hidden">
+        <div class="p-5">
+          <!-- TAB: Overview -->
+          <div id="tab-overview" class="tab-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="lg:col-span-2">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h2 class="text-base font-semibold text-regen-blue">Comunicados da cooperativa</h2>
+                    <p class="text-sm text-slate-600 mt-1">Avisos e atualizações do território.</p>
+                  </div>
+                  <div class="hidden sm:flex items-center gap-2">
+                    <span class="text-xs px-2 py-1 rounded-lg bg-regen-green/10 border border-regen-green/20 text-regen-green">Atual</span>
+                    <span class="text-xs px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">Timeline</span>
+                  </div>
+                </div>
+
+                <div id="noticesList" class="mt-4 space-y-3"></div>
+              </div>
+
+              <div>
+                <div class="rounded-2xl border border-slate-200 bg-regen-bg p-4">
+                  <h3 class="text-sm font-semibold text-regen-blue">Resumo rápido</h3>
+
+                  <div class="mt-3 space-y-2 text-sm">
+                    <div class="flex justify-between gap-3">
+                      <span class="text-slate-600">Materiais aceitos</span>
+                      <span id="summaryAccepted" class="font-semibold text-regen-blue">—</span>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                      <span class="text-slate-600">Não aceitos</span>
+                      <span id="summaryNotAccepted" class="font-semibold text-regen-blue">—</span>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                      <span class="text-slate-600">Pontos no mapa</span>
+                      <span id="summaryPoints" class="font-semibold text-regen-blue">—</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-2 gap-2">
+                    <button data-open-tab="tab-services" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-sm hover:bg-regen-bg">
+                      Serviços
+                    </button>
+                    <button data-open-tab="tab-map" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-sm hover:bg-regen-bg">
+                      Mapa
+                    </button>
+                  </div>
+
+                  <div class="mt-4 p-3 rounded-2xl bg-white border border-slate-200">
+                    <div class="text-xs font-semibold text-slate-500">Atalho rápido</div>
+                    <button data-open-tab="tab-special" class="mt-2 w-full px-3 py-2 rounded-xl bg-regen-green text-white text-sm hover:opacity-95">
+                      🚚 Cadastrar coleta especial
+                    </button>
+                  </div>
+
+                  <div class="mt-3 grid grid-cols-2 gap-2">
+                    <button data-open-tab="tab-calendar" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-sm hover:bg-regen-bg">
+                      Calendário
+                    </button>
+                    <button data-open-tab="tab-ombudsman" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-sm hover:bg-regen-bg">
+                      Ouvidoria
+                    </button>
+                  </div>
+
+                  <div class="mt-3">
+                    <button data-open-tab="tab-trainings" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-sm hover:bg-regen-bg">
+                      Treinamentos
+                    </button>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
-          <div class="mt-3 flex gap-2">
-            <select id="territorioSelect" class="w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-grayClean text-sm">
-              <option value="global">Visão global</option>
-              <option value="vila-pinto">Vila Pinto</option>
-              <option value="farrapos">Farrapos</option>
-              <option value="ilha">Ilha Grande dos Marinheiros</option>
-            </select>
-            <a href="dados-relatorios.html" class="btn shrink-0 px-4 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-              Abrir
-            </a>
-          </div>
-        </div>
 
-        <div class="mt-4 text-xs text-graphite/60">
-          * KPIs demonstrativos. Na versão real, conecte ao seu backend/planilha/importação.
+          <!-- TAB: Services -->
+          <div id="tab-services" class="tab-panel hidden">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+              <div>
+                <h2 class="text-base font-semibold text-regen-blue">Serviços e materiais</h2>
+                <p class="text-sm text-slate-600 mt-1">O que a CRGR oferece e como participar.</p>
+              </div>
+              <div class="text-xs text-slate-500">
+                Dica: prefira resíduos <span class="font-semibold text-regen-green">limpos e secos</span>.
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-slate-200 p-4 bg-white">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-regen-blue">Materiais aceitos</h3>
+                  <span class="text-xs px-2 py-1 rounded-lg bg-regen-green/10 border border-regen-green/20 text-regen-green">OK</span>
+                </div>
+                <ul id="acceptedList" class="mt-3 text-sm text-slate-700 list-disc pl-5 space-y-1"></ul>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-4 bg-white">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-regen-blue">Materiais não aceitos</h3>
+                  <span class="text-xs px-2 py-1 rounded-lg bg-regen-yellow/20 border border-regen-yellow text-regen-graphite">Atenção</span>
+                </div>
+                <ul id="notAcceptedList" class="mt-3 text-sm text-slate-700 list-disc pl-5 space-y-1"></ul>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-4 bg-regen-bg lg:col-span-2">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-regen-blue">Oferta de serviços</h3>
+                  <span class="text-xs px-2 py-1 rounded-lg bg-white border border-slate-200 text-slate-600">Cards</span>
+                </div>
+                <div id="servicesCards" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Map -->
+          <div id="tab-map" class="tab-panel hidden">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+              <div>
+                <h2 class="text-base font-semibold text-regen-blue">Mapa de pontos de coleta</h2>
+                <p class="text-sm text-slate-600 mt-1">Veja no mapa e filtre por tipo de resíduo.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <select id="filterType" class="px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white">
+                  <option value="all">Todos os tipos</option>
+                </select>
+
+                <button id="btnUseMyLocation" class="px-3 py-2 rounded-xl border border-slate-200 text-sm hover:bg-regen-bg">
+                  📍 Perto de mim
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="lg:col-span-2 rounded-2xl border border-slate-200 overflow-hidden bg-white">
+                <div id="map" class="w-full" style="height:440px;"></div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-4 bg-white">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold text-regen-blue">Lista de pontos</h3>
+                  <span id="pointsBadge" class="text-xs px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">0</span>
+                </div>
+                <div id="pointsList" class="mt-3 space-y-3 max-h-[440px] overflow-auto pr-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Calendar -->
+          <div id="tab-calendar" class="tab-panel hidden">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+              <div>
+                <h2 class="text-base font-semibold text-regen-blue">Calendário de coletas</h2>
+                <p class="text-sm text-slate-600 mt-1">Datas por tipo e região/rota.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <select id="filterPickupType" class="px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white">
+                  <option value="all">Todos</option>
+                  <option value="seletiva">Seletiva</option>
+                  <option value="especial">Especial</option>
+                  <option value="mutirao">Mutirão</option>
+                </select>
+                <input id="filterPickupQuery" class="px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white" placeholder="Filtrar por bairro/rota..." />
+              </div>
+            </div>
+
+            <div class="mt-4 rounded-2xl border border-slate-200 overflow-hidden bg-white">
+              <div class="px-4 py-3 bg-regen-bg border-b border-slate-200 text-sm font-semibold text-regen-blue">
+                Próximos eventos
+              </div>
+              <div id="calendarList" class="divide-y divide-slate-200"></div>
+            </div>
+          </div>
+
+          <!-- TAB: Trainings -->
+          <div id="tab-trainings" class="tab-panel hidden">
+            <div class="flex items-start justify-between flex-wrap gap-3">
+              <div>
+                <h2 class="text-base font-semibold text-regen-blue">Treinamentos disponíveis</h2>
+                <p class="text-sm text-slate-600 mt-1">Inscreva-se e acompanhe seu status.</p>
+              </div>
+
+              <input id="filterTraining" class="px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white" placeholder="Buscar treinamento..." />
+            </div>
+
+            <div id="trainingsGrid" class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+          </div>
+
+          <!-- TAB: Special pickup -->
+          <div id="tab-special" class="tab-panel hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="lg:col-span-2">
+                <h2 class="text-base font-semibold text-regen-blue">Cadastro para coleta seletiva especial</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                  Para grandes volumes, ações específicas ou materiais que exigem agendamento.
+                </p>
+
+                <form id="specialForm" class="mt-5 space-y-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-sm font-medium">Nome</label>
+                      <input id="specialName" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" placeholder="Seu nome" required />
+                    </div>
+                    <div>
+                      <label class="text-sm font-medium">Telefone/WhatsApp</label>
+                      <input id="specialPhone" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" placeholder="(51) 99999-9999" required />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm font-medium">Endereço</label>
+                    <input id="specialAddress" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" placeholder="Rua, número, bairro" required />
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-sm font-medium">Tipo de material</label>
+                      <select id="specialMaterial" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm"></select>
+                    </div>
+                    <div>
+                      <label class="text-sm font-medium">Volume estimado</label>
+                      <select id="specialVolume" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm">
+                        <option value="pequeno">Pequeno (até 1 saco)</option>
+                        <option value="medio">Médio (2–5 sacos)</option>
+                        <option value="grande">Grande (mais de 5 sacos)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm font-medium">Observações</label>
+                    <textarea id="specialNotes" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" rows="3"
+                      placeholder="Ex: melhor horário para contato, ponto de referência..."></textarea>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    <button class="px-4 py-2 rounded-xl bg-regen-green text-white text-sm hover:opacity-95 shadow-sm" type="submit">
+                      Enviar solicitação
+                    </button>
+                    <button class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:bg-regen-bg" type="button" id="btnViewMySpecialRequests">
+                      Ver minhas solicitações
+                    </button>
+                  </div>
+                </form>
+
+                <div id="specialResult" class="mt-4"></div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-regen-bg p-4">
+                <h3 class="text-sm font-semibold text-regen-blue">Como funciona</h3>
+                <ol class="mt-3 list-decimal pl-5 text-sm text-slate-700 space-y-2">
+                  <li>Preencha o formulário com endereço e material.</li>
+                  <li>A cooperativa analisa disponibilidade e rota.</li>
+                  <li>Você recebe retorno com status e orientações.</li>
+                </ol>
+
+                <div class="mt-4 p-3 rounded-2xl bg-white border border-slate-200">
+                  <div class="font-semibold text-sm text-regen-blue">Dica</div>
+                  <div class="mt-1 text-sm text-slate-600">
+                    Vidros devem estar embalados com segurança.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-slate-200 overflow-hidden bg-white">
+              <div class="px-4 py-3 bg-regen-bg border-b border-slate-200 text-sm font-semibold text-regen-blue">
+                Minhas solicitações (demo em memória)
+              </div>
+              <div id="specialRequestsList" class="divide-y divide-slate-200"></div>
+            </div>
+          </div>
+
+          <!-- TAB: Ombudsman -->
+          <div id="tab-ombudsman" class="tab-panel hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="lg:col-span-2">
+                <h2 class="text-base font-semibold text-regen-blue">Sugestões e reclamações</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                  Envie sua mensagem. Você receberá um número de protocolo para acompanhamento.
+                </p>
+
+                <form id="ticketForm" class="mt-5 space-y-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-sm font-medium">Tipo</label>
+                      <select id="ticketType" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm">
+                        <option value="sugestao">Sugestão</option>
+                        <option value="reclamacao">Reclamação</option>
+                        <option value="duvida">Dúvida</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-sm font-medium">Assunto</label>
+                      <input id="ticketSubject" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" placeholder="Ex: Coleta atrasada na rota X" required />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm font-medium">Mensagem</label>
+                    <textarea id="ticketMessage" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm" rows="4"
+                      placeholder="Descreva o que aconteceu e, se possível, informe local e data." required></textarea>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    <button class="px-4 py-2 rounded-xl bg-regen-blue text-white text-sm hover:opacity-95 shadow-sm" type="submit">
+                      Enviar
+                    </button>
+                    <button class="px-4 py-2 rounded-xl border border-slate-200 text-sm hover:bg-regen-bg" type="button" id="btnViewMyTickets">
+                      Ver meus protocolos
+                    </button>
+                  </div>
+                </form>
+
+                <div id="ticketResult" class="mt-4"></div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-regen-bg p-4">
+                <h3 class="text-sm font-semibold text-regen-blue">O que acontece depois</h3>
+                <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 space-y-2">
+                  <li>O chamado entra como <span class="font-semibold">Aberto</span>.</li>
+                  <li>A equipe responde e pode solicitar detalhes.</li>
+                  <li>Quando resolvido, o status muda para <span class="font-semibold">Encerrado</span>.</li>
+                </ul>
+                <div class="mt-4 p-3 rounded-2xl bg-white border border-slate-200">
+                  <div class="text-xs font-semibold text-slate-500">Boas práticas</div>
+                  <div class="mt-1 text-sm text-slate-600">
+                    Informe data, bairro/rota e, se possível, ponto de referência.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-slate-200 overflow-hidden bg-white">
+              <div class="px-4 py-3 bg-regen-bg border-b border-slate-200 text-sm font-semibold text-regen-blue">
+                Meus protocolos (demo em memória)
+              </div>
+              <div id="ticketsList" class="divide-y divide-slate-200"></div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Como funciona -->
-  <section id="como-funciona" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
-    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
-        <div>
-          <div class="text-sm text-graphite/70">Como funciona</div>
-          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Uma ponte entre gestão, transparência e mobilização.</h2>
-          <p class="text-graphite/70 mt-3 max-w-3xl">
-            O Hub integra dados operacionais das cooperativas, consolida indicadores por território e disponibiliza relatórios públicos
-            para fortalecer decisão política, comunicação e engajamento comunitário.
-          </p>
-        </div>
-        <div class="flex gap-2">
-          <a href="login.html" class="btn px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Acessar área da cooperativa
-          </a>
-          <a href="dados-relatorios.html" class="btn px-4 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Transparência pública
-          </a>
-        </div>
-      </div>
+    <!-- PILARES -->
+    <section id="pilares" data-reveal class="mt-6 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-170px] opacity-90 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 18% 30%, rgba(242,201,76,.20), transparent 55%),
+          radial-gradient(circle at 85% 25%, rgba(76,175,143,.22), transparent 55%),
+          radial-gradient(circle at 58% 95%, rgba(13,59,102,.16), transparent 56%);
+          transform: rotate(-8deg);"></div>
 
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="w-10 h-10 rounded-2xl bg-regen/10 grid place-items-center">🧾</div>
-          <div class="mt-3 font-semibold">1) Coleta e triagem viram dados</div>
-          <div class="text-sm text-graphite/70 mt-2">
-            A cooperativa registra volumes por material e acompanha rotina, metas e gargalos.
-          </div>
+      <div class="relative z-[1]">
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-regen-green/10 border border-regen-green/20 text-regen-green font-black text-xs w-fit">
+          🧱 Pilares do Hub
         </div>
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="w-10 h-10 rounded-2xl bg-deepBlue/10 grid place-items-center">📊</div>
-          <div class="mt-3 font-semibold">2) Indicadores confiáveis</div>
-          <div class="text-sm text-graphite/70 mt-2">
-            Consolidação por CRGR e por território, com filtros e comparativos.
-          </div>
-        </div>
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="w-10 h-10 rounded-2xl bg-energy/25 grid place-items-center">🎓</div>
-          <div class="mt-3 font-semibold">3) Capacitação e melhoria contínua</div>
-          <div class="text-sm text-graphite/70 mt-2">
-            Trilhas por perfil (recém-ingresso, operação, coordenação) com progresso.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Públicos -->
-  <section id="publicos" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
-        <div class="text-sm text-graphite/70">Públicos</div>
-        <h2 class="text-2xl md:text-3xl font-semibold mt-2">Cada perfil vê o que precisa.</h2>
-        <p class="text-graphite/70 mt-3">
-          Externo (sem login): dados, resultados e legitimidade institucional.<br>
-          Território (com login): operação, metas e transparência interna.<br>
-          Comunidade (com login): serviços, alertas e mobilização.
+        <h2 class="mt-3 font-poppins tracking-tight text-2xl md:text-[26px]">Pilares do Hub</h2>
+        <p class="mt-1 text-sm md:text-[13.5px] text-black/75 max-w-[78ch]">
+          Conteúdos, formação, governança e territórios organizados para ação contínua.
         </p>
 
-        <div class="mt-6 rounded-2xl bg-white border border-deepBlue/10 p-4">
-          <div class="text-sm font-semibold">Convite para cooperados</div>
-          <p class="text-sm text-graphite/70 mt-2">
-            A representante da cooperativa envia um link de convite para inclusão de novos cooperados com perfil adequado.
-          </p>
+        <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-12 h-12 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">♻</div>
+            <h3 class="font-semibold text-sm">Reciclagem & Economia Circular</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Boas práticas, conteúdos e instrumentos para fortalecer a cadeia da reciclagem.</p>
+          </article>
+
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-12 h-12 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">📚</div>
+            <h3 class="font-semibold text-sm">Formação & Governança</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Trilhas formativas, perfis de acesso e gestão colaborativa dos territórios.</p>
+          </article>
+
+          <article class="rounded-xxl border border-regen-blue/10 bg-white/75 shadow-[0_18px_42px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[3px] hover:shadow-[0_26px_70px_rgba(13,59,102,.14)] hover:border-regen-green/20 transition">
+            <div class="w-12 h-12 rounded-2xl grid place-items-center bg-regen-green/10 border border-regen-green/20 mb-3">📍</div>
+            <h3 class="font-semibold text-sm">Territórios / CRGR</h3>
+            <p class="mt-1 text-sm text-black/75 leading-relaxed">Espaços próprios com planos de ação, dados e materiais de cada território.</p>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="lg:col-span-7 space-y-3">
-        <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-          <div class="text-sm font-semibold">Sem login (público externo)</div>
-          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Secretário municipal</div>
-              <div class="font-semibold mt-1">Dashboard executivo</div>
-              <div class="text-sm text-graphite/70 mt-2">Metas, resultados consolidados e evidência para decisão política.</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Jornalista ambiental</div>
-              <div class="font-semibold mt-1">Dados + cases + fontes</div>
-              <div class="text-sm text-graphite/70 mt-2">Histórias do território, números verificáveis e referências.</div>
-            </div>
-          </div>
+    <!-- PARCERIAS -->
+    <section id="parcerias" data-reveal class="mt-6 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-160px] opacity-90 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 20% 25%, rgba(13,59,102,.18), transparent 55%),
+          radial-gradient(circle at 85% 22%, rgba(242,201,76,.18), transparent 55%),
+          radial-gradient(circle at 55% 95%, rgba(76,175,143,.20), transparent 56%);
+          transform: rotate(-7deg);"></div>
+
+      <div class="relative z-[1]">
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-regen-green/10 border border-regen-green/20 text-regen-green font-black text-xs w-fit">
+          🤝 Parcerias
         </div>
 
-        <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-          <div class="text-sm font-semibold">Com login (área cooperativa e comunidade)</div>
-          <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Coordenação operacional</div>
-              <div class="font-semibold mt-1">Gestão e gargalos</div>
-              <div class="text-sm text-graphite/70 mt-2">Inserir dados, acompanhar metas e operar com eficiência.</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Cooperadora de triagem</div>
-              <div class="font-semibold mt-1">Indicadores e transparência</div>
-              <div class="text-sm text-graphite/70 mt-2">Acompanha produção e fortalece confiança na gestão.</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Recém-ingresso</div>
-              <div class="font-semibold mt-1">Metas simples + trilhas</div>
-              <div class="text-sm text-graphite/70 mt-2">Entende o básico e descobre oportunidades de capacitação.</div>
-            </div>
-          </div>
-
-          <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Jovem mobilizador</div>
-              <div class="font-semibold mt-1">Eventos e engajamento</div>
-              <div class="text-sm text-graphite/70 mt-2">Campanhas, dados do território e mobilizações.</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Moradora (ex.: costureira)</div>
-              <div class="font-semibold mt-1">Serviços e alertas</div>
-              <div class="text-sm text-graphite/70 mt-2">Calendário da coleta, alertas climáticos e orientações práticas.</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-              <div class="text-xs text-graphite/70">Presidente associação</div>
-              <div class="font-semibold mt-1">Reivindicação com dados</div>
-              <div class="text-sm text-graphite/70 mt-2">Demandas do bairro, articulação e relatórios para o poder público.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Dados e Relatórios -->
-  <section id="dados" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
-    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
-        <div>
-          <div class="text-sm text-graphite/70">Dados e relatórios</div>
-          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Transparência pública para decisão e comunicação.</h2>
-          <p class="text-graphite/70 mt-3 max-w-3xl">
-            Indicadores globais e filtro por território: quantidade de resíduos coletados, CRGR ativos, famílias cadastradas,
-            evolução mensal e visão executiva.
-          </p>
-        </div>
-        <div class="flex gap-2">
-          <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Abrir dados e relatórios
-          </a>
-          <a href="#conteudos" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Ver conteúdos
-          </a>
-        </div>
-      </div>
-
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/70">Global</div>
-          <div class="font-semibold mt-1">Visão consolidada</div>
-          <div class="text-sm text-graphite/70 mt-2">Indicadores por período e evolução.</div>
-        </div>
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/70">Território</div>
-          <div class="font-semibold mt-1">Filtro e comparação</div>
-          <div class="text-sm text-graphite/70 mt-2">Resultados por região e CRGR.</div>
-        </div>
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/70">Executivo</div>
-          <div class="font-semibold mt-1">Metas x realizado</div>
-          <div class="text-sm text-graphite/70 mt-2">Sinalização para gestão pública.</div>
-        </div>
-        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/70">Fonte</div>
-          <div class="font-semibold mt-1">Rastreabilidade</div>
-          <div class="text-sm text-graphite/70 mt-2">Metodologia e referências do projeto.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Conteúdos -->
-  <section id="conteudos" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-      <div class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8">
-        <div class="text-sm text-graphite/70">Conteúdos</div>
-        <h2 class="text-2xl md:text-3xl font-semibold mt-2">Cartilhas, e-books e guias práticos.</h2>
-        <p class="text-graphite/70 mt-3">
-          Materiais educacionais e técnicos para apoiar separação correta, organização comunitária e gestão de resíduos.
+        <h2 class="mt-3 font-poppins tracking-tight text-2xl md:text-[26px]">Construído em rede</h2>
+        <p class="mt-1 text-sm md:text-[13.5px] text-black/75 max-w-[78ch]">
+          O Hub Resiliência Climática é construído em parceria com instituições, redes e apoiadores comprometidos com o desenvolvimento territorial,
+          a justiça climática e a economia circular.
         </p>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-            <div class="text-xs text-graphite/70">Educação ambiental</div>
-            <div class="font-semibold mt-1">Guia de separação</div>
-            <div class="text-sm text-graphite/70 mt-2">O que vai no seco, no orgânico e no rejeito.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-            <div class="text-xs text-graphite/70">Gestão CRGR</div>
-            <div class="font-semibold mt-1">Metas e indicadores</div>
-            <div class="text-sm text-graphite/70 mt-2">Como acompanhar performance e reduzir gargalos.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-            <div class="text-xs text-graphite/70">Clima e território</div>
-            <div class="font-semibold mt-1">Resiliência climática</div>
-            <div class="text-sm text-graphite/70 mt-2">Riscos, alertas e ações práticas para comunidades.</div>
-          </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-            <div class="text-xs text-graphite/70">Formação</div>
-            <div class="font-semibold mt-1">Trilhas por perfil</div>
-            <div class="text-sm text-graphite/70 mt-2">Do recém-ingresso à coordenação operacional.</div>
-          </div>
-        </div>
-
-        <div class="mt-6 flex gap-2">
-          <a href="conteudos.html" class="btn px-5 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Abrir biblioteca de conteúdos
-          </a>
-          <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Entrar para acessar trilhas
-          </a>
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          <div class="h-16 rounded-2xl border border-dashed border-regen-blue/20 bg-white/75 grid place-items-center font-black text-xs text-regen-blue/80 hover:-translate-y-[2px] hover:shadow-soft hover:border-regen-green/20 transition">Mãos verdes</div>
+          <div class="h-16 rounded-2xl border border-dashed border-regen-blue/20 bg-white/75 grid place-items-center font-black text-xs text-regen-blue/80 hover:-translate-y-[2px] hover:shadow-soft hover:border-regen-green/20 transition">Hélice</div>
+          <div class="h-16 rounded-2xl border border-dashed border-regen-blue/20 bg-white/75 grid place-items-center font-black text-xs text-regen-blue/80 hover:-translate-y-[2px] hover:shadow-soft hover:border-regen-green/20 transition">VAUS</div>
         </div>
       </div>
+    </section>
 
-      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
-        <div class="text-sm text-graphite/70">Destaques</div>
-        <h3 class="text-xl font-semibold mt-2">Acesso rápido</h3>
+    <!-- FAQ -->
+    <section id="faq" data-reveal class="mt-6 rounded-[32px] border border-regen-blue/10 bg-white/65 shadow-[0_22px_56px_rgba(13,59,102,.12)] p-5 md:p-6 relative overflow-hidden">
+      <div class="absolute inset-[-170px] opacity-90 pointer-events-none"
+        style="background:
+          radial-gradient(circle at 18% 30%, rgba(76,175,143,.20), transparent 55%),
+          radial-gradient(circle at 85% 25%, rgba(13,59,102,.18), transparent 55%),
+          radial-gradient(circle at 58% 95%, rgba(242,201,76,.18), transparent 56%);
+          transform: rotate(-8deg);"></div>
 
-        <div class="mt-5 space-y-3">
-          <a href="conteudos.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="text-sm font-semibold">📘 Cartilha: Separação correta</div>
-                <div class="text-sm text-graphite/70 mt-1">Versão popular + versão técnica.</div>
-              </div>
-              <span class="text-xs px-3 py-1 rounded-full bg-regen/10 border border-regen/20 font-semibold">Download</span>
-            </div>
-          </a>
+      <div class="relative z-[1]">
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-regen-green/10 border border-regen-green/20 text-regen-green font-black text-xs w-fit">
+          ❓ Dúvidas frequentes
+        </div>
 
-          <a href="conteudos.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="text-sm font-semibold">🧩 Guia: Indicadores do CRGR</div>
-                <div class="text-sm text-graphite/70 mt-1">Metas, rejeito e produtividade.</div>
-              </div>
-              <span class="text-xs px-3 py-1 rounded-full bg-deepBlue/10 border border-deepBlue/20 font-semibold">Guia</span>
-            </div>
-          </a>
+        <h2 class="mt-3 font-poppins tracking-tight text-2xl md:text-[26px]">Perguntas comuns</h2>
+        <p class="mt-1 text-sm md:text-[13.5px] text-black/75 max-w-[78ch]">
+          Respostas rápidas para orientar o uso do Hub e como ele se organiza por território/CRGR.
+        </p>
 
-          <a href="login.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="text-sm font-semibold">🎓 Trilhas: Operação e gestão</div>
-                <div class="text-sm text-graphite/70 mt-1">Acesso por perfil (login).</div>
-              </div>
-              <span class="text-xs px-3 py-1 rounded-full bg-energy/30 border border-energy/40 font-semibold">Login</span>
-            </div>
-          </a>
+        <div class="mt-4 grid gap-3">
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              Quem pode acessar a plataforma?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Qualquer pessoa pode acessar os indicadores gerais. Para ter perfis cadastrados, é necessário que o território tenha um CRGR.
+            </p>
+          </details>
+
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              Esses dados podem apoiar políticas públicas?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Sim. Os dados ajudam no diagnóstico, planejamento e monitoramento de ações e políticas públicas.
+            </p>
+          </details>
+
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              Quem alimenta os dados da plataforma?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Cooperativas, equipes técnicas, gestores públicos e parceiros do projeto.
+            </p>
+          </details>
+
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              Com que frequência os dados são atualizados?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Periodicamente, conforme envio e validação das informações.
+            </p>
+          </details>
+
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              O que representam os indicadores apresentados?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Mostram a atuação dos CRGRs, o engajamento das famílias e os volumes de materiais reciclados e rejeitos.
+            </p>
+          </details>
+
+          <details class="rounded-2xl border border-regen-blue/10 bg-white/75 shadow-[0_14px_34px_rgba(13,59,102,.10)] p-4 hover:-translate-y-[2px] hover:shadow-[0_22px_52px_rgba(13,59,102,.12)] hover:border-regen-green/20 transition">
+            <summary class="cursor-pointer font-black text-sm flex items-center justify-between gap-3">
+              Sou uma cooperativa: como posso me envolver?
+              <span class="w-8 h-8 rounded-xl border border-regen-blue/15 bg-white/80 grid place-items-center">⌄</span>
+            </summary>
+            <p class="mt-3 text-sm text-black/75 leading-relaxed">
+              Entre em contato conosco pelo email: <strong>queroumCRGR@hub.br</strong>
+            </p>
+          </details>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Notícias -->
-  <section id="noticias" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14 mb-14">
-    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
+    <!-- FOOTER -->
+    <footer class="mt-8 text-sm text-black/70">
+      <div class="pt-4 border-t border-regen-blue/10 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div class="text-sm text-graphite/70">Notícias e agenda</div>
-          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Eventos, lançamentos e chamados.</h2>
-          <p class="text-graphite/70 mt-3 max-w-3xl">
-            Atualizações do projeto, agendas de formação e comunicados importantes para o território.
-          </p>
+          <div class="font-bold text-black/80">Hub Resiliência Climática • Plataforma Regenera</div>
+          <div class="mt-1">© <span id="year"></span> • Todos os direitos reservados.</div>
         </div>
-        <div class="flex gap-2">
-          <a href="noticias.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Ver todas as notícias
-          </a>
-          <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-            Receber atualizações (login)
-          </a>
+        <div class="flex flex-wrap gap-4 font-bold">
+          <a class="hover:text-regen-green" href="#top">Voltar ao topo</a>
+          <a class="hover:text-regen-green" href="#parcerias">Parcerias</a>
+          <a class="hover:text-regen-green" href="#faq">FAQ</a>
         </div>
       </div>
-
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/60">📅 Agenda • Exemplo</div>
-          <div class="font-semibold mt-2">Roda de conversa: resíduos e clima</div>
-          <div class="text-sm text-graphite/70 mt-2">Encontro comunitário para planejamento territorial e mobilização.</div>
-          <div class="mt-3 text-xs text-graphite/60">Local: Território • Data: a definir</div>
-        </article>
-
-        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/60">🚀 Lançamento • Exemplo</div>
-          <div class="font-semibold mt-2">Novo painel público de indicadores</div>
-          <div class="text-sm text-graphite/70 mt-2">Mais filtros, leitura simples e exportação de relatório.</div>
-          <div class="mt-3 text-xs text-graphite/60">Atualização contínua</div>
-        </article>
-
-        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
-          <div class="text-xs text-graphite/60">📣 Chamada • Exemplo</div>
-          <div class="font-semibold mt-2">Convite para cooperados</div>
-          <div class="text-sm text-graphite/70 mt-2">Envie convites e fortaleça o registro diário de triagem.</div>
-          <div class="mt-3 text-xs text-graphite/60">Acesso via plataforma (login)</div>
-        </article>
-      </div>
-
-      <!-- CTA final -->
-      <div class="mt-6 rounded-3xl bg-deepBlue text-white p-6 md:p-8 shadow-soft">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div>
-            <div class="text-sm text-white/80">Pronto para conhecer o Hub?</div>
-            <div class="text-2xl font-semibold mt-1">Acompanhe os dados públicos ou entre na plataforma.</div>
-            <div class="text-sm text-white/80 mt-2">Transparência para fora. Eficiência e capacitação por dentro.</div>
-          </div>
-          <div class="flex flex-col sm:flex-row gap-2">
-            <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-white text-deepBlue font-semibold hover:opacity-95 text-sm">
-              Dados públicos
-            </a>
-            <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-              Entrar / Cadastro
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="mx-auto max-w-7xl px-4 pb-10">
-    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-          <div class="font-semibold">Hub Resiliência Climática</div>
-          <div class="text-sm text-graphite/70 mt-2">
-            Plataforma para fortalecer resiliência climática por meio de gestão de resíduos, dados e formação.
-          </div>
-        </div>
-        <div>
-          <div class="font-semibold">Acesso rápido</div>
-          <div class="mt-2 space-y-1 text-sm">
-            <a class="block text-graphite/70 hover:text-graphite" href="dados-relatorios.html">Dados e relatórios</a>
-            <a class="block text-graphite/70 hover:text-graphite" href="conteudos.html">Conteúdos</a>
-            <a class="block text-graphite/70 hover:text-graphite" href="noticias.html">Notícias</a>
-            <a class="block text-graphite/70 hover:text-graphite" href="login.html">Login</a>
-          </div>
-        </div>
-        <div>
-          <div class="font-semibold">Contato</div>
-          <div class="text-sm text-graphite/70 mt-2">
-            E-mail: contato@hub.org<br>
-            Porto Alegre/RS • Brasil
-          </div>
-          <div class="text-xs text-graphite/60 mt-3">
-            © <span id="year"></span> Hub Resiliência Climática
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
+  </main>
 
   <script>
-    // Mobile menu
-    const btnMobile = document.getElementById("btnMobile");
-    const mobileMenu = document.getElementById("mobileMenu");
-    btnMobile?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    // Cursor glow
+    const glow = $("#cursorGlow");
+    const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    if (motionOK && !coarsePointer){
+      window.addEventListener("mousemove", (e) => {
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+        glow.style.opacity = "1";
+      });
+      window.addEventListener("mouseleave", () => glow.style.opacity = "0");
+    }
+
+    // Reveal on scroll
+    const revealEls = $$("[data-reveal]");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Smooth scroll for in-page anchors
+    $$('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // Counters
+    const counters = $$(".kcount");
+    let counted = false;
+    function animateCounters(list){
+      list.forEach(el => {
+        const end = Number(el.dataset.count || "0");
+        const duration = 900 + Math.random() * 450;
+        const t0 = performance.now();
+        function tick(t){
+          const p = Math.min((t - t0) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = String(Math.round(end * eased));
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+    const heroSection = document.querySelector("section");
+    new IntersectionObserver((entries, obs) => {
+      if (!counted && entries.some(e => e.isIntersecting)){
+        counted = true;
+        animateCounters(counters);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 }).observe(heroSection);
+
+    // CTA scroll
+    $("#btnScroll2")?.addEventListener("click", () => {
+      document.querySelector("#para-quem")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Login buttons
+    const goLogin = () => window.location.href = "login.html";
+    $("#btnEntrar")?.addEventListener("click", goLogin);
+    $("#btnCadastrar")?.addEventListener("click", goLogin);
 
     // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    $("#year").textContent = new Date().getFullYear();
 
-    // Demo KPIs por território (substituir por API/backend depois)
-    const KPIS = {
-      global:   { residuos: "1.280 t", crgr: "3", familias: "2.450", territorios: "3" },
-      "vila-pinto": { residuos: "510 t", crgr: "1", familias: "980", territorios: "1" },
-      farrapos: { residuos: "420 t", crgr: "1", familias: "820", territorios: "1" },
-      ilha:     { residuos: "350 t", crgr: "1", familias: "650", territorios: "1" },
-    };
+    // ===== Mobile menu toggle =====
+    const menuBtn = $("#menuBtn");
+    const mobileNavWrap = $("#mobileNavWrap");
 
-    const el = (id) => document.getElementById(id);
-    const setKpis = (key) => {
-      const k = KPIS[key] || KPIS.global;
-      el("kpiResiduos").textContent = k.residuos;
-      el("kpiCrgr").textContent = k.crgr;
-      el("kpiFamilias").textContent = k.familias;
-      el("kpiTerritorios").textContent = k.territorios;
-    };
+    function isMobileNav(){
+      return window.matchMedia("(max-width: 767px)").matches; // md breakpoint
+    }
+    function closeMenu(){
+      if(!mobileNavWrap || !menuBtn) return;
+      mobileNavWrap.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+    function openMenu(){
+      if(!mobileNavWrap || !menuBtn) return;
+      mobileNavWrap.classList.remove("hidden");
+      menuBtn.setAttribute("aria-expanded", "true");
+    }
+    function toggleMenu(){
+      if(!mobileNavWrap || !menuBtn) return;
+      const willOpen = mobileNavWrap.classList.contains("hidden");
+      willOpen ? openMenu() : closeMenu();
+    }
 
-    const territorioSelect = el("territorioSelect");
-    setKpis("global");
-    territorioSelect?.addEventListener("change", (e) => setKpis(e.target.value));
+    menuBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close when click outside
+    document.addEventListener("click", (e) => {
+      if(!isMobileNav()) return;
+      if(mobileNavWrap?.classList.contains("hidden")) return;
+      const clickedInside = mobileNavWrap.contains(e.target) || menuBtn?.contains(e.target);
+      if(!clickedInside) closeMenu();
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeMenu();
+    });
+
+    // Close on resize to desktop
+    window.addEventListener("resize", () => {
+      if (!isMobileNav()) closeMenu();
+    });
+
+    // ============================
+    // ✅ Tabs (data-open-tab)
+    // ============================
+    (function setupTabs(){
+      const panels = Array.from(document.querySelectorAll(".tab-panel"));
+      const openTab = (id) => {
+        panels.forEach(p => p.classList.toggle("hidden", p.id !== id));
+        const card = document.querySelector("[data-tabs-card]");
+        if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-open-tab]");
+        if (!btn) return;
+        const id = btn.getAttribute("data-open-tab");
+        if (document.getElementById(id)) openTab(id);
+      });
+
+      if (document.getElementById("tab-overview")) openTab("tab-overview");
+    })();
+
+    // ============================
+    // ✅ Preenchimento DEMO (para aparecer conteúdo)
+    // ============================
+    (function seedTerritoryDemo(){
+      const notices = [
+        { title: "Mutirão de limpeza — sábado", text: "Concentração às 8h. Leve luvas e garrafa de água.", tag: "Ação", date: "Hoje" },
+        { title: "Mudança de horário", text: "Triagem das 8h às 17h (seg–sex).", tag: "Aviso", date: "Atualização" },
+        { title: "Coleta especial aberta", text: "Agendamentos para grandes volumes via formulário.", tag: "Serviço", date: "Esta semana" },
+      ];
+
+      const accepted = ["Papel e papelão", "Plásticos (PET, PEAD)", "Metais (alumínio, aço)", "Vidro (embalado com segurança)"];
+      const notAccepted = ["Orgânicos", "Resíduos hospitalares", "Entulho e volumosos sem agendamento", "Eletrônicos (ver regras locais)"];
+      const services = [
+        { title: "Coleta seletiva", text: "Rotas por bairro/turno. Consulte o calendário.", badge: "Rota" },
+        { title: "Coleta especial", text: "Grandes volumes e materiais específicos por agendamento.", badge: "Agendamento" },
+        { title: "Educação ambiental", text: "Ações em escolas e comunidades.", badge: "Formação" },
+        { title: "Ponto de entrega", text: "Entrega voluntária de recicláveis limpos e secos.", badge: "PEV" },
+      ];
+
+      const points = [
+        { name: "PEV — Praça Central", type: "seletiva", desc: "Seg–Sáb • 9h–18h" },
+        { name: "EcoPonto — Unidade de Triagem", type: "especial", desc: "Agendamento • grandes volumes" },
+        { name: "PEV — Escola do Bairro", type: "seletiva", desc: "Ter/Qui • 10h–16h" },
+      ];
+
+      const events = [
+        { type:"seletiva", title:"Coleta Seletiva — Rota Norte", where:"Bairro Farrapos", when:"Próxima terça • 08:00" },
+        { type:"mutirao",  title:"Mutirão Comunitário",         where:"Bom Jesus",     when:"Sábado • 08:00" },
+        { type:"especial", title:"Coleta Especial (agendada)",   where:"Sob demanda",   when:"Conforme protocolo" },
+      ];
+
+      const trainings = [
+        { title:"Triagem segura e eficiente", level:"Básico", status:"Disponível" },
+        { title:"Gestão de indicadores (CRGR)", level:"Intermediário", status:"Disponível" },
+        { title:"Comunicação no território", level:"Básico", status:"Em breve" },
+        { title:"Resposta climática e logística", level:"Avançado", status:"Disponível" },
+      ];
+
+      // Comunicados
+      const noticesList = document.getElementById("noticesList");
+      if (noticesList){
+        noticesList.innerHTML = notices.map(n => `
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold text-regen-blue">${n.title}</div>
+                <div class="text-sm text-slate-600 mt-1">${n.text}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">${n.tag}</div>
+                <div class="text-xs text-slate-400 mt-2">${n.date}</div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // Listas
+      const acceptedList = document.getElementById("acceptedList");
+      const notAcceptedList = document.getElementById("notAcceptedList");
+      if (acceptedList) acceptedList.innerHTML = accepted.map(i => `<li>${i}</li>`).join("");
+      if (notAcceptedList) notAcceptedList.innerHTML = notAccepted.map(i => `<li>${i}</li>`).join("");
+
+      // Resumo
+      document.getElementById("summaryAccepted") && (document.getElementById("summaryAccepted").textContent = String(accepted.length));
+      document.getElementById("summaryNotAccepted") && (document.getElementById("summaryNotAccepted").textContent = String(notAccepted.length));
+      document.getElementById("summaryPoints") && (document.getElementById("summaryPoints").textContent = String(points.length));
+
+      // Cards de serviços
+      const servicesCards = document.getElementById("servicesCards");
+      if (servicesCards){
+        servicesCards.innerHTML = services.map(s => `
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-sm font-semibold text-regen-blue">${s.title}</div>
+              <span class="text-xs px-2 py-1 rounded-lg bg-regen-green/10 border border-regen-green/20 text-regen-green">${s.badge}</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-2">${s.text}</div>
+          </div>
+        `).join("");
+      }
+
+      // Select materiais
+      const specialMaterial = document.getElementById("specialMaterial");
+      if (specialMaterial){
+        specialMaterial.innerHTML = ["Papel/Papelão","Plástico","Metal","Vidro","Misto"].map(v => `<option value="${v}">${v}</option>`).join("");
+      }
+
+      // Lista de pontos
+      const pointsList = document.getElementById("pointsList");
+      const pointsBadge = document.getElementById("pointsBadge");
+      function renderPoints(list){
+        if (!pointsList) return;
+        pointsList.innerHTML = list.map(p => `
+          <div class="rounded-2xl border border-slate-200 p-3">
+            <div class="text-sm font-semibold text-regen-blue">${p.name}</div>
+            <div class="text-xs text-slate-500 mt-1">${p.desc}</div>
+            <div class="text-xs mt-2 inline-flex px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">${p.type}</div>
+          </div>
+        `).join("");
+        if (pointsBadge) pointsBadge.textContent = String(list.length);
+      }
+      renderPoints(points);
+
+      // Filtro
+      const filterType = document.getElementById("filterType");
+      if (filterType){
+        ["seletiva","especial","mutirao"].forEach(t => {
+          const opt = document.createElement("option");
+          opt.value = t; opt.textContent = t;
+          filterType.appendChild(opt);
+        });
+        filterType.addEventListener("change", () => {
+          const v = filterType.value;
+          const filtered = v === "all" ? points : points.filter(p => p.type === v);
+          renderPoints(filtered);
+        });
+      }
+
+      // Calendário
+      const calendarList = document.getElementById("calendarList");
+      if (calendarList){
+        calendarList.innerHTML = events.map(e => `
+          <div class="px-4 py-3">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold text-regen-blue">${e.title}</div>
+                <div class="text-sm text-slate-600 mt-1">${e.where}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">${e.type}</div>
+                <div class="text-xs text-slate-400 mt-2">${e.when}</div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // Treinamentos
+      const trainingsGrid = document.getElementById("trainingsGrid");
+      if (trainingsGrid){
+        trainingsGrid.innerHTML = trainings.map(t => `
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="text-sm font-semibold text-regen-blue">${t.title}</div>
+            <div class="text-sm text-slate-600 mt-1">Nível: ${t.level}</div>
+            <div class="mt-2 text-xs inline-flex px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">${t.status}</div>
+          </div>
+        `).join("");
+      }
+
+      // ===== Coleta especial (demo localStorage)
+      const specialForm = document.getElementById("specialForm");
+      const specialResult = document.getElementById("specialResult");
+      const specialRequestsList = document.getElementById("specialRequestsList");
+      const LS_SPECIAL = "hub_special_requests_v1";
+
+      function loadSpecial(){ try{ return JSON.parse(localStorage.getItem(LS_SPECIAL) || "[]"); }catch{ return []; } }
+      function saveSpecial(list){ localStorage.setItem(LS_SPECIAL, JSON.stringify(list)); }
+      function renderSpecial(){
+        if (!specialRequestsList) return;
+        const list = loadSpecial();
+        if (!list.length){
+          specialRequestsList.innerHTML = `<div class="px-4 py-4 text-sm text-slate-600">Nenhuma solicitação ainda.</div>`;
+          return;
+        }
+        specialRequestsList.innerHTML = list.map(r => `
+          <div class="px-4 py-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold text-regen-blue">${r.material} • ${r.volume}</div>
+                <div class="text-sm text-slate-600 mt-1">${r.address}</div>
+                <div class="text-xs text-slate-500 mt-1">${r.name} • ${r.phone}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs px-2 py-1 rounded-lg bg-regen-yellow/20 border border-regen-yellow text-regen-graphite">${r.status}</div>
+                <div class="text-xs text-slate-400 mt-2">${new Date(r.ts).toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      specialForm?.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        const req = {
+          name: document.getElementById("specialName")?.value || "",
+          phone: document.getElementById("specialPhone")?.value || "",
+          address: document.getElementById("specialAddress")?.value || "",
+          material: document.getElementById("specialMaterial")?.value || "",
+          volume: document.getElementById("specialVolume")?.value || "",
+          notes: document.getElementById("specialNotes")?.value || "",
+          status: "Recebido",
+          ts: Date.now()
+        };
+        const list = loadSpecial();
+        list.unshift(req);
+        saveSpecial(list);
+        specialForm.reset();
+        if (specialResult){
+          specialResult.innerHTML = `<div class="rounded-2xl border border-regen-green/20 bg-regen-green/10 p-3 text-sm text-regen-green">
+            Solicitação enviada! Em breve a cooperativa retorna com o status.
+          </div>`;
+        }
+        renderSpecial();
+      });
+
+      document.getElementById("btnViewMySpecialRequests")?.addEventListener("click", renderSpecial);
+      renderSpecial();
+
+      // ===== Ouvidoria (demo localStorage)
+      const ticketForm = document.getElementById("ticketForm");
+      const ticketResult = document.getElementById("ticketResult");
+      const ticketsList = document.getElementById("ticketsList");
+      const LS_TICKETS = "hub_tickets_v1";
+
+      function loadTickets(){ try{ return JSON.parse(localStorage.getItem(LS_TICKETS) || "[]"); }catch{ return []; } }
+      function saveTickets(list){ localStorage.setItem(LS_TICKETS, JSON.stringify(list)); }
+      function renderTickets(){
+        if (!ticketsList) return;
+        const list = loadTickets();
+        if (!list.length){
+          ticketsList.innerHTML = `<div class="px-4 py-4 text-sm text-slate-600">Nenhum protocolo ainda.</div>`;
+          return;
+        }
+        ticketsList.innerHTML = list.map(t => `
+          <div class="px-4 py-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold text-regen-blue">${t.type.toUpperCase()} • ${t.subject}</div>
+                <div class="text-sm text-slate-600 mt-1">${t.message}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs px-2 py-1 rounded-lg bg-regen-bg border border-slate-200 text-slate-600">Protocolo ${t.id}</div>
+                <div class="text-xs text-slate-400 mt-2">${new Date(t.ts).toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      ticketForm?.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        const id = Math.random().toString(16).slice(2, 8).toUpperCase();
+        const item = {
+          id,
+          type: document.getElementById("ticketType")?.value || "duvida",
+          subject: document.getElementById("ticketSubject")?.value || "",
+          message: document.getElementById("ticketMessage")?.value || "",
+          ts: Date.now()
+        };
+        const list = loadTickets();
+        list.unshift(item);
+        saveTickets(list);
+        ticketForm.reset();
+        if (ticketResult){
+          ticketResult.innerHTML = `<div class="rounded-2xl border border-regen-blue/20 bg-regen-bg p-3 text-sm text-regen-blue">
+            Enviado! Protocolo <strong>${id}</strong>.
+          </div>`;
+        }
+        renderTickets();
+      });
+
+      document.getElementById("btnViewMyTickets")?.addEventListener("click", renderTickets);
+      renderTickets();
+
+      // "Perto de mim" (placeholder)
+      document.getElementById("btnUseMyLocation")?.addEventListener("click", () => {
+        alert("Demo: para 'Perto de mim', integramos geolocalização + mapa real (Leaflet/Google Maps).");
+      });
+    })();
   </script>
 </body>
 </html>
