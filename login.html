@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hub Resiliência Climática • Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            regen: "#1B7F5A",
+            regenLight: "#4CAF8F",
+            deepBlue: "#0D3B66",
+            energy: "#F2C94C",
+            graphite: "#2E2E2E",
+            grayClean: "#F5F7F6",
+          },
+          boxShadow: { soft: "0 10px 30px rgba(13,59,102,.12)" }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-mesh{
+      background:
+        radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
+        radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
+        radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
+        linear-gradient(180deg, #F5F7F6, #FFFFFF);
+    }
+    .glass{
+      background: rgba(245,247,246,.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(13,59,102,.10);
+    }
+    .btn:focus{ outline:none; box-shadow: 0 0 0 6px rgba(27,127,90,.14); }
+  </style>
+</head>
+
+<body class="bg-mesh text-graphite min-h-screen">
+  <header class="mx-auto max-w-7xl px-4 pt-6">
+    <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft">
+          <span class="font-semibold">H</span>
+        </div>
+        <div class="min-w-0">
+          <div class="font-semibold leading-tight truncate">Hub Resiliência Climática</div>
+          <div class="text-xs text-graphite/70 truncate">Acesso à plataforma</div>
+        </div>
+      </a>
+      <a href="dados-relatorios.html" class="btn px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+        Dados públicos
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+      <section class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-deepBlue/10 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-regen"></span>
+          Área interna • Cooperativas & Território
+        </div>
+        <h1 class="mt-4 text-2xl md:text-3xl font-semibold leading-tight">
+          Entre para registrar dados, acompanhar indicadores e acessar trilhas.
+        </h1>
+        <p class="mt-4 text-graphite/70">
+          A plataforma é usada por cooperativas (CRGR) e por atores do território para fortalecer
+          transparência, governança e resiliência climática.
+        </p>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Input</div>
+            <div class="font-semibold mt-1">Registrar triagem</div>
+            <div class="text-xs text-graphite/60 mt-1">Volume por material, origem, turno.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Análise</div>
+            <div class="font-semibold mt-1">Indicadores</div>
+            <div class="text-xs text-graphite/60 mt-1">Metas x realizado, rejeito, evolução.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Formação</div>
+            <div class="font-semibold mt-1">Trilhas</div>
+            <div class="text-xs text-graphite/60 mt-1">Por perfil (básico → gestão).</div>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-sm font-semibold">Convite para cooperados</div>
+          <p class="text-sm text-graphite/70 mt-2">
+            A representante da cooperativa compartilha um link de convite para habilitar novos acessos.
+          </p>
+          <div class="mt-3 flex flex-col sm:flex-row gap-2">
+            <input id="inviteLink" class="w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-grayClean text-sm"
+              value="https://hub.exemplo.org/convite/CRGR-XXXX" />
+            <button id="btnCopy" class="btn px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+              Copiar
+            </button>
+          </div>
+          <div class="text-xs text-graphite/60 mt-2">* Demo. Em produção, este link vem do sistema.</div>
+        </div>
+      </section>
+
+      <section class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-sm text-graphite/70">Login</div>
+            <div class="text-xl font-semibold mt-1">Acessar plataforma</div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-energy/30 border border-energy/40 text-xs font-semibold">Demo</span>
+        </div>
+
+        <form id="loginForm" class="mt-5 space-y-3">
+          <label class="block">
+            <span class="text-xs text-graphite/70">E-mail</span>
+            <input required type="email" class="mt-1 w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm"
+              placeholder="seuemail@exemplo.com" />
+          </label>
+
+          <label class="block">
+            <span class="text-xs text-graphite/70">Senha</span>
+            <input required type="password" class="mt-1 w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm"
+              placeholder="••••••••" />
+          </label>
+
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2">
+              <input type="checkbox" class="accent-regen" />
+              <span class="text-graphite/70">Lembrar</span>
+            </label>
+            <a href="#" class="text-deepBlue font-semibold hover:underline">Esqueci a senha</a>
+          </div>
+
+          <button class="btn w-full px-4 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Entrar
+          </button>
+
+          <div class="text-center text-xs text-graphite/60">
+            Ao entrar, você concorda com o uso responsável dos dados do território.
+          </div>
+        </form>
+
+        <div class="mt-5 rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-sm font-semibold">Não tem acesso?</div>
+          <p class="text-sm text-graphite/70 mt-2">
+            Se você é da cooperativa ou do território, solicite convite com a coordenação.
+          </p>
+          <div class="mt-3 flex gap-2">
+            <a href="index.html#publicos" class="btn w-full px-4 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+              Ver públicos
+            </a>
+            <a href="index.html" class="btn w-full px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+              Voltar
+            </a>
+          </div>
+        </div>
+
+        <div id="toast" class="mt-4 hidden rounded-2xl bg-graphite text-white px-4 py-3 text-sm"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const toast = (msg) => {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.remove("hidden");
+      setTimeout(() => t.classList.add("hidden"), 2200);
+    };
+
+    document.getElementById("btnCopy")?.addEventListener("click", async () => {
+      const input = document.getElementById("inviteLink");
+      input.select();
+      try {
+        await navigator.clipboard.writeText(input.value);
+        toast("Link copiado.");
+      } catch {
+        document.execCommand("copy");
+        toast("Link copiado.");
+      }
+    });
+
+    // DEMO: ao “logar”, manda para a plataforma (app.html)
+    document.getElementById("loginForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      toast("Login demo: entrando...");
+      setTimeout(() => window.location.href = "app.html#/home", 400);
+    });
+  </script>
+</body>
+</html>
