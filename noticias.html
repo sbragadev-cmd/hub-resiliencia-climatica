@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hub • Notícias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      regen:"#1B7F5A", regenLight:"#4CAF8F", deepBlue:"#0D3B66", energy:"#F2C94C",
+      graphite:"#2E2E2E", grayClean:"#F5F7F6"
+    }, boxShadow:{ soft:"0 10px 30px rgba(13,59,102,.12)" }}}}
+  </script>
+  <style>
+    .bg-mesh{background:radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
+      radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
+      radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
+      linear-gradient(180deg, #F5F7F6, #FFFFFF);}
+    .glass{background: rgba(245,247,246,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border:1px solid rgba(13,59,102,.10);}
+  </style>
+</head>
+<body class="bg-mesh text-graphite min-h-screen">
+  <header class="mx-auto max-w-7xl px-4 pt-6">
+    <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft"><span class="font-semibold">H</span></div>
+        <div>
+          <div class="font-semibold">Notícias</div>
+          <div class="text-xs text-graphite/70">Agenda, lançamentos e chamados</div>
+        </div>
+      </a>
+      <div class="flex gap-2">
+        <a href="dados-relatorios.html" class="px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">Dados</a>
+        <a href="login.html" class="px-4 py-2 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6">
+    <section class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Atualizações do projeto</div>
+          <h1 class="text-2xl md:text-3xl font-semibold mt-2">Fique por dentro do que acontece no Hub</h1>
+          <p class="text-graphite/70 mt-3 max-w-3xl">Área pública para divulgação — e área logada para avisos do território.</p>
+        </div>
+        <select id="tipo" class="px-4 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm">
+          <option value="all">Tudo</option>
+          <option value="agenda">Agenda</option>
+          <option value="lancamento">Lançamento</option>
+          <option value="chamada">Chamada</option>
+        </select>
+      </div>
+
+      <div id="list" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+      <div class="mt-6 rounded-3xl bg-deepBlue text-white p-6 shadow-soft">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <div class="text-sm text-white/80">Quer receber avisos do território?</div>
+            <div class="text-xl font-semibold mt-1">Entre na plataforma para alertas e comunicados locais.</div>
+          </div>
+          <a href="login.html" class="px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Entrar
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 text-center text-xs text-graphite/60">© <span id="year"></span> Hub Resiliência Climática</footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const NEWS = [
+      { id:1, tipo:"agenda", titulo:"Roda de conversa: resíduos e clima", desc:"Encontro comunitário para planejamento territorial.", meta:"Local: Território • Data: a definir" },
+      { id:2, tipo:"lancamento", titulo:"Novo painel público de indicadores", desc:"Filtros por território e exportação de relatório.", meta:"Atualização contínua" },
+      { id:3, tipo:"chamada", titulo:"Convite para cooperados", desc:"Habilite acessos e fortaleça o registro diário de triagem.", meta:"Acesso via plataforma (login)" },
+      { id:4, tipo:"agenda", titulo:"Oficina: redução de rejeito", desc:"Boas práticas para melhorar qualidade de triagem.", meta:"Turma piloto • Inscrição interna" },
+      { id:5, tipo:"lancamento", titulo:"Biblioteca de conteúdos atualizada", desc:"Cartilhas e templates de prestação de contas.", meta:"Conteúdos públicos e internos" },
+      { id:6, tipo:"chamada", titulo:"Campanha: coleta solidária", desc:"Mobilização comunitária para ampliar cobertura.", meta:"Coordenação local" },
+    ];
+
+    const tipo = document.getElementById("tipo");
+    const list = document.getElementById("list");
+
+    function badge(t){
+      if (t==="agenda") return "bg-energy/30 border-energy/40";
+      if (t==="lancamento") return "bg-regen/10 border-regen/20";
+      return "bg-deepBlue/10 border-deepBlue/20";
+    }
+
+    function render(){
+      const f = tipo.value;
+      const items = NEWS.filter(n => f==="all" || n.tipo===f);
+      list.innerHTML = items.map(n => `
+        <article class="rounded-3xl bg-white border border-deepBlue/10 p-5">
+          <div class="inline-flex px-3 py-1 rounded-full border text-xs font-semibold ${badge(n.tipo)}">${n.tipo.toUpperCase()}</div>
+          <div class="font-semibold mt-3">${n.titulo}</div>
+          <div class="text-sm text-graphite/70 mt-2">${n.desc}</div>
+          <div class="text-xs text-graphite/60 mt-3">${n.meta}</div>
+        </article>
+      `).join("");
+    }
+
+    tipo.addEventListener("change", render);
+    render();
+  </script>
+</body>
+</html>
