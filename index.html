@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hub Resiliência Climática • Landing Page</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            regen: "#1B7F5A",
+            regenLight: "#4CAF8F",
+            deepBlue: "#0D3B66",
+            energy: "#F2C94C",
+            graphite: "#2E2E2E",
+            grayClean: "#F5F7F6",
+          },
+          boxShadow: {
+            soft: "0 10px 30px rgba(13,59,102,.12)",
+            glow: "0 0 0 6px rgba(27,127,90,.12)",
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass{
+      background: rgba(245,247,246,.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(13,59,102,.10);
+    }
+    .bg-mesh{
+      background:
+        radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
+        radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
+        radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
+        linear-gradient(180deg, #F5F7F6, #FFFFFF);
+    }
+    .nice-scroll::-webkit-scrollbar{ height:10px; width:10px; }
+    .nice-scroll::-webkit-scrollbar-thumb{ background: rgba(13,59,102,.20); border-radius: 999px; }
+    .nice-scroll::-webkit-scrollbar-track{ background: rgba(13,59,102,.06); border-radius: 999px; }
+    .btn:focus{ outline:none; box-shadow: 0 0 0 6px rgba(27,127,90,.14); }
+    .fade{ animation: fade .22s ease-out both; }
+    @keyframes fade{ from{ opacity:0; transform: translateY(6px);} to{opacity:1; transform:none;} }
+  </style>
+</head>
+
+<body class="bg-mesh text-graphite">
+  <!-- Topbar -->
+  <header class="sticky top-0 z-40">
+    <div class="mx-auto max-w-7xl px-4 py-3">
+      <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
+        <a href="#top" class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft">
+            <span class="font-semibold">H</span>
+          </div>
+          <div class="min-w-0">
+            <div class="font-semibold leading-tight truncate">Hub Resiliência Climática</div>
+            <div class="text-xs text-graphite/70 truncate">Transparência, gestão e ação territorial</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-2 text-sm">
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#como-funciona">Como funciona</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#publicos">Públicos</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#dados">Dados</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#conteudos">Conteúdos</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#noticias">Notícias</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <!-- Ajuste os links abaixo para suas páginas reais -->
+          <a href="dados-relatorios.html" class="btn hidden sm:inline-flex px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Acessar dados públicos
+          </a>
+          <a href="login.html" class="btn inline-flex px-4 py-2 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Entrar / Cadastro
+          </a>
+          <button id="btnMobile" class="btn md:hidden px-3 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden fade mt-3 glass shadow-soft rounded-3xl p-3">
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#como-funciona">Como funciona</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#publicos">Públicos</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#dados">Dados</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#conteudos">Conteúdos</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="#noticias">Notícias</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="dados-relatorios.html">Dados públicos</a>
+          <a class="px-3 py-2 rounded-2xl hover:bg-deepBlue/5" href="login.html">Login/Cadastro</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="mx-auto max-w-7xl px-4 pt-6 md:pt-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+      <div class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8 fade">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-deepBlue/10 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-regen"></span>
+          Plataforma de governança climática territorial
+        </div>
+
+        <h1 class="mt-4 text-3xl md:text-4xl font-semibold leading-tight">
+          Transparência pública + gestão cooperativa + impacto climático mensurável.
+        </h1>
+
+        <p class="mt-4 text-base md:text-lg text-graphite/70">
+          O Hub conecta <span class="font-semibold text-graphite">cooperativas, territórios e instituições</span> para fortalecer
+          a resiliência climática — com dados confiáveis, metas claras e trilhas de capacitação.
+        </p>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-2">
+          <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Ver dashboard executivo
+          </a>
+          <a href="#publicos" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Quem usa e por quê
+          </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Transparência</div>
+            <div class="text-sm font-semibold mt-1">Relatórios públicos</div>
+            <div class="text-xs text-graphite/60 mt-1">Indicadores consolidados e rastreáveis.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Gestão</div>
+            <div class="text-sm font-semibold mt-1">Metas & operação</div>
+            <div class="text-xs text-graphite/60 mt-1">Triagem por material, gargalos e ritmo.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Formação</div>
+            <div class="text-sm font-semibold mt-1">Trilhas</div>
+            <div class="text-xs text-graphite/60 mt-1">Capacitação por perfil (do básico à gestão).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8 fade">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-sm text-graphite/70">Visão pública rápida</div>
+            <div class="text-lg font-semibold mt-1">Impacto consolidado</div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-energy/30 border border-energy/40 text-xs font-semibold">Demo</span>
+        </div>
+
+        <div class="mt-5 grid grid-cols-2 gap-3">
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Resíduos coletados</div>
+            <div class="text-2xl font-semibold mt-1" id="kpiResiduos">—</div>
+            <div class="text-xs text-graphite/60 mt-1">Total consolidado</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">CRGR ativos</div>
+            <div class="text-2xl font-semibold mt-1" id="kpiCrgr">—</div>
+            <div class="text-xs text-graphite/60 mt-1">Unidades em operação</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Famílias cadastradas</div>
+            <div class="text-2xl font-semibold mt-1" id="kpiFamilias">—</div>
+            <div class="text-xs text-graphite/60 mt-1">Coletas solidárias</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
+            <div class="text-xs text-graphite/70">Territórios</div>
+            <div class="text-2xl font-semibold mt-1" id="kpiTerritorios">—</div>
+            <div class="text-xs text-graphite/60 mt-1">Com filtro por área</div>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-semibold">Explorar dados por território</div>
+              <div class="text-xs text-graphite/70 mt-1">Escolha um território e veja os indicadores.</div>
+            </div>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <select id="territorioSelect" class="w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-grayClean text-sm">
+              <option value="global">Visão global</option>
+              <option value="vila-pinto">Vila Pinto</option>
+              <option value="farrapos">Farrapos</option>
+              <option value="ilha">Ilha Grande dos Marinheiros</option>
+            </select>
+            <a href="dados-relatorios.html" class="btn shrink-0 px-4 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+              Abrir
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs text-graphite/60">
+          * KPIs demonstrativos. Na versão real, conecte ao seu backend/planilha/importação.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section id="como-funciona" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
+    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Como funciona</div>
+          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Uma ponte entre gestão, transparência e mobilização.</h2>
+          <p class="text-graphite/70 mt-3 max-w-3xl">
+            O Hub integra dados operacionais das cooperativas, consolida indicadores por território e disponibiliza relatórios públicos
+            para fortalecer decisão política, comunicação e engajamento comunitário.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="login.html" class="btn px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Acessar área da cooperativa
+          </a>
+          <a href="dados-relatorios.html" class="btn px-4 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Transparência pública
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="w-10 h-10 rounded-2xl bg-regen/10 grid place-items-center">🧾</div>
+          <div class="mt-3 font-semibold">1) Coleta e triagem viram dados</div>
+          <div class="text-sm text-graphite/70 mt-2">
+            A cooperativa registra volumes por material e acompanha rotina, metas e gargalos.
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="w-10 h-10 rounded-2xl bg-deepBlue/10 grid place-items-center">📊</div>
+          <div class="mt-3 font-semibold">2) Indicadores confiáveis</div>
+          <div class="text-sm text-graphite/70 mt-2">
+            Consolidação por CRGR e por território, com filtros e comparativos.
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="w-10 h-10 rounded-2xl bg-energy/25 grid place-items-center">🎓</div>
+          <div class="mt-3 font-semibold">3) Capacitação e melhoria contínua</div>
+          <div class="text-sm text-graphite/70 mt-2">
+            Trilhas por perfil (recém-ingresso, operação, coordenação) com progresso.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Públicos -->
+  <section id="publicos" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
+        <div class="text-sm text-graphite/70">Públicos</div>
+        <h2 class="text-2xl md:text-3xl font-semibold mt-2">Cada perfil vê o que precisa.</h2>
+        <p class="text-graphite/70 mt-3">
+          Externo (sem login): dados, resultados e legitimidade institucional.<br>
+          Território (com login): operação, metas e transparência interna.<br>
+          Comunidade (com login): serviços, alertas e mobilização.
+        </p>
+
+        <div class="mt-6 rounded-2xl bg-white border border-deepBlue/10 p-4">
+          <div class="text-sm font-semibold">Convite para cooperados</div>
+          <p class="text-sm text-graphite/70 mt-2">
+            A representante da cooperativa envia um link de convite para inclusão de novos cooperados com perfil adequado.
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 space-y-3">
+        <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+          <div class="text-sm font-semibold">Sem login (público externo)</div>
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Secretário municipal</div>
+              <div class="font-semibold mt-1">Dashboard executivo</div>
+              <div class="text-sm text-graphite/70 mt-2">Metas, resultados consolidados e evidência para decisão política.</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Jornalista ambiental</div>
+              <div class="font-semibold mt-1">Dados + cases + fontes</div>
+              <div class="text-sm text-graphite/70 mt-2">Histórias do território, números verificáveis e referências.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+          <div class="text-sm font-semibold">Com login (área cooperativa e comunidade)</div>
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Coordenação operacional</div>
+              <div class="font-semibold mt-1">Gestão e gargalos</div>
+              <div class="text-sm text-graphite/70 mt-2">Inserir dados, acompanhar metas e operar com eficiência.</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Cooperadora de triagem</div>
+              <div class="font-semibold mt-1">Indicadores e transparência</div>
+              <div class="text-sm text-graphite/70 mt-2">Acompanha produção e fortalece confiança na gestão.</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Recém-ingresso</div>
+              <div class="font-semibold mt-1">Metas simples + trilhas</div>
+              <div class="text-sm text-graphite/70 mt-2">Entende o básico e descobre oportunidades de capacitação.</div>
+            </div>
+          </div>
+
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Jovem mobilizador</div>
+              <div class="font-semibold mt-1">Eventos e engajamento</div>
+              <div class="text-sm text-graphite/70 mt-2">Campanhas, dados do território e mobilizações.</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Moradora (ex.: costureira)</div>
+              <div class="font-semibold mt-1">Serviços e alertas</div>
+              <div class="text-sm text-graphite/70 mt-2">Calendário da coleta, alertas climáticos e orientações práticas.</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+              <div class="text-xs text-graphite/70">Presidente associação</div>
+              <div class="font-semibold mt-1">Reivindicação com dados</div>
+              <div class="text-sm text-graphite/70 mt-2">Demandas do bairro, articulação e relatórios para o poder público.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dados e Relatórios -->
+  <section id="dados" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
+    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Dados e relatórios</div>
+          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Transparência pública para decisão e comunicação.</h2>
+          <p class="text-graphite/70 mt-3 max-w-3xl">
+            Indicadores globais e filtro por território: quantidade de resíduos coletados, CRGR ativos, famílias cadastradas,
+            evolução mensal e visão executiva.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Abrir dados e relatórios
+          </a>
+          <a href="#conteudos" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Ver conteúdos
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/70">Global</div>
+          <div class="font-semibold mt-1">Visão consolidada</div>
+          <div class="text-sm text-graphite/70 mt-2">Indicadores por período e evolução.</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/70">Território</div>
+          <div class="font-semibold mt-1">Filtro e comparação</div>
+          <div class="text-sm text-graphite/70 mt-2">Resultados por região e CRGR.</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/70">Executivo</div>
+          <div class="font-semibold mt-1">Metas x realizado</div>
+          <div class="text-sm text-graphite/70 mt-2">Sinalização para gestão pública.</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/70">Fonte</div>
+          <div class="font-semibold mt-1">Rastreabilidade</div>
+          <div class="text-sm text-graphite/70 mt-2">Metodologia e referências do projeto.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdos -->
+  <section id="conteudos" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8">
+        <div class="text-sm text-graphite/70">Conteúdos</div>
+        <h2 class="text-2xl md:text-3xl font-semibold mt-2">Cartilhas, e-books e guias práticos.</h2>
+        <p class="text-graphite/70 mt-3">
+          Materiais educacionais e técnicos para apoiar separação correta, organização comunitária e gestão de resíduos.
+        </p>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+            <div class="text-xs text-graphite/70">Educação ambiental</div>
+            <div class="font-semibold mt-1">Guia de separação</div>
+            <div class="text-sm text-graphite/70 mt-2">O que vai no seco, no orgânico e no rejeito.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+            <div class="text-xs text-graphite/70">Gestão CRGR</div>
+            <div class="font-semibold mt-1">Metas e indicadores</div>
+            <div class="text-sm text-graphite/70 mt-2">Como acompanhar performance e reduzir gargalos.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+            <div class="text-xs text-graphite/70">Clima e território</div>
+            <div class="font-semibold mt-1">Resiliência climática</div>
+            <div class="text-sm text-graphite/70 mt-2">Riscos, alertas e ações práticas para comunidades.</div>
+          </div>
+          <div class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+            <div class="text-xs text-graphite/70">Formação</div>
+            <div class="font-semibold mt-1">Trilhas por perfil</div>
+            <div class="text-sm text-graphite/70 mt-2">Do recém-ingresso à coordenação operacional.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-2">
+          <a href="conteudos.html" class="btn px-5 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Abrir biblioteca de conteúdos
+          </a>
+          <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Entrar para acessar trilhas
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
+        <div class="text-sm text-graphite/70">Destaques</div>
+        <h3 class="text-xl font-semibold mt-2">Acesso rápido</h3>
+
+        <div class="mt-5 space-y-3">
+          <a href="conteudos.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold">📘 Cartilha: Separação correta</div>
+                <div class="text-sm text-graphite/70 mt-1">Versão popular + versão técnica.</div>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-regen/10 border border-regen/20 font-semibold">Download</span>
+            </div>
+          </a>
+
+          <a href="conteudos.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold">🧩 Guia: Indicadores do CRGR</div>
+                <div class="text-sm text-graphite/70 mt-1">Metas, rejeito e produtividade.</div>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-deepBlue/10 border border-deepBlue/20 font-semibold">Guia</span>
+            </div>
+          </a>
+
+          <a href="login.html" class="block rounded-2xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm font-semibold">🎓 Trilhas: Operação e gestão</div>
+                <div class="text-sm text-graphite/70 mt-1">Acesso por perfil (login).</div>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-energy/30 border border-energy/40 font-semibold">Login</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notícias -->
+  <section id="noticias" class="mx-auto max-w-7xl px-4 mt-10 md:mt-14 mb-14">
+    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Notícias e agenda</div>
+          <h2 class="text-2xl md:text-3xl font-semibold mt-2">Eventos, lançamentos e chamados.</h2>
+          <p class="text-graphite/70 mt-3 max-w-3xl">
+            Atualizações do projeto, agendas de formação e comunicados importantes para o território.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="noticias.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+            Ver todas as notícias
+          </a>
+          <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
+            Receber atualizações (login)
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/60">📅 Agenda • Exemplo</div>
+          <div class="font-semibold mt-2">Roda de conversa: resíduos e clima</div>
+          <div class="text-sm text-graphite/70 mt-2">Encontro comunitário para planejamento territorial e mobilização.</div>
+          <div class="mt-3 text-xs text-graphite/60">Local: Território • Data: a definir</div>
+        </article>
+
+        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/60">🚀 Lançamento • Exemplo</div>
+          <div class="font-semibold mt-2">Novo painel público de indicadores</div>
+          <div class="text-sm text-graphite/70 mt-2">Mais filtros, leitura simples e exportação de relatório.</div>
+          <div class="mt-3 text-xs text-graphite/60">Atualização contínua</div>
+        </article>
+
+        <article class="rounded-2xl bg-white border border-deepBlue/10 p-5">
+          <div class="text-xs text-graphite/60">📣 Chamada • Exemplo</div>
+          <div class="font-semibold mt-2">Convite para cooperados</div>
+          <div class="text-sm text-graphite/70 mt-2">Envie convites e fortaleça o registro diário de triagem.</div>
+          <div class="mt-3 text-xs text-graphite/60">Acesso via plataforma (login)</div>
+        </article>
+      </div>
+
+      <!-- CTA final -->
+      <div class="mt-6 rounded-3xl bg-deepBlue text-white p-6 md:p-8 shadow-soft">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <div class="text-sm text-white/80">Pronto para conhecer o Hub?</div>
+            <div class="text-2xl font-semibold mt-1">Acompanhe os dados públicos ou entre na plataforma.</div>
+            <div class="text-sm text-white/80 mt-2">Transparência para fora. Eficiência e capacitação por dentro.</div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <a href="dados-relatorios.html" class="btn px-5 py-3 rounded-2xl bg-white text-deepBlue font-semibold hover:opacity-95 text-sm">
+              Dados públicos
+            </a>
+            <a href="login.html" class="btn px-5 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
+              Entrar / Cadastro
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mx-auto max-w-7xl px-4 pb-10">
+    <div class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <div class="font-semibold">Hub Resiliência Climática</div>
+          <div class="text-sm text-graphite/70 mt-2">
+            Plataforma para fortalecer resiliência climática por meio de gestão de resíduos, dados e formação.
+          </div>
+        </div>
+        <div>
+          <div class="font-semibold">Acesso rápido</div>
+          <div class="mt-2 space-y-1 text-sm">
+            <a class="block text-graphite/70 hover:text-graphite" href="dados-relatorios.html">Dados e relatórios</a>
+            <a class="block text-graphite/70 hover:text-graphite" href="conteudos.html">Conteúdos</a>
+            <a class="block text-graphite/70 hover:text-graphite" href="noticias.html">Notícias</a>
+            <a class="block text-graphite/70 hover:text-graphite" href="login.html">Login</a>
+          </div>
+        </div>
+        <div>
+          <div class="font-semibold">Contato</div>
+          <div class="text-sm text-graphite/70 mt-2">
+            E-mail: contato@hub.org<br>
+            Porto Alegre/RS • Brasil
+          </div>
+          <div class="text-xs text-graphite/60 mt-3">
+            © <span id="year"></span> Hub Resiliência Climática
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const btnMobile = document.getElementById("btnMobile");
+    const mobileMenu = document.getElementById("mobileMenu");
+    btnMobile?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Demo KPIs por território (substituir por API/backend depois)
+    const KPIS = {
+      global:   { residuos: "1.280 t", crgr: "3", familias: "2.450", territorios: "3" },
+      "vila-pinto": { residuos: "510 t", crgr: "1", familias: "980", territorios: "1" },
+      farrapos: { residuos: "420 t", crgr: "1", familias: "820", territorios: "1" },
+      ilha:     { residuos: "350 t", crgr: "1", familias: "650", territorios: "1" },
+    };
+
+    const el = (id) => document.getElementById(id);
+    const setKpis = (key) => {
+      const k = KPIS[key] || KPIS.global;
+      el("kpiResiduos").textContent = k.residuos;
+      el("kpiCrgr").textContent = k.crgr;
+      el("kpiFamilias").textContent = k.familias;
+      el("kpiTerritorios").textContent = k.territorios;
+    };
+
+    const territorioSelect = el("territorioSelect");
+    setKpis("global");
+    territorioSelect?.addEventListener("change", (e) => setKpis(e.target.value));
+  </script>
+</body>
+</html>
