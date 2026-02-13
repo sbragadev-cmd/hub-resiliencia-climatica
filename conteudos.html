@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hub • Conteúdos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      regen:"#1B7F5A", regenLight:"#4CAF8F", deepBlue:"#0D3B66", energy:"#F2C94C",
+      graphite:"#2E2E2E", grayClean:"#F5F7F6"
+    }, boxShadow:{ soft:"0 10px 30px rgba(13,59,102,.12)" }}}}
+  </script>
+  <style>
+    .bg-mesh{background:radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
+      radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
+      radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
+      linear-gradient(180deg, #F5F7F6, #FFFFFF);}
+    .glass{background: rgba(245,247,246,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border:1px solid rgba(13,59,102,.10);}
+  </style>
+</head>
+<body class="bg-mesh text-graphite min-h-screen">
+  <header class="mx-auto max-w-7xl px-4 pt-6">
+    <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft"><span class="font-semibold">H</span></div>
+        <div>
+          <div class="font-semibold">Conteúdos</div>
+          <div class="text-xs text-graphite/70">Cartilhas, e-books e guias</div>
+        </div>
+      </a>
+      <div class="flex gap-2">
+        <a href="dados-relatorios.html" class="px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">Dados</a>
+        <a href="login.html" class="px-4 py-2 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6">
+    <section class="glass shadow-soft rounded-3xl p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <div class="text-sm text-graphite/70">Biblioteca pública</div>
+          <h1 class="text-2xl md:text-3xl font-semibold mt-2">Materiais para território e gestão</h1>
+          <p class="text-graphite/70 mt-3 max-w-3xl">Organize aqui seus PDFs, e-books, guias técnicos e documentos institucionais.</p>
+        </div>
+        <div class="flex gap-2">
+          <select id="cat" class="px-4 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm">
+            <option value="all">Todas as categorias</option>
+            <option value="educacao">Educação ambiental</option>
+            <option value="gestao">Gestão CRGR</option>
+            <option value="clima">Clima e território</option>
+            <option value="institucional">Institucional</option>
+          </select>
+          <input id="q" placeholder="Buscar..." class="px-4 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm w-44 md:w-64" />
+        </div>
+      </div>
+
+      <div id="grid" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+    </section>
+
+    <footer class="py-10 text-center text-xs text-graphite/60">© <span id="year"></span> Hub Resiliência Climática</footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const ITEMS = [
+      { id:1, cat:"educacao", title:"Cartilha • Separação correta", desc:"Guia popular + versão técnica.", tag:"PDF", link:"#"},
+      { id:2, cat:"gestao", title:"Guia • Indicadores do CRGR", desc:"Metas, rejeito, produtividade, rotina.", tag:"PDF", link:"#"},
+      { id:3, cat:"clima", title:"Guia • Alertas climáticos no território", desc:"Orientações práticas e plano comunitário.", tag:"PDF", link:"#"},
+      { id:4, cat:"institucional", title:"Metodologia • Coleta e validação de dados", desc:"Rastreabilidade e governança.", tag:"PDF", link:"#"},
+      { id:5, cat:"gestao", title:"Template • Relatório mensal do CRGR", desc:"Modelo para prestação de contas.", tag:"DOC", link:"#"},
+      { id:6, cat:"educacao", title:"E-book • Educação ambiental", desc:"Conteúdos para oficinas e escolas.", tag:"PDF", link:"#"},
+    ];
+
+    const grid = document.getElementById("grid");
+    const cat = document.getElementById("cat");
+    const q = document.getElementById("q");
+
+    function render(){
+      const c = cat.value;
+      const s = (q.value||"").toLowerCase();
+      const list = ITEMS.filter(i =>
+        (c==="all" || i.cat===c) &&
+        (i.title.toLowerCase().includes(s) || i.desc.toLowerCase().includes(s))
+      );
+
+      grid.innerHTML = list.map(i => `
+        <a href="${i.link}" class="block rounded-3xl bg-white border border-deepBlue/10 p-5 hover:bg-deepBlue/5 transition">
+          <div class="text-xs text-graphite/60">${i.cat.toUpperCase()}</div>
+          <div class="font-semibold mt-2">${i.title}</div>
+          <div class="text-sm text-graphite/70 mt-2">${i.desc}</div>
+          <div class="mt-3 inline-flex items-center px-3 py-1 rounded-full bg-grayClean border border-deepBlue/10 text-xs font-semibold">${i.tag}</div>
+        </a>
+      `).join("") || `<div class="text-sm text-graphite/60">Nenhum conteúdo encontrado.</div>`;
+    }
+
+    cat.addEventListener("change", render);
+    q.addEventListener("input", render);
+    render();
+  </script>
+</body>
+</html>
