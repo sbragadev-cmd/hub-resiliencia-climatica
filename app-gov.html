@@ -1,0 +1,1697 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma Regenera • Governança</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#1B7F5A;
+      --green2:#4CAF8F;
+      --blue:#0D3B66;
+      --yellow:#F2C94C;
+      --bg:#F5F7F6;
+      --card:#ffffff;
+      --graphite:#182018;
+      --muted:#5B6B62;
+      --line: rgba(13,59,102,.12);
+      --shadow: 0 18px 50px rgba(13,59,102,.10);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--graphite);
+      background:
+        radial-gradient(900px 700px at 90% 0%, rgba(13,59,102,.06), transparent 55%),
+        linear-gradient(180deg, #eef4f1 0%, #f6faf8 60%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+    html{ visibility:hidden; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(13,59,102,.08);
+    }
+    .topbar-inner{
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 240px;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(13,59,102,.08);
+      border: 1px solid rgba(13,59,102,.14);
+      box-shadow: 0 12px 24px rgba(13,59,102,.10);
+      font-size: 18px;
+    }
+    .brand strong{
+      font-family: Poppins, Inter, sans-serif;
+      letter-spacing: -.02em;
+      font-size: 14px;
+      display:block;
+      line-height: 1.1;
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .75;
+      margin-top: 2px;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(245,247,246,.92);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      cursor:pointer;
+      display:flex; align-items:center; gap:10px;
+      color: rgba(13,59,102,.92);
+    }
+    .badge{
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 1000;
+      background: rgba(13,59,102,.08);
+      border: 1px solid rgba(13,59,102,.14);
+      color: rgba(13,59,102,.92);
+      font-size: 12px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .layout{
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 16px 18px 38px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+    }
+
+    .sidebar{
+      position: sticky;
+      top: 78px;
+      align-self: start;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(13,59,102,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px;
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 980px){
+      .sidebar{ position: relative; top: 0; }
+    }
+
+    .nav-title{
+      font-family: Poppins, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      font-size: 14px;
+      margin: 4px 0 10px;
+      color: rgba(13,59,102,.92);
+    }
+
+    .nav{
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav button{
+      width: 100%;
+      text-align:left;
+      border: 1px solid rgba(13,59,102,.12);
+      background: rgba(245,247,246,.70);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 1000;
+      cursor:pointer;
+      color: rgba(13,59,102,.92);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: transform .12s ease, filter .18s ease, background .18s ease;
+    }
+    .nav button:hover{ filter: brightness(1.01); transform: translateY(-1px); }
+    .nav button.active{
+      background: rgba(76,175,143,.14);
+      border-color: rgba(76,175,143,.26);
+      color: #0c4d44;
+    }
+    .nav small{ font-weight: 1000; opacity: .75; }
+
+    .content{ min-height: 60vh; }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(13,59,102,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .card h2{
+      margin: 2px 0 8px;
+      font-family: Poppins, Inter, sans-serif;
+      font-size: 16px;
+      letter-spacing: -.02em;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .sub{
+      color: rgba(24,32,24,.68);
+      font-weight: 800;
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin: 0 0 12px;
+      max-width: 110ch;
+    }
+
+    .table{
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(13,59,102,.10);
+    }
+    .table th, .table td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(13,59,102,.08);
+      font-size: 12.5px;
+      text-align:left;
+      vertical-align: top;
+    }
+    .table th{
+      background: rgba(13,59,102,.05);
+      color: rgba(13,59,102,.90);
+      font-weight: 1000;
+    }
+    .table td{
+      background: rgba(245,247,246,.60);
+      color: rgba(24,32,24,.82);
+      font-weight: 900;
+    }
+    .table tr:last-child td{ border-bottom:none; }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.86);
+      font-weight: 1000;
+      font-size: 12px;
+      color: rgba(13,59,102,.92);
+      white-space: nowrap;
+    }
+    .chip.pending{
+      border-color: rgba(242,201,76,.35);
+      background: rgba(242,201,76,.14);
+      color: rgba(91,74,18,.95);
+    }
+    .chip.active{
+      border-color: rgba(76,175,143,.28);
+      background: rgba(76,175,143,.14);
+      color: #0c4d44;
+    }
+    .chip.inactive{
+      border-color: rgba(13,59,102,.16);
+      background: rgba(13,59,102,.06);
+      color: rgba(13,59,102,.86);
+    }
+    .chip.published{
+      border-color: rgba(76,175,143,.28);
+      background: rgba(76,175,143,.14);
+      color: #0c4d44;
+    }
+    .chip.draft{
+      border-color: rgba(13,59,102,.16);
+      background: rgba(13,59,102,.06);
+      color: rgba(13,59,102,.86);
+    }
+    .chip.archived{
+      border-color: rgba(242,201,76,.40);
+      background: rgba(242,201,76,.16);
+      color: rgba(91,74,18,.95);
+    }
+
+    .btn{
+      border: 1px solid rgba(13,59,102,.18);
+      background: rgba(255,255,255,.92);
+      color: rgba(13,59,102,.92);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 1000;
+      cursor: pointer;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .btn.primary{
+      border: 1px solid rgba(76,175,143,.28);
+      background: rgba(76,175,143,.14);
+      color: #0c4d44;
+    }
+    .btn.danger{
+      border: 1px solid rgba(242,201,76,.40);
+      background: rgba(242,201,76,.16);
+      color: rgba(91,74,18,.95);
+    }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .row-actions{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .searchbar{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      margin: 10px 0 12px;
+    }
+    .input{
+      flex: 1 1 240px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(242,246,255,.55);
+      outline: none;
+      font-weight: 900;
+    }
+    .input:focus{
+      border-color: rgba(76,175,143,.42);
+      box-shadow: 0 0 0 4px rgba(76,175,143,.14);
+      background: rgba(242,246,255,.80);
+    }
+    .select{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor:pointer;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr .4fr;
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px){
+      .form-grid{ grid-template-columns: 1fr; }
+    }
+    .field label{
+      display:block;
+      font-size: 12px;
+      font-weight: 1000;
+      color: rgba(24,32,24,.68);
+      margin: 0 0 6px;
+    }
+    textarea.input{
+      min-height: 90px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
+    .section{ display:none; }
+    .section.active{ display:block; }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      max-width: 520px;
+      z-index: 99;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(13,59,102,.12);
+      box-shadow: 0 18px 50px rgba(13,59,102,.14);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display:none;
+      font-weight: 900;
+      color: rgba(24,32,24,.80);
+    }
+    .toast.show{ display:block; }
+
+    .muted-note{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(24,32,24,.60);
+      line-height: 1.45;
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 760px){
+      .kpi{ grid-template-columns: 1fr; }
+    }
+    .kpi .box{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .kpi .box b{
+      display:block;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: -.02em;
+    }
+    .kpi .box span{
+      display:block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .7;
+    }
+
+    .mini{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(24,32,24,.62);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">🏛️</div>
+        <div>
+          <strong>Plataforma Regenera</strong>
+          <span id="hdrSubtitle">Governança • Carregando...</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="badge" id="badgeRole">Validando…</span>
+        <span class="badge" id="badgeCounts">⏳ 0 pendentes • ✅ 0 ativos</span>
+        <button class="pill" id="btnRefresh" type="button">🔄 <span>Atualizar</span></button>
+        <button class="pill" id="btnLogout" type="button">🚪 <span>Sair</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu</div>
+      <nav class="nav">
+        <button data-section="dashboard" class="active">
+          <span>📌 Dashboard</span><small>visão geral</small>
+        </button>
+        <button data-section="users">
+          <span>👥 Usuários</span><small>aprovações</small>
+        </button>
+        <button data-section="territories">
+          <span>🗺️ Territórios</span><small>CRUD</small>
+        </button>
+        <button data-section="contents">
+          <span>📚 Conteúdos</span><small>CRUD</small>
+        </button>
+        <button data-section="plans">
+          <span>📌 Planos & Ações</span><small>em breve</small>
+        </button>
+        <button data-section="decisions">
+          <span>🧾 Decisões</span><small>em breve</small>
+        </button>
+      </nav>
+
+      <p class="muted-note">
+        As abas só aparecem quando você clica no menu.
+      </p>
+    </aside>
+
+    <section class="content">
+      <!-- DASHBOARD -->
+      <div id="section-dashboard" class="section active">
+        <div class="card">
+          <h2>
+            <span>Dashboard</span>
+            <span class="chip" id="chipNow">🟢 online</span>
+          </h2>
+          <p class="sub">
+            Visão geral do sistema: contagens em tempo real.
+          </p>
+
+          <div class="kpi">
+            <div class="box">
+              <b id="kpiPending">0</b>
+              <span>Usuários pendentes</span>
+            </div>
+            <div class="box">
+              <b id="kpiActive">0</b>
+              <span>Usuários ativos</span>
+            </div>
+            <div class="box">
+              <b id="kpiTerr">0</b>
+              <span>Territórios cadastrados</span>
+            </div>
+          </div>
+
+          <div class="kpi" style="margin-top:10px;">
+            <div class="box">
+              <b id="kpiContents">0</b>
+              <span>Conteúdos cadastrados</span>
+            </div>
+            <div class="box">
+              <b id="kpiPublished">0</b>
+              <span>Conteúdos publicados</span>
+            </div>
+            <div class="box">
+              <b id="kpiDrafts">0</b>
+              <span>Conteúdos em rascunho</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS -->
+      <div id="section-users" class="section">
+        <div class="card">
+          <h2>
+            <span>Usuários</span>
+            <span class="badge" id="badgeCounts2">⏳ 0 pendentes • ✅ 0 ativos</span>
+          </h2>
+          <p class="sub">Aprovar: <b>pending → active</b>. Recusar: <b>pending → inactive</b>. Desativar: <b>active → inactive</b>.</p>
+
+          <div class="searchbar">
+            <input id="qSearch" class="input" placeholder="Buscar por nome, e-mail ou perfil (role)…">
+            <select id="qRole" class="select">
+              <option value="">Todos perfis</option>
+              <option value="admin">admin</option>
+              <option value="governanca">governanca</option>
+              <option value="gestor">gestor</option>
+              <option value="cooperativa">cooperativa</option>
+            </select>
+            <select id="qScope" class="select">
+              <option value="all">Todos</option>
+              <option value="pending">Pendentes</option>
+              <option value="active">Ativos</option>
+            </select>
+          </div>
+
+          <h2 style="margin-top:10px;">
+            <span>Solicitações de aprovação</span>
+            <span class="chip pending" id="chipPending">⏳ 0</span>
+          </h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil</th>
+                <th>Status</th>
+                <th style="width:240px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPending">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+
+          <h2 style="margin-top:14px;">
+            <span>Perfis ativos</span>
+            <span class="chip active" id="chipActive">✅ 0</span>
+          </h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil</th>
+                <th>Status</th>
+                <th style="width:200px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyActive">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TERRITORIES -->
+      <div id="section-territories" class="section">
+        <div class="card">
+          <h2>
+            <span>Territórios</span>
+            <span class="badge" id="badgeTerritories">🗺️ 0</span>
+          </h2>
+          <p class="sub">Criar, editar e excluir territórios na collection <b>territories</b>.</p>
+
+          <div class="searchbar">
+            <input id="tSearch" class="input" placeholder="Buscar território por nome, cidade, UF, código…">
+            <select id="tStatus" class="select">
+              <option value="">Todos status</option>
+              <option value="active">active</option>
+              <option value="inactive">inactive</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="tName">Nome do território *</label>
+              <input id="tName" class="input" placeholder="Ex: CRC Centro / Território A">
+            </div>
+
+            <div class="field">
+              <label for="tCity">Cidade</label>
+              <input id="tCity" class="input" placeholder="Ex: São Paulo">
+            </div>
+
+            <div class="field">
+              <label for="tState">UF</label>
+              <input id="tState" class="input" placeholder="SP" maxlength="2">
+            </div>
+
+            <div class="field">
+              <label for="tCode">Código</label>
+              <input id="tCode" class="input" placeholder="Ex: CRC-001">
+            </div>
+
+            <div class="field">
+              <label for="tCrc">Nome do CRC</label>
+              <input id="tCrc" class="input" placeholder="Ex: CRGR Centro">
+            </div>
+
+            <div class="field">
+              <label for="tStatusEdit">Status</label>
+              <select id="tStatusEdit" class="select" style="width:100%;">
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row-actions" style="margin-bottom:12px;">
+            <button class="btn primary" id="btnTerrSave" type="button">➕ Criar território</button>
+            <button class="btn" id="btnTerrCancel" type="button" style="display:none;">✖️ Cancelar edição</button>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Cidade/UF</th>
+                <th>Código</th>
+                <th>CRC</th>
+                <th>Status</th>
+                <th style="width:220px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyTerritories">
+              <tr><td colspan="6" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+
+          <p class="muted-note">
+            Dica: depois a gente liga <b>users.territoryId</b> com o id do território.
+          </p>
+        </div>
+      </div>
+
+      <!-- CONTENTS (FULL CRUD) -->
+      <div id="section-contents" class="section">
+        <div class="card">
+          <h2>
+            <span>Conteúdos</span>
+            <span class="chip" id="chipContentMode">📝 editor</span>
+          </h2>
+          <p class="sub">
+            CRUD completo da collection <b>contents</b>: criar, editar, publicar, arquivar e excluir.
+            (Sem <code>orderBy</code> na query; ordenação no JS.)
+          </p>
+
+          <div class="searchbar">
+            <input id="cSearch" class="input" placeholder="Buscar por título, tipo, resumo, território…">
+            <select id="cStatus" class="select">
+              <option value="">Todos status</option>
+              <option value="draft">draft</option>
+              <option value="published">published</option>
+              <option value="archived">archived</option>
+            </select>
+            <select id="cType" class="select">
+              <option value="">Todos tipos</option>
+              <option value="guia">guia</option>
+              <option value="material">material</option>
+              <option value="link">link</option>
+              <option value="noticia">noticia</option>
+              <option value="aviso">aviso</option>
+            </select>
+            <select id="cTerritory" class="select">
+              <option value="">Todos territórios</option>
+            </select>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="cTitle">Título *</label>
+              <input id="cTitle" class="input" placeholder="Ex: Manual de triagem / Guia de segurança">
+            </div>
+
+            <div class="field">
+              <label for="cTypeEdit">Tipo</label>
+              <select id="cTypeEdit" class="select" style="width:100%;">
+                <option value="guia">guia</option>
+                <option value="material">material</option>
+                <option value="link">link</option>
+                <option value="noticia">noticia</option>
+                <option value="aviso">aviso</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="cTerritoryEdit">Território (territoryId)</label>
+              <select id="cTerritoryEdit" class="select" style="width:100%;">
+                <option value="">(sem território)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="cStatusEdit">Status</label>
+              <select id="cStatusEdit" class="select" style="width:100%;">
+                <option value="draft">draft</option>
+                <option value="published">published</option>
+                <option value="archived">archived</option>
+              </select>
+            </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="cSummary">Resumo (curto)</label>
+              <textarea id="cSummary" class="input" placeholder="Uma descrição rápida do conteúdo..."></textarea>
+            </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="cBody">Conteúdo (texto completo)</label>
+              <textarea id="cBody" class="input" placeholder="Escreva aqui o conteúdo completo (opcional)..."></textarea>
+            </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="cUrl">Link/URL (opcional)</label>
+              <input id="cUrl" class="input" placeholder="https://...">
+            </div>
+          </div>
+
+          <div class="row-actions" style="margin-top:10px;">
+            <button class="btn primary" id="btnContentSave" type="button">➕ Criar conteúdo</button>
+            <button class="btn" id="btnContentCancel" type="button" style="display:none;">✖️ Cancelar edição</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>Lista de conteúdos</span>
+            <span class="badge" id="badgeContents">📚 0</span>
+          </h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Território</th>
+                <th>Status</th>
+                <th style="width:290px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyContents">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PLANS (placeholder) -->
+      <div id="section-plans" class="section">
+        <div class="card">
+          <h2><span>Planos & Ações</span><span class="chip">📌</span></h2>
+          <p class="sub">Aba pronta. Próximo passo: CRUD da collection <b>action_plans</b> por território.</p>
+        </div>
+      </div>
+
+      <!-- DECISIONS (placeholder) -->
+      <div id="section-decisions" class="section">
+        <div class="card">
+          <h2><span>Decisões</span><span class="chip">🧾</span></h2>
+          <p class="sub">Aba pronta. Próximo passo: histórico de decisões / atas com vínculo ao território.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { auth, db } from "./assets/firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      collection,
+      doc,
+      getDoc,
+      query,
+      where,
+      limit,
+      onSnapshot,
+      updateDoc,
+      addDoc,
+      deleteDoc,
+      serverTimestamp,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // ===== UI: top =====
+    const hdrSubtitle = document.getElementById("hdrSubtitle");
+    const badgeRole = document.getElementById("badgeRole");
+    const badgeCounts = document.getElementById("badgeCounts");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnRefresh = document.getElementById("btnRefresh");
+
+    // ===== UI: menu/sections =====
+    const navButtons = Array.from(document.querySelectorAll(".nav button[data-section]"));
+    const sections = Array.from(document.querySelectorAll(".section"));
+    function setSection(key){
+      navButtons.forEach(b => b.classList.toggle("active", b.dataset.section === key));
+      sections.forEach(s => s.classList.toggle("active", s.id === `section-${key}`));
+    }
+    navButtons.forEach(b => b.addEventListener("click", () => setSection(b.dataset.section)));
+
+    // ===== Toast =====
+    const toast = document.getElementById("toast");
+    function notify(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function goLogin(){ window.location.href = "login.html"; }
+    btnLogout?.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
+
+    function esc(s){
+      return String(s ?? "").replace(/[&<>"']/g, (m) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+      }[m]));
+    }
+    function norm(v){ return String(v ?? "").trim(); }
+    function lower(v){ return norm(v).toLowerCase(); }
+
+    function renderEmpty(tbody, colSpan, text){
+      tbody.innerHTML = `<tr><td colspan="${colSpan}" class="mini">${esc(text)}</td></tr>`;
+    }
+
+    function tsToMillis(t){
+      if (!t) return 0;
+      if (typeof t.toMillis === "function") return t.toMillis();
+      if (typeof t.seconds === "number") return (t.seconds * 1000) + Math.floor((t.nanoseconds||0)/1e6);
+      const d = new Date(t);
+      const ms = d.getTime();
+      return Number.isFinite(ms) ? ms : 0;
+    }
+
+    // =========================
+    // USERS (approvals)
+    // =========================
+    const badgeCounts2 = document.getElementById("badgeCounts2");
+    const chipPending = document.getElementById("chipPending");
+    const chipActive = document.getElementById("chipActive");
+    const tbodyPending = document.getElementById("tbodyPending");
+    const tbodyActive = document.getElementById("tbodyActive");
+    const qSearch = document.getElementById("qSearch");
+    const qRole = document.getElementById("qRole");
+    const qScope = document.getElementById("qScope");
+
+    function getName(u){ return u.displayName || u.name || "—"; }
+    function getEmail(u){ return u.email || "—"; }
+    function getRole(u){ return lower(u.role) || "—"; }
+    function getStatus(u){ return lower(u.status) || "—"; }
+
+    async function setUserStatus(uid, status){
+      await updateDoc(doc(db, "users", uid), { status, updatedAt: serverTimestamp() });
+    }
+
+    function matchUserFilter(u){
+      const s = lower(qSearch?.value);
+      const roleFilter = lower(qRole?.value);
+      const scope = lower(qScope?.value || "all");
+
+      const name = lower(getName(u));
+      const email = lower(getEmail(u));
+      const role = lower(getRole(u));
+      const status = lower(getStatus(u));
+
+      if (roleFilter && role !== roleFilter) return false;
+      if (scope === "pending" && status !== "pending") return false;
+      if (scope === "active" && status !== "active") return false;
+
+      if (!s) return true;
+      return name.includes(s) || email.includes(s) || role.includes(s) || status.includes(s);
+    }
+
+    function pendingRow(id, u){
+      return `
+        <tr data-id="${esc(id)}">
+          <td>${esc(getName(u))}</td>
+          <td>${esc(getEmail(u))}</td>
+          <td><span class="chip">${esc(getRole(u))}</span></td>
+          <td><span class="chip pending">⏳ pending</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="btn primary" data-action="approve">✅ Aprovar</button>
+              <button class="btn danger" data-action="deny">⛔ Recusar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function activeRow(id, u){
+      return `
+        <tr data-id="${esc(id)}">
+          <td>${esc(getName(u))}</td>
+          <td>${esc(getEmail(u))}</td>
+          <td><span class="chip">${esc(getRole(u))}</span></td>
+          <td><span class="chip active">✅ active</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="btn danger" data-action="deactivate">🛑 Desativar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    tbodyPending?.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const tr = btn.closest("tr");
+      const uid = tr?.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      if(!uid) return;
+
+      try{
+        btn.disabled = true;
+        if(action === "approve"){
+          await setUserStatus(uid, "active");
+          notify("Aprovado ✅");
+        } else if(action === "deny"){
+          await setUserStatus(uid, "inactive");
+          notify("Recusado ⛔ (inactive)");
+        }
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btn.disabled = false;
+      }
+    });
+
+    tbodyActive?.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const tr = btn.closest("tr");
+      const uid = tr?.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      if(!uid) return;
+      if(action !== "deactivate") return;
+
+      try{
+        btn.disabled = true;
+        await setUserStatus(uid, "inactive");
+        notify("Desativado 🛑 (inactive)");
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btn.disabled = false;
+      }
+    });
+
+    let unsubPending = null;
+    let unsubActive = null;
+    let pendingCache = [];
+    let activeCache = [];
+
+    function updateUserCounts(){
+      const pendingN = pendingCache.length;
+      const activeN = activeCache.length;
+      chipPending.textContent = `⏳ ${pendingN}`;
+      chipActive.textContent = `✅ ${activeN}`;
+
+      const txt = `⏳ ${pendingN} pendentes • ✅ ${activeN} ativos`;
+      badgeCounts.textContent = txt;
+      badgeCounts2.textContent = txt;
+
+      document.getElementById("kpiPending").textContent = String(pendingN);
+      document.getElementById("kpiActive").textContent = String(activeN);
+    }
+
+    function renderUsers(){
+      pendingCache.sort((a,b) => tsToMillis(b.data.createdAt) - tsToMillis(a.data.createdAt));
+      activeCache.sort((a,b) => tsToMillis(b.data.updatedAt || b.data.createdAt) - tsToMillis(a.data.updatedAt || a.data.createdAt));
+
+      const pendings = pendingCache.filter(({data}) => matchUserFilter(data));
+      const actives  = activeCache.filter(({data}) => matchUserFilter(data));
+
+      if (pendings.length === 0) renderEmpty(tbodyPending, 5, "Nenhuma solicitação pendente (ou filtrada).");
+      else tbodyPending.innerHTML = pendings.map(x => pendingRow(x.id, x.data)).join("");
+
+      if (actives.length === 0) renderEmpty(tbodyActive, 5, "Nenhum perfil ativo (ou filtrado).");
+      else tbodyActive.innerHTML = actives.map(x => activeRow(x.id, x.data)).join("");
+
+      updateUserCounts();
+    }
+
+    function startUsers(){
+      const qP = query(collection(db, "users"), where("status", "==", "pending"), limit(300));
+      const qA = query(collection(db, "users"), where("status", "==", "active"),  limit(600));
+
+      unsubPending = onSnapshot(qP, (snap) => {
+        pendingCache = [];
+        snap.forEach((d) => pendingCache.push({ id: d.id, data: d.data() }));
+        renderUsers();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(tbodyPending, 5, `Erro ao carregar pendentes: ${err.code || err.message}`);
+      });
+
+      unsubActive = onSnapshot(qA, (snap) => {
+        activeCache = [];
+        snap.forEach((d) => activeCache.push({ id: d.id, data: d.data() }));
+        renderUsers();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(tbodyActive, 5, `Erro ao carregar ativos: ${err.code || err.message}`);
+      });
+    }
+
+    function stopUsers(){
+      if(typeof unsubPending === "function") unsubPending();
+      if(typeof unsubActive === "function") unsubActive();
+      unsubPending = null;
+      unsubActive = null;
+    }
+
+    [qSearch, qRole, qScope].forEach((el) => {
+      el?.addEventListener("input", () => renderUsers());
+      el?.addEventListener("change", () => renderUsers());
+    });
+
+    // =========================
+    // TERRITORIES (CRUD)
+    // =========================
+    const badgeTerritories = document.getElementById("badgeTerritories");
+    const tbodyTerritories = document.getElementById("tbodyTerritories");
+    const tSearch = document.getElementById("tSearch");
+    const tStatus = document.getElementById("tStatus");
+
+    const tName = document.getElementById("tName");
+    const tCity = document.getElementById("tCity");
+    const tState = document.getElementById("tState");
+    const tCode = document.getElementById("tCode");
+    const tCrc = document.getElementById("tCrc");
+    const tStatusEdit = document.getElementById("tStatusEdit");
+
+    const btnTerrSave = document.getElementById("btnTerrSave");
+    const btnTerrCancel = document.getElementById("btnTerrCancel");
+
+    let unsubTerr = null;
+    let territoriesCache = []; // [{id,data}]
+    let editingTerrId = null;
+
+    function cleanUF(v){
+      return lower(v).replace(/[^a-z]/g, "").slice(0,2).toUpperCase();
+    }
+
+    function terrStatusChip(status){
+      const s = lower(status);
+      if (s === "inactive") return `<span class="chip inactive">inactive</span>`;
+      return `<span class="chip active">active</span>`;
+    }
+
+    function matchTerrFilter(t){
+      const s = lower(tSearch?.value);
+      const statusFilter = lower(tStatus?.value);
+
+      const name = lower(t.name);
+      const city = lower(t.city);
+      const uf = lower(t.state);
+      const code = lower(t.code);
+      const crc = lower(t.crcName);
+      const status = lower(t.status);
+
+      if (statusFilter && status !== statusFilter) return false;
+      if (!s) return true;
+
+      return name.includes(s) || city.includes(s) || uf.includes(s) || code.includes(s) || crc.includes(s);
+    }
+
+    function terrRow(id, t){
+      const cityUf = [t.city || "—", t.state || "—"].filter(Boolean).join(" / ");
+      return `
+        <tr data-id="${esc(id)}">
+          <td>${esc(t.name || "—")}</td>
+          <td>${esc(cityUf)}</td>
+          <td>${esc(t.code || "—")}</td>
+          <td>${esc(t.crcName || "—")}</td>
+          <td>${terrStatusChip(t.status || "active")}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn" data-action="edit">✏️ Editar</button>
+              <button class="btn danger" data-action="delete">🗑️ Excluir</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function updateTerrCount(){
+      badgeTerritories.textContent = `🗺️ ${territoriesCache.length}`;
+      document.getElementById("kpiTerr").textContent = String(territoriesCache.length);
+      // também atualiza selects de conteúdos quando territórios mudam
+      refreshContentTerritorySelects();
+    }
+
+    function renderTerritories(){
+      territoriesCache.sort((a,b) => {
+        const am = tsToMillis(a.data.updatedAt || a.data.createdAt);
+        const bm = tsToMillis(b.data.updatedAt || b.data.createdAt);
+        return bm - am;
+      });
+
+      const filtered = territoriesCache.filter(({data}) => matchTerrFilter(data));
+      if (filtered.length === 0) renderEmpty(tbodyTerritories, 6, "Nenhum território (ou filtrado).");
+      else tbodyTerritories.innerHTML = filtered.map(x => terrRow(x.id, x.data)).join("");
+
+      updateTerrCount();
+    }
+
+    function resetTerrForm(){
+      editingTerrId = null;
+      tName.value = "";
+      tCity.value = "";
+      tState.value = "";
+      tCode.value = "";
+      tCrc.value = "";
+      tStatusEdit.value = "active";
+      btnTerrSave.textContent = "➕ Criar território";
+      btnTerrCancel.style.display = "none";
+    }
+
+    async function createTerritory(){
+      const name = norm(tName.value);
+      const city = norm(tCity.value);
+      const state = cleanUF(tState.value);
+      const code = norm(tCode.value);
+      const crcName = norm(tCrc.value);
+      const status = lower(tStatusEdit.value) || "active";
+
+      if (!name){
+        alert("Informe o nome do território.");
+        return;
+      }
+
+      btnTerrSave.disabled = true;
+      try{
+        await addDoc(collection(db, "territories"), {
+          name,
+          city: city || null,
+          state: state || null,
+          code: code || null,
+          crcName: crcName || null,
+          status,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        notify("Território criado ✅");
+        resetTerrForm();
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnTerrSave.disabled = false;
+      }
+    }
+
+    async function updateTerritory(id){
+      const name = norm(tName.value);
+      const city = norm(tCity.value);
+      const state = cleanUF(tState.value);
+      const code = norm(tCode.value);
+      const crcName = norm(tCrc.value);
+      const status = lower(tStatusEdit.value) || "active";
+
+      if (!name){
+        alert("Informe o nome do território.");
+        return;
+      }
+
+      btnTerrSave.disabled = true;
+      try{
+        await updateDoc(doc(db, "territories", id), {
+          name,
+          city: city || null,
+          state: state || null,
+          code: code || null,
+          crcName: crcName || null,
+          status,
+          updatedAt: serverTimestamp()
+        });
+        notify("Território atualizado ✅");
+        resetTerrForm();
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnTerrSave.disabled = false;
+      }
+    }
+
+    btnTerrSave?.addEventListener("click", async () => {
+      if (editingTerrId) await updateTerritory(editingTerrId);
+      else await createTerritory();
+    });
+    btnTerrCancel?.addEventListener("click", () => resetTerrForm());
+
+    tbodyTerritories?.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const tr = btn.closest("tr");
+      const id = tr?.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      if(!id) return;
+
+      const item = territoriesCache.find(x => x.id === id);
+      if (!item) return;
+
+      if (action === "edit"){
+        const t = item.data;
+        editingTerrId = id;
+        tName.value = t.name || "";
+        tCity.value = t.city || "";
+        tState.value = (t.state || "").toUpperCase();
+        tCode.value = t.code || "";
+        tCrc.value = t.crcName || "";
+        tStatusEdit.value = lower(t.status) === "inactive" ? "inactive" : "active";
+        btnTerrSave.textContent = "💾 Salvar alterações";
+        btnTerrCancel.style.display = "inline-flex";
+        notify("Editando território ✏️");
+        setSection("territories");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      if (action === "delete"){
+        const ok = confirm(`Excluir o território:\n\n${item.data.name || id}\n\nIsso não pode ser desfeito.`);
+        if (!ok) return;
+
+        btn.disabled = true;
+        try{
+          await deleteDoc(doc(db, "territories", id));
+          notify("Território excluído 🗑️");
+          if (editingTerrId === id) resetTerrForm();
+        }catch(err){
+          console.error(err);
+          notify(`Erro: ${err.code || err.message}`);
+          alert(`Erro: ${err.code || err.message}`);
+        }finally{
+          btn.disabled = false;
+        }
+      }
+    });
+
+    [tSearch, tStatus].forEach((el) => {
+      el?.addEventListener("input", () => renderTerritories());
+      el?.addEventListener("change", () => renderTerritories());
+    });
+
+    function startTerritories(){
+      const qT = query(collection(db, "territories"), limit(800));
+      unsubTerr = onSnapshot(qT, (snap) => {
+        territoriesCache = [];
+        snap.forEach((d) => territoriesCache.push({ id: d.id, data: d.data() }));
+        renderTerritories();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(tbodyTerritories, 6, `Erro ao carregar territórios: ${err.code || err.message}`);
+      });
+    }
+
+    function stopTerritories(){
+      if(typeof unsubTerr === "function") unsubTerr();
+      unsubTerr = null;
+    }
+
+    // =========================
+    // CONTENTS (FULL CRUD)
+    // =========================
+    const chipContentMode = document.getElementById("chipContentMode");
+    const cSearch = document.getElementById("cSearch");
+    const cStatus = document.getElementById("cStatus");
+    const cType = document.getElementById("cType");
+    const cTerritory = document.getElementById("cTerritory");
+
+    const cTitle = document.getElementById("cTitle");
+    const cTypeEdit = document.getElementById("cTypeEdit");
+    const cTerritoryEdit = document.getElementById("cTerritoryEdit");
+    const cStatusEdit = document.getElementById("cStatusEdit");
+    const cSummary = document.getElementById("cSummary");
+    const cBody = document.getElementById("cBody");
+    const cUrl = document.getElementById("cUrl");
+    const btnContentSave = document.getElementById("btnContentSave");
+    const btnContentCancel = document.getElementById("btnContentCancel");
+
+    const badgeContents = document.getElementById("badgeContents");
+    const tbodyContents = document.getElementById("tbodyContents");
+
+    let unsubContents = null;
+    let contentsCache = []; // [{id,data}]
+    let editingContentId = null;
+
+    function territoryLabel(id){
+      if (!id) return "—";
+      const t = territoriesCache.find(x => x.id === id)?.data;
+      if (!t) return id;
+      const nm = t.name || id;
+      const place = [t.city, t.state].filter(Boolean).join("/");
+      return place ? `${nm} • ${place}` : nm;
+    }
+
+    function refreshContentTerritorySelects(){
+      // preserva valor selecionado
+      const curFilter = cTerritory.value;
+      const curEdit = cTerritoryEdit.value;
+
+      const list = territoriesCache
+        .map(x => ({ id: x.id, ...x.data }))
+        .sort((a,b) => String(a.name||a.id).localeCompare(String(b.name||b.id), "pt-BR"));
+
+      cTerritory.innerHTML =
+        `<option value="">Todos territórios</option>` +
+        list.map(t => {
+          const label = `${t.name || t.id}${t.city ? " • " + t.city : ""}${t.state ? "/" + t.state : ""}`;
+          return `<option value="${esc(t.id)}">${esc(label)}</option>`;
+        }).join("");
+
+      cTerritoryEdit.innerHTML =
+        `<option value="">(sem território)</option>` +
+        list.map(t => {
+          const label = `${t.name || t.id}${t.city ? " • " + t.city : ""}${t.state ? "/" + t.state : ""}`;
+          return `<option value="${esc(t.id)}">${esc(label)}</option>`;
+        }).join("");
+
+      // tenta restaurar seleção anterior
+      if ([...cTerritory.options].some(o => o.value === curFilter)) cTerritory.value = curFilter;
+      else cTerritory.value = "";
+
+      if ([...cTerritoryEdit.options].some(o => o.value === curEdit)) cTerritoryEdit.value = curEdit;
+      else cTerritoryEdit.value = (editingContentId ? curEdit : "");
+    }
+
+    function contentStatusChip(status){
+      const s = lower(status);
+      if (s === "published") return `<span class="chip published">published</span>`;
+      if (s === "archived") return `<span class="chip archived">archived</span>`;
+      return `<span class="chip draft">draft</span>`;
+    }
+
+    function resetContentForm(){
+      editingContentId = null;
+      chipContentMode.textContent = "📝 editor";
+      cTitle.value = "";
+      cTypeEdit.value = "guia";
+      cTerritoryEdit.value = "";
+      cStatusEdit.value = "draft";
+      cSummary.value = "";
+      cBody.value = "";
+      cUrl.value = "";
+      btnContentSave.textContent = "➕ Criar conteúdo";
+      btnContentCancel.style.display = "none";
+    }
+
+    function matchContentFilters(c){
+      const s = lower(cSearch.value);
+      const st = lower(cStatus.value);
+      const ty = lower(cType.value);
+      const terr = norm(cTerritory.value);
+
+      const title = lower(c.title);
+      const type = lower(c.type);
+      const status = lower(c.status);
+      const summary = lower(c.summary);
+      const body = lower(c.body);
+      const url = lower(c.url);
+      const territoryId = norm(c.territoryId);
+      const terrLabel = lower(territoryLabel(territoryId));
+
+      if (st && status !== st) return false;
+      if (ty && type !== ty) return false;
+      if (terr && territoryId !== terr) return false;
+
+      if (!s) return true;
+      return (
+        title.includes(s) ||
+        type.includes(s) ||
+        status.includes(s) ||
+        summary.includes(s) ||
+        body.includes(s) ||
+        url.includes(s) ||
+        terrLabel.includes(s)
+      );
+    }
+
+    function contentRow(id, c){
+      return `
+        <tr data-id="${esc(id)}">
+          <td>
+            ${esc(c.title || "—")}
+            ${c.url ? `<div class="mini" style="margin-top:4px; opacity:.78;">🔗 ${esc(c.url)}</div>` : ""}
+          </td>
+          <td><span class="chip">${esc(c.type || "—")}</span></td>
+          <td>${esc(territoryLabel(c.territoryId))}</td>
+          <td>${contentStatusChip(c.status || "draft")}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn" data-action="edit">✏️ Editar</button>
+              <button class="btn" data-action="publish">🚀 Publicar</button>
+              <button class="btn" data-action="archive">📦 Arquivar</button>
+              <button class="btn danger" data-action="delete">🗑️ Excluir</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function updateContentKPIs(){
+      const total = contentsCache.length;
+      const published = contentsCache.filter(x => lower(x.data.status) === "published").length;
+      const drafts = contentsCache.filter(x => !x.data.status || lower(x.data.status) === "draft").length;
+
+      document.getElementById("kpiContents").textContent = String(total);
+      document.getElementById("kpiPublished").textContent = String(published);
+      document.getElementById("kpiDrafts").textContent = String(drafts);
+    }
+
+    function renderContents(){
+      contentsCache.sort((a,b) => tsToMillis(b.data.updatedAt || b.data.createdAt) - tsToMillis(a.data.updatedAt || a.data.createdAt));
+      const filtered = contentsCache.filter(({data}) => matchContentFilters(data));
+
+      badgeContents.textContent = `📚 ${filtered.length}`;
+
+      if (filtered.length === 0) renderEmpty(tbodyContents, 5, "Nenhum conteúdo (ou filtrado).");
+      else tbodyContents.innerHTML = filtered.map(x => contentRow(x.id, x.data)).join("");
+
+      updateContentKPIs();
+    }
+
+    async function createContent(){
+      const title = norm(cTitle.value);
+      if (!title){ alert("Informe o título."); return; }
+
+      btnContentSave.disabled = true;
+      try{
+        await addDoc(collection(db, "contents"), {
+          title,
+          type: lower(cTypeEdit.value) || "guia",
+          territoryId: norm(cTerritoryEdit.value) || null,
+          status: lower(cStatusEdit.value) || "draft",
+          summary: norm(cSummary.value) || null,
+          body: norm(cBody.value) || null,
+          url: norm(cUrl.value) || null,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        notify("Conteúdo criado ✅");
+        resetContentForm();
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnContentSave.disabled = false;
+      }
+    }
+
+    async function updateContent(id){
+      const title = norm(cTitle.value);
+      if (!title){ alert("Informe o título."); return; }
+
+      btnContentSave.disabled = true;
+      try{
+        await updateDoc(doc(db, "contents", id), {
+          title,
+          type: lower(cTypeEdit.value) || "guia",
+          territoryId: norm(cTerritoryEdit.value) || null,
+          status: lower(cStatusEdit.value) || "draft",
+          summary: norm(cSummary.value) || null,
+          body: norm(cBody.value) || null,
+          url: norm(cUrl.value) || null,
+          updatedAt: serverTimestamp()
+        });
+        notify("Conteúdo atualizado ✅");
+        resetContentForm();
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnContentSave.disabled = false;
+      }
+    }
+
+    btnContentSave?.addEventListener("click", async () => {
+      if (editingContentId) await updateContent(editingContentId);
+      else await createContent();
+    });
+    btnContentCancel?.addEventListener("click", resetContentForm);
+
+    tbodyContents?.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const tr = btn.closest("tr");
+      const id = tr?.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      if (!id) return;
+
+      const item = contentsCache.find(x => x.id === id);
+      if (!item) return;
+      const c = item.data || {};
+
+      try{
+        btn.disabled = true;
+
+        if (action === "edit"){
+          editingContentId = id;
+          chipContentMode.textContent = "✏️ editando";
+          cTitle.value = c.title || "";
+          cTypeEdit.value = c.type || "guia";
+          cTerritoryEdit.value = c.territoryId || "";
+          cStatusEdit.value = c.status || "draft";
+          cSummary.value = c.summary || "";
+          cBody.value = c.body || "";
+          cUrl.value = c.url || "";
+          btnContentSave.textContent = "💾 Salvar alterações";
+          btnContentCancel.style.display = "inline-flex";
+          notify("Editando conteúdo ✏️");
+          setSection("contents");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        if (action === "publish"){
+          await updateDoc(doc(db, "contents", id), { status: "published", updatedAt: serverTimestamp() });
+          notify("Publicado 🚀");
+        }
+
+        if (action === "archive"){
+          await updateDoc(doc(db, "contents", id), { status: "archived", updatedAt: serverTimestamp() });
+          notify("Arquivado 📦");
+        }
+
+        if (action === "delete"){
+          const ok = confirm(`Excluir o conteúdo:\n\n${c.title || id}\n\nIsso não pode ser desfeito.`);
+          if (!ok) return;
+          await deleteDoc(doc(db, "contents", id));
+          if (editingContentId === id) resetContentForm();
+          notify("Conteúdo excluído 🗑️");
+        }
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+        alert(`Erro: ${err.code || err.message}`);
+      }finally{
+        btn.disabled = false;
+      }
+    });
+
+    [cSearch, cStatus, cType, cTerritory].forEach((el) => {
+      el?.addEventListener("input", renderContents);
+      el?.addEventListener("change", renderContents);
+    });
+
+    function startContents(){
+      const qC = query(collection(db, "contents"), limit(1000));
+      unsubContents = onSnapshot(qC, (snap) => {
+        contentsCache = [];
+        snap.forEach((d) => contentsCache.push({ id: d.id, data: d.data() }));
+        renderContents();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(tbodyContents, 5, `Erro ao carregar conteúdos: ${err.code || err.message}`);
+      });
+    }
+
+    function stopContents(){
+      if (typeof unsubContents === "function") unsubContents();
+      unsubContents = null;
+    }
+
+    // =========================
+    // Refresh manual
+    // =========================
+    async function manualRefresh(){
+      try{
+        notify("Atualizando…");
+
+        // users
+        const qP = query(collection(db, "users"), where("status", "==", "pending"), limit(300));
+        const qA = query(collection(db, "users"), where("status", "==", "active"),  limit(600));
+        const [p, a] = await Promise.all([getDocs(qP), getDocs(qA)]);
+
+        pendingCache = [];
+        activeCache = [];
+        p.forEach((d) => pendingCache.push({ id: d.id, data: d.data() }));
+        a.forEach((d) => activeCache.push({ id: d.id, data: d.data() }));
+        renderUsers();
+
+        // territories
+        const t = await getDocs(query(collection(db, "territories"), limit(800)));
+        territoriesCache = [];
+        t.forEach((d) => territoriesCache.push({ id: d.id, data: d.data() }));
+        renderTerritories();
+
+        // contents
+        const c = await getDocs(query(collection(db, "contents"), limit(1000)));
+        contentsCache = [];
+        c.forEach((d) => contentsCache.push({ id: d.id, data: d.data() }));
+        refreshContentTerritorySelects();
+        renderContents();
+
+        notify("Atualizado ✅");
+      }catch(err){
+        console.error(err);
+        notify(`Erro ao atualizar: ${err.code || err.message}`);
+      }
+    }
+    btnRefresh?.addEventListener("click", manualRefresh);
+
+    // =========================
+    // Guard
+    // =========================
+    const GOV_ROLES = new Set(["admin","governanca","gestor"]);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return goLogin();
+
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (!snap.exists()) return goLogin();
+
+      const profile = snap.data();
+      const status = lower(profile.status);
+      const role = lower(profile.role);
+
+      if (status !== "active") return goLogin();
+      if (!GOV_ROLES.has(role)) return goLogin();
+
+      const name = profile.displayName || profile.name || user.email || "Usuário";
+      hdrSubtitle.textContent = `Governança • ${name}`;
+      badgeRole.textContent = `Perfil: ${role}`;
+
+      // start realtime
+      stopUsers();
+      stopTerritories();
+      stopContents();
+
+      startUsers();
+      startTerritories();
+      startContents();
+
+      // init UI
+      refreshContentTerritorySelects();
+      resetTerrForm();
+      resetContentForm();
+
+      document.documentElement.style.visibility = "visible";
+      setSection("dashboard");
+    });
+  </script>
+</body>
+</html>

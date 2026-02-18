@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma Regenera • Cooperativa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#1B7F5A;
+      --green2:#4CAF8F;
+      --blue:#0D3B66;
+      --yellow:#F2C94C;
+      --bg:#F5F7F6;
+      --card:#ffffff;
+      --graphite:#182018;
+      --muted:#5B6B62;
+      --line: rgba(13,59,102,.12);
+      --shadow: 0 18px 50px rgba(13,59,102,.10);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--graphite);
+      background:
+        radial-gradient(900px 700px at 90% 0%, rgba(13,59,102,.06), transparent 55%),
+        linear-gradient(180deg, #eef4f1 0%, #f6faf8 60%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+    html{ visibility:hidden; }
+
+    /* TOPBAR */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(13,59,102,.08);
+    }
+    .topbar-inner{
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 240px;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(27,127,90,.10);
+      border: 1px solid rgba(27,127,90,.18);
+      box-shadow: 0 12px 24px rgba(13,59,102,.10);
+      font-size: 18px;
+    }
+    .brand strong{
+      font-family: Poppins, Inter, sans-serif;
+      letter-spacing: -.02em;
+      font-size: 14px;
+      display:block;
+      line-height: 1.1;
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .75;
+      margin-top: 2px;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(245,247,246,.92);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      cursor:pointer;
+      display:flex; align-items:center; gap:10px;
+      color: rgba(13,59,102,.92);
+    }
+    .badge{
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 1000;
+      background: rgba(27,127,90,.10);
+      border: 1px solid rgba(27,127,90,.18);
+      color: rgba(12,77,68,.95);
+      font-size: 12px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    /* LAYOUT */
+    .layout{
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 16px 18px 38px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+    }
+
+    .sidebar{
+      position: sticky;
+      top: 78px;
+      align-self: start;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(13,59,102,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px;
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 980px){
+      .sidebar{ position: relative; top: 0; }
+    }
+
+    .nav-title{
+      font-family: Poppins, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      font-size: 14px;
+      margin: 4px 0 10px;
+      color: rgba(27,127,90,.95);
+    }
+
+    .nav{
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav button{
+      width: 100%;
+      text-align:left;
+      border: 1px solid rgba(13,59,102,.12);
+      background: rgba(245,247,246,.70);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 1000;
+      cursor:pointer;
+      color: rgba(13,59,102,.92);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: transform .12s ease, filter .18s ease, background .18s ease;
+    }
+    .nav button:hover{ filter: brightness(1.01); transform: translateY(-1px); }
+    .nav button.active{
+      background: rgba(76,175,143,.14);
+      border-color: rgba(76,175,143,.26);
+      color: #0c4d44;
+    }
+    .nav small{ font-weight: 1000; opacity: .75; }
+
+    .content{ min-height: 60vh; }
+
+    .section{ display:none; }
+    .section.active{ display:block; }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(13,59,102,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .card h2{
+      margin: 2px 0 8px;
+      font-family: Poppins, Inter, sans-serif;
+      font-size: 16px;
+      letter-spacing: -.02em;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .sub{
+      color: rgba(24,32,24,.68);
+      font-weight: 800;
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin: 0 0 12px;
+      max-width: 110ch;
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 760px){
+      .kpi{ grid-template-columns: 1fr; }
+    }
+    .kpi .box{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .kpi .box b{
+      display:block;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: -.02em;
+    }
+    .kpi .box span{
+      display:block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .7;
+    }
+
+    .table{
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(13,59,102,.10);
+    }
+    .table th, .table td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(13,59,102,.08);
+      font-size: 12.5px;
+      text-align:left;
+      vertical-align: top;
+    }
+    .table th{
+      background: rgba(13,59,102,.05);
+      color: rgba(13,59,102,.90);
+      font-weight: 1000;
+    }
+    .table td{
+      background: rgba(245,247,246,.60);
+      color: rgba(24,32,24,.82);
+      font-weight: 900;
+    }
+    .table tr:last-child td{ border-bottom:none; }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.86);
+      font-weight: 1000;
+      font-size: 12px;
+      color: rgba(13,59,102,.92);
+      white-space: nowrap;
+    }
+
+    .searchbar{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      margin: 10px 0 12px;
+    }
+    .input{
+      flex: 1 1 240px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(242,246,255,.55);
+      outline: none;
+      font-weight: 900;
+    }
+    .input:focus{
+      border-color: rgba(76,175,143,.42);
+      box-shadow: 0 0 0 4px rgba(76,175,143,.14);
+      background: rgba(242,246,255,.80);
+    }
+
+    .btn{
+      border: 1px solid rgba(13,59,102,.18);
+      background: rgba(255,255,255,.92);
+      color: rgba(13,59,102,.92);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 1000;
+      cursor: pointer;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .btn.primary{
+      border: 1px solid rgba(76,175,143,.28);
+      background: rgba(76,175,143,.14);
+      color: #0c4d44;
+    }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      max-width: 520px;
+      z-index: 99;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(13,59,102,.12);
+      box-shadow: 0 18px 50px rgba(13,59,102,.14);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display:none;
+      font-weight: 900;
+      color: rgba(24,32,24,.80);
+    }
+    .toast.show{ display:block; }
+
+    .muted-note{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(24,32,24,.60);
+      line-height: 1.45;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">♻️</div>
+        <div>
+          <strong>Plataforma Regenera</strong>
+          <span id="hdrSubtitle">Cooperativa • Carregando...</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="badge" id="badgeTerritory">Território: —</span>
+        <button class="pill" id="btnLogout" type="button">🚪 <span>Sair</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu cooperativa</div>
+      <nav class="nav">
+        <button data-section="dashboard" class="active">
+          <span>📌 Visão geral</span><small>indicadores</small>
+        </button>
+        <button data-section="contents">
+          <span>📚 Materiais</span><small>do seu território</small>
+        </button>
+        <button data-section="plans">
+          <span>📌 Planos & Ações</span><small>em breve</small>
+        </button>
+        <button data-section="profile">
+          <span>👤 Meu perfil</span><small>dados</small>
+        </button>
+      </nav>
+
+      <p class="muted-note">
+        Você vê apenas dados do seu território (regras do Firebase). Se o seu <b>territoryId</b> estiver vazio, peça à governança.
+      </p>
+    </aside>
+
+    <section class="content">
+      <!-- DASHBOARD -->
+      <div id="section-dashboard" class="section active">
+        <div class="card">
+          <h2>
+            <span>Visão geral</span>
+            <span class="chip" id="chipRole">♻️ cooperativa</span>
+          </h2>
+          <p class="sub">
+            Aqui você acompanha materiais e informações do seu território. (Depois a gente adiciona indicadores operacionais e metas.)
+          </p>
+
+          <div class="kpi">
+            <div class="box">
+              <b id="kpiContents">0</b>
+              <span>Materiais disponíveis</span>
+            </div>
+            <div class="box">
+              <b id="kpiPublished">0</b>
+              <span>Publicados</span>
+            </div>
+            <div class="box">
+              <b id="kpiDrafts">0</b>
+              <span>Rascunhos</span>
+            </div>
+          </div>
+
+          <p class="muted-note">
+            Próximo: entrada de dados (pesagens, triagem, rejeito) e acompanhamento de metas por plano.
+          </p>
+        </div>
+      </div>
+
+      <!-- CONTENTS -->
+      <div id="section-contents" class="section">
+        <div class="card">
+          <h2>
+            <span>Materiais do território</span>
+            <span class="chip" id="chipContents">📚 0</span>
+          </h2>
+          <p class="sub">
+            Lista automática de conteúdos em <b>contents</b> onde <b>territoryId == seu territoryId</b>.
+          </p>
+
+          <div class="searchbar">
+            <input id="cSearch" class="input" placeholder="Buscar por título, tipo, resumo...">
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyContents">
+              <tr><td colspan="4" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PLANS (placeholder) -->
+      <div id="section-plans" class="section">
+        <div class="card">
+          <h2><span>Planos & Ações</span><span class="chip">📌</span></h2>
+          <p class="sub">Em breve: acompanhamento do seu território na collection <b>action_plans</b>.</p>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="section-profile" class="section">
+        <div class="card">
+          <h2>
+            <span>Meu perfil</span>
+            <span class="chip" id="chipStatus">—</span>
+          </h2>
+
+          <table class="table">
+            <tbody>
+              <tr><th style="width:180px;">Nome</th><td id="pName">—</td></tr>
+              <tr><th>E-mail</th><td id="pEmail">—</td></tr>
+              <tr><th>Role</th><td id="pRole">—</td></tr>
+              <tr><th>Território</th><td id="pTerr">—</td></tr>
+              <tr><th>UID</th><td id="pUid">—</td></tr>
+            </tbody>
+          </table>
+
+          <p class="muted-note">
+            Para alterar território, role ou status, somente governança.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { auth, db } from "./assets/firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      collection,
+      doc,
+      getDoc,
+      query,
+      where,
+      limit,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // ===== Menu / sections =====
+    const navButtons = Array.from(document.querySelectorAll(".nav button[data-section]"));
+    const sections = Array.from(document.querySelectorAll(".section"));
+    function setSection(key){
+      navButtons.forEach(b => b.classList.toggle("active", b.dataset.section === key));
+      sections.forEach(s => s.classList.toggle("active", s.id === `section-${key}`));
+    }
+    navButtons.forEach(b => b.addEventListener("click", () => setSection(b.dataset.section)));
+
+    // ===== Toast =====
+    const toast = document.getElementById("toast");
+    function notify(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    const btnLogout = document.getElementById("btnLogout");
+    function goLogin(){ window.location.href = "login.html"; }
+    btnLogout?.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
+
+    function esc(s){
+      return String(s ?? "").replace(/[&<>"']/g, (m) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+      }[m]));
+    }
+    function norm(v){ return String(v ?? "").trim(); }
+    function lower(v){ return norm(v).toLowerCase(); }
+    function tsToMillis(t){
+      if (!t) return 0;
+      if (typeof t.toMillis === "function") return t.toMillis();
+      if (typeof t.seconds === "number") return (t.seconds * 1000) + Math.floor((t.nanoseconds||0)/1e6);
+      const d = new Date(t);
+      const ms = d.getTime();
+      return Number.isFinite(ms) ? ms : 0;
+    }
+
+    // ===== Header/profile =====
+    const hdrSubtitle = document.getElementById("hdrSubtitle");
+    const badgeTerritory = document.getElementById("badgeTerritory");
+
+    const chipRole = document.getElementById("chipRole");
+    const chipStatus = document.getElementById("chipStatus");
+
+    const pName = document.getElementById("pName");
+    const pEmail = document.getElementById("pEmail");
+    const pRole = document.getElementById("pRole");
+    const pTerr = document.getElementById("pTerr");
+    const pUid = document.getElementById("pUid");
+
+    // ===== Contents =====
+    const chipContents = document.getElementById("chipContents");
+    const cSearch = document.getElementById("cSearch");
+    const tbodyContents = document.getElementById("tbodyContents");
+    const kpiContents = document.getElementById("kpiContents");
+    const kpiPublished = document.getElementById("kpiPublished");
+    const kpiDrafts = document.getElementById("kpiDrafts");
+
+    let unsubContents = null;
+    let contentsCache = [];
+    let myTerritoryId = null;
+
+    function renderEmpty(text){
+      tbodyContents.innerHTML = `<tr><td colspan="4" class="mini">${esc(text)}</td></tr>`;
+    }
+
+    function matchContent(c){
+      const s = lower(cSearch.value);
+      if (!s) return true;
+      return (
+        lower(c.title).includes(s) ||
+        lower(c.type).includes(s) ||
+        lower(c.summary).includes(s) ||
+        lower(c.body).includes(s)
+      );
+    }
+
+    function row(c){
+      const link = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">Abrir</a>` : "—";
+      return `
+        <tr>
+          <td>${esc(c.title || "—")}</td>
+          <td><span class="chip">${esc(c.type || "—")}</span></td>
+          <td>${esc(c.status || "draft")}</td>
+          <td>${link}</td>
+        </tr>
+      `;
+    }
+
+    function updateKPIs(){
+      const total = contentsCache.length;
+      const published = contentsCache.filter(x => lower(x.status) === "published").length;
+      const drafts = contentsCache.filter(x => !x.status || lower(x.status) === "draft").length;
+
+      kpiContents.textContent = String(total);
+      kpiPublished.textContent = String(published);
+      kpiDrafts.textContent = String(drafts);
+      chipContents.textContent = `📚 ${total}`;
+    }
+
+    function renderContents(){
+      contentsCache.sort((a,b) => tsToMillis(b.updatedAt || b.createdAt) - tsToMillis(a.updatedAt || a.createdAt));
+      const filtered = contentsCache.filter(matchContent);
+
+      updateKPIs();
+
+      if (filtered.length === 0){
+        renderEmpty("Nenhum material para o seu território (ou filtrado).");
+        return;
+      }
+      tbodyContents.innerHTML = filtered.map(row).join("");
+    }
+
+    function startContents(){
+      if (!myTerritoryId){
+        contentsCache = [];
+        updateKPIs();
+        renderEmpty("Seu territoryId está vazio. Peça para a governança definir seu território.");
+        return;
+      }
+
+      // Cooperativa pode ler só do seu território pelas rules (resource.data.territoryId == myTerritoryId()).
+      const qC = query(collection(db, "contents"), where("territoryId", "==", myTerritoryId), limit(500));
+      unsubContents = onSnapshot(qC, (snap) => {
+        contentsCache = [];
+        snap.forEach((d) => contentsCache.push(d.data()));
+        renderContents();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(`Erro ao carregar: ${err.code || err.message}`);
+      });
+    }
+
+    function stopContents(){
+      if (typeof unsubContents === "function") unsubContents();
+      unsubContents = null;
+    }
+
+    cSearch.addEventListener("input", renderContents);
+
+    // ===== Guard coop only =====
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return goLogin();
+
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (!snap.exists()) return goLogin();
+
+      const profile = snap.data() || {};
+      const status = lower(profile.status);
+      const role = lower(profile.role);
+
+      if (status !== "active") return goLogin();
+      if (role !== "cooperativa") return goLogin();
+
+      const name = profile.displayName || profile.name || user.email || "Usuário";
+      myTerritoryId = profile.territoryId || null;
+
+      hdrSubtitle.textContent = `Cooperativa • ${name}`;
+      badgeTerritory.textContent = `Território: ${myTerritoryId || "—"}`;
+
+      chipRole.textContent = "♻️ cooperativa";
+      chipStatus.textContent = status;
+
+      pName.textContent = profile.displayName || profile.name || "—";
+      pEmail.textContent = profile.email || user.email || "—";
+      pRole.textContent = role || "—";
+      pTerr.textContent = myTerritoryId || "—";
+      pUid.textContent = user.uid;
+
+      stopContents();
+      startContents();
+
+      document.documentElement.style.visibility = "visible";
+      setSection("dashboard");
+      notify("Bem-vindo(a)!");
+    });
+  </script>
+</body>
+</html>

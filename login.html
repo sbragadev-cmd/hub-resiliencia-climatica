@@ -5,197 +5,714 @@
   <meta http-equiv="Content-Language" content="pt-BR">
   <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hub Resiliência Climática • Login</title>
+  <title>Hub Resiliência Climática • Acesso</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            regen: "#1B7F5A",
-            regenLight: "#4CAF8F",
-            deepBlue: "#0D3B66",
-            energy: "#F2C94C",
-            graphite: "#2E2E2E",
-            grayClean: "#F5F7F6",
-          },
-          boxShadow: { soft: "0 10px 30px rgba(13,59,102,.12)" }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    .bg-mesh{
+    :root{
+      --green:#1B7F5A;
+      --green2:#4CAF8F;
+      --blue:#0D3B66;
+      --yellow:#F2C94C;
+      --bg:#F5F7F6;
+      --white:#ffffff;
+      --graphite:#182018;
+      --muted:#5B6B62;
+      --line: rgba(13,59,102,.12);
+      --shadow: 0 20px 60px rgba(13,59,102,.12);
+      --radius: 20px;
+      --chip: rgba(255,255,255,.14);
+      --chipLine: rgba(255,255,255,.18);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--graphite);
+      background: #eef4f1;
+      overflow-x:hidden;
+    }
+    .split{
+      min-height: 100vh;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+    }
+    @media (max-width: 980px){
+      .split{ grid-template-columns: 1fr; }
+    }
+
+    /* LEFT HERO */
+    .hero{
+      position: relative;
+      padding: 34px 38px;
       background:
-        radial-gradient(900px 460px at 10% 5%, rgba(27,127,90,.20), transparent 60%),
-        radial-gradient(900px 460px at 90% 10%, rgba(13,59,102,.16), transparent 60%),
-        radial-gradient(900px 460px at 50% 100%, rgba(242,201,76,.18), transparent 55%),
-        linear-gradient(180deg, #F5F7F6, #FFFFFF);
+        radial-gradient(560px 560px at 82% 20%, rgba(255,255,255,.14), transparent 55%),
+        radial-gradient(900px 700px at 10% 85%, rgba(242,201,76,.10), transparent 60%),
+        linear-gradient(135deg, #1a7b57 0%, #0f5f48 35%, #0c4d44 65%, #0a3f47 100%);
+      color: rgba(255,255,255,.92);
+      overflow:hidden;
     }
-    .glass{
-      background: rgba(245,247,246,.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .hero::after{
+      content:"";
+      position:absolute;
+      width: 620px;
+      height: 620px;
+      right: -220px;
+      top: -220px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), rgba(255,255,255,.06) 45%, transparent 70%);
+      opacity: .9;
+      pointer-events:none;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      display:grid; place-items:center;
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+    }
+    .brand strong{
+      font-family: Poppins, Inter, sans-serif;
+      letter-spacing: -.02em;
+      font-size: 16px;
+      display:block;
+      line-height: 1.1;
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      opacity: .85;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .chipline{
+      display:flex; align-items:center; gap:10px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--chip);
+      border: 1px solid var(--chipLine);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(242,201,76,.95);
+      box-shadow: 0 0 0 6px rgba(242,201,76,.16);
+    }
+    .hero h1{
+      margin: 12px 0 10px;
+      font-family: Poppins, Inter, sans-serif;
+      letter-spacing: -.03em;
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height: 1.03;
+    }
+    .hero p{
+      margin: 0 0 18px;
+      max-width: 70ch;
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: .92;
+      font-weight: 700;
+    }
+    .steps{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      margin-bottom: 16px;
+    }
+    .step{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+    .step b{
+      display:inline-grid;
+      place-items:center;
+      width: 20px; height: 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 12px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 16px;
+      max-width: 720px;
+    }
+    @media (max-width: 620px){
+      .cards{ grid-template-columns: 1fr; }
+    }
+    .mini-card{
+      border-radius: 16px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 14px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+    }
+    .mini-card .head{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 1000;
+      margin-bottom: 8px;
+    }
+    .ico{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      display:grid; place-items:center;
+    }
+    .mini-card p{
+      margin:0;
+      font-size: 13px;
+      line-height: 1.6;
+      opacity: .9;
+      font-weight: 700;
+    }
+
+    /* RIGHT */
+    .right{
+      position: relative;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(13,59,102,.06) 1px, transparent 0);
+      background-size: 40px 40px;
+      display:grid;
+      place-items:center;
+      padding: 26px;
+    }
+    .login-card{
+      width: min(520px, 100%);
+      background: rgba(255,255,255,.92);
       border: 1px solid rgba(13,59,102,.10);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(13,59,102,.12);
+      padding: 16px;
     }
-    .btn:focus{ outline:none; box-shadow: 0 0 0 6px rgba(27,127,90,.14); }
+    .top-row{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .btn-pill{
+      border: 1px solid rgba(13,59,102,.18);
+      background: rgba(245,247,246,.9);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 1000;
+      cursor:pointer;
+      display:flex; align-items:center; gap:10px;
+    }
+    .badge-safe{
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 1000;
+      color: #0c4d44;
+      background: rgba(76,175,143,.14);
+      border: 1px solid rgba(76,175,143,.22);
+      border: 1px solid rgba(76,175,143,.22);
+      font-size: 12px;
+    }
+    .login-card h2{
+      margin: 10px 0 6px;
+      font-family: Poppins, Inter, sans-serif;
+      letter-spacing: -.02em;
+      font-size: 20px;
+    }
+    .login-card .sub{
+      margin: 0 0 14px;
+      color: rgba(35,35,35,.68);
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .seg{
+      display:flex;
+      gap:10px;
+      margin: 12px 0 14px;
+    }
+    .seg button{
+      flex: 1 1 50%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      font-weight: 1000;
+      cursor:pointer;
+    }
+    .seg button.active{
+      background: rgba(76,175,143,.12);
+      border-color: rgba(76,175,143,.28);
+      color: #0c4d44;
+    }
+
+    .field{ margin-top: 10px; }
+    .field label{
+      display:block;
+      font-size: 12px;
+      font-weight: 1000;
+      margin-bottom: 6px;
+      color: rgba(35,35,35,.72);
+    }
+    .input{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(242,246,255,.65);
+      outline: none;
+      font-weight: 900;
+    }
+    .input:focus{
+      border-color: rgba(76,175,143,.42);
+      box-shadow: 0 0 0 4px rgba(76,175,143,.16);
+      background: rgba(242,246,255,.82);
+    }
+
+    .row2{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .check{
+      display:flex; align-items:center; gap: 8px;
+      font-size: 12.5px;
+      font-weight: 900;
+      color: rgba(35,35,35,.66);
+      user-select:none;
+    }
+    .link{
+      border: none;
+      background: transparent;
+      color: rgba(13,59,102,.92);
+      font-weight: 1000;
+      cursor:pointer;
+      padding: 0;
+    }
+
+    .btn-main{
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(27,127,90,.32);
+      background: linear-gradient(135deg, #4caf8f, #1b7f5a);
+      color: white;
+      font-weight: 1000;
+      cursor:pointer;
+      box-shadow: 0 14px 26px rgba(27,127,90,.18);
+      transition: transform .15s ease, filter .2s ease, opacity .2s ease;
+    }
+    .btn-main:hover{ filter: brightness(1.01); transform: translateY(-1px); }
+    .btn-main:disabled{ opacity: .65; cursor:not-allowed; transform:none; }
+
+    .divider{
+      display:flex; align-items:center; gap: 10px;
+      margin: 14px 0 10px;
+      color: rgba(35,35,35,.52);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+    .divider::before, .divider::after{
+      content:"";
+      flex: 1 1 auto;
+      height: 1px;
+      background: rgba(13,59,102,.12);
+    }
+    .btn-outline{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      font-weight: 1000;
+      cursor:pointer;
+    }
+    .fineprint{
+      margin-top: 12px;
+      color: rgba(35,35,35,.58);
+      font-weight: 800;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+    .msg{
+      display:none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.35;
+      white-space: pre-line;
+      font-weight: 900;
+    }
+    .msg.show{ display:block; }
+    .msg.success{
+      background: rgba(76,175,143,0.14);
+      border: 1px solid rgba(76,175,143,0.28);
+      color: #135a41;
+    }
+    .msg.error{
+      background: rgba(242,201,76,0.18);
+      border: 1px solid rgba(242,201,76,0.34);
+      color: #5b4a12;
+    }
   </style>
 </head>
 
-<body class="bg-mesh text-graphite min-h-screen">
-  <header class="mx-auto max-w-7xl px-4 pt-6">
-    <div class="glass shadow-soft rounded-3xl px-4 py-3 flex items-center justify-between gap-3">
-      <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-10 h-10 rounded-2xl bg-deepBlue text-white grid place-items-center shadow-soft">
-          <span class="font-semibold">H</span>
+<body>
+  <main class="split">
+    <section class="hero">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🌿</div>
+        <div>
+          <strong>Hub Resiliência Climática</strong>
+          <span>Plataforma Regenera • Acesso</span>
         </div>
-        <div class="min-w-0">
-          <div class="font-semibold leading-tight truncate">Hub Resiliência Climática</div>
-          <div class="text-xs text-graphite/70 truncate">Acesso à plataforma</div>
-        </div>
-      </a>
-      <a href="dados-relatorios.html" class="btn px-4 py-2 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-        Dados públicos
-      </a>
-    </div>
-  </header>
+      </div>
 
-  <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-      <section class="lg:col-span-7 glass shadow-soft rounded-3xl p-6 md:p-8">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-deepBlue/10 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-regen"></span>
-          Área interna • Cooperativas & Território
-        </div>
-        <h1 class="mt-4 text-2xl md:text-3xl font-semibold leading-tight">
-          Entre para registrar dados, acompanhar indicadores e acessar trilhas.
-        </h1>
-        <p class="mt-4 text-graphite/70">
-          A plataforma é usada por cooperativas (CRGR) e por atores do território para fortalecer
-          transparência, governança e resiliência climática.
-        </p>
+      <div class="chipline">
+        <span class="chip"><span class="dot"></span> Cadastro e integração territorial</span>
+      </div>
 
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Input</div>
-            <div class="font-semibold mt-1">Registrar triagem</div>
-            <div class="text-xs text-graphite/60 mt-1">Volume por material, origem, turno.</div>
+      <h1>Faça parte do Hub</h1>
+      <p>
+        O Hub é um espaço de integração entre dados, pessoas e territórios. Ao se cadastrar,
+        você contribui para organizar informações, fortalecer redes locais e construir respostas
+        mais eficientes para a gestão de resíduos e desafios climáticos.
+        <br><br>
+        Seja você parte de uma cooperativa, uma liderança comunitária, um gestor público, técnico
+        ou agente de resposta climática: seu cadastro ajuda a transformar dados em decisão e ação coletiva.
+      </p>
+
+      <div class="steps">
+        <div class="step"><b>1</b> Cadastro</div>
+        <div class="step"><b>2</b> Análise da governança</div>
+        <div class="step"><b>3</b> Acesso liberado</div>
+      </div>
+
+      <div class="cards">
+        <div class="mini-card"><div class="head"><span class="ico">♻️</span> Cooperativas</div><p>Gestão, indicadores e suporte aos CRGR no território.</p></div>
+        <div class="mini-card"><div class="head"><span class="ico">👥</span> Lideranças & Comunidade</div><p>Acesso a informações, materiais e organização local.</p></div>
+        <div class="mini-card"><div class="head"><span class="ico">📊</span> Técnicos & Gestores</div><p>Dados, relatórios e acompanhamento de ações.</p></div>
+        <div class="mini-card"><div class="head"><span class="ico">🚨</span> Resposta Climática</div><p>Integração para prevenção, resposta e recuperação.</p></div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="login-card">
+        <div class="top-row">
+          <button class="btn-pill" id="btnBack" type="button">← <span>Voltar ao início</span></button>
+          <span class="badge-safe">Acesso seguro</span>
+        </div>
+
+        <h2>Entrar</h2>
+        <p class="sub">Entre com seu e-mail e senha. O destino depende do seu perfil.</p>
+
+        <div class="seg">
+          <button id="tabLogin" class="active" type="button">Entrar</button>
+          <button id="tabSignup" type="button">Criar conta</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="panelLogin">
+          <div class="field">
+            <label for="loginEmail">E-mail</label>
+            <input id="loginEmail" class="input" autocomplete="email" placeholder="admin.vp@teste.com">
           </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Análise</div>
-            <div class="font-semibold mt-1">Indicadores</div>
-            <div class="text-xs text-graphite/60 mt-1">Metas x realizado, rejeito, evolução.</div>
+
+          <div class="field">
+            <label for="loginPass">Senha</label>
+            <input id="loginPass" class="input" type="password" autocomplete="current-password" placeholder="••••••••">
           </div>
-          <div class="rounded-2xl bg-white border border-deepBlue/10 p-4">
-            <div class="text-xs text-graphite/70">Formação</div>
-            <div class="font-semibold mt-1">Trilhas</div>
-            <div class="text-xs text-graphite/60 mt-1">Por perfil (básico → gestão).</div>
-          </div>
-        </div>
 
-        <div class="mt-6 rounded-2xl bg-white border border-deepBlue/10 p-4">
-          <div class="text-sm font-semibold">Convite para cooperados</div>
-          <p class="text-sm text-graphite/70 mt-2">
-            A representante da cooperativa compartilha um link de convite para habilitar novos acessos.
-          </p>
-          <div class="mt-3 flex flex-col sm:flex-row gap-2">
-            <input id="inviteLink" class="w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-grayClean text-sm"
-              value="https://hub.exemplo.org/convite/CRGR-XXXX" />
-            <button id="btnCopy" class="btn px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-              Copiar
-            </button>
-          </div>
-          <div class="text-xs text-graphite/60 mt-2">* Demo. Em produção, este link vem do sistema.</div>
-        </div>
-      </section>
-
-      <section class="lg:col-span-5 glass shadow-soft rounded-3xl p-6 md:p-8">
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <div class="text-sm text-graphite/70">Login</div>
-            <div class="text-xl font-semibold mt-1">Acessar plataforma</div>
-          </div>
-          <span class="px-3 py-1 rounded-full bg-energy/30 border border-energy/40 text-xs font-semibold">Demo</span>
-        </div>
-
-        <form id="loginForm" class="mt-5 space-y-3">
-          <label class="block">
-            <span class="text-xs text-graphite/70">E-mail</span>
-            <input required type="email" class="mt-1 w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm"
-              placeholder="seuemail@exemplo.com" />
-          </label>
-
-          <label class="block">
-            <span class="text-xs text-graphite/70">Senha</span>
-            <input required type="password" class="mt-1 w-full px-3 py-3 rounded-2xl border border-deepBlue/10 bg-white text-sm"
-              placeholder="••••••••" />
-          </label>
-
-          <div class="flex items-center justify-between text-sm">
-            <label class="flex items-center gap-2">
-              <input type="checkbox" class="accent-regen" />
-              <span class="text-graphite/70">Lembrar</span>
+          <div class="row2">
+            <label class="check">
+              <input id="remember" type="checkbox">
+              Manter conectado
             </label>
-            <a href="#" class="text-deepBlue font-semibold hover:underline">Esqueci a senha</a>
+            <button class="link" id="btnForgot" type="button">Esqueci minha senha</button>
           </div>
 
-          <button class="btn w-full px-4 py-3 rounded-2xl bg-regen text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-            Entrar
-          </button>
+          <button class="btn-main" id="btnLogin" type="button">Entrar</button>
 
-          <div class="text-center text-xs text-graphite/60">
-            Ao entrar, você concorda com o uso responsável dos dados do território.
-          </div>
-        </form>
+          <div class="divider">ou</div>
+          <button class="btn-outline" id="btnGoSignup" type="button">Criar conta</button>
 
-        <div class="mt-5 rounded-2xl bg-white border border-deepBlue/10 p-4">
-          <div class="text-sm font-semibold">Não tem acesso?</div>
-          <p class="text-sm text-graphite/70 mt-2">
-            Se você é da cooperativa ou do território, solicite convite com a coordenação.
-          </p>
-          <div class="mt-3 flex gap-2">
-            <a href="index.html#publicos" class="btn w-full px-4 py-3 rounded-2xl bg-white border border-deepBlue/10 hover:bg-deepBlue/5 text-sm font-semibold">
-              Ver públicos
-            </a>
-            <a href="index.html" class="btn w-full px-4 py-3 rounded-2xl bg-deepBlue text-white font-semibold shadow-soft hover:opacity-95 text-sm">
-              Voltar
-            </a>
-          </div>
+          <div id="msg" class="msg"></div>
         </div>
 
-        <div id="toast" class="mt-4 hidden rounded-2xl bg-graphite text-white px-4 py-3 text-sm"></div>
-      </section>
-    </div>
+        <!-- SIGNUP -->
+        <div id="panelSignup" style="display:none;">
+          <div class="field">
+            <label for="signupName">Nome</label>
+            <input id="signupName" class="input" autocomplete="name" placeholder="Seu nome completo">
+          </div>
+
+          <div class="field">
+            <label for="signupEmail">E-mail</label>
+            <input id="signupEmail" class="input" autocomplete="email" placeholder="user@teste.com">
+          </div>
+
+          <div class="field">
+            <label for="signupPass">Senha</label>
+            <input id="signupPass" class="input" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+          </div>
+
+          <button class="btn-main" id="btnSignup" type="button">Criar conta</button>
+
+          <div class="divider">ou</div>
+          <button class="btn-outline" id="btnGoLogin" type="button">Voltar para entrar</button>
+
+          <div id="msg2" class="msg"></div>
+        </div>
+
+        <div class="fineprint">
+          Dica: para não perder a sessão, use sempre o mesmo host (127.0.0.1 ou localhost).
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const toast = (msg) => {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.remove("hidden");
-      setTimeout(() => t.classList.add("hidden"), 2200);
+  <script type="module">
+    import { auth, db } from "./assets/firebase.js";
+
+    import {
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      setPersistence,
+      browserLocalPersistence,
+      browserSessionPersistence,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    import {
+      getDoc,
+      doc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // ✅ Gov: admin/governanca/gestor. Coop: cooperativa
+    const ROUTES = {
+      admin: "app-gov.html",
+      governanca: "app-gov.html",
+      gestor: "app-gov.html",
+      cooperativa: "app-coop.html"
     };
 
-    document.getElementById("btnCopy")?.addEventListener("click", async () => {
-      const input = document.getElementById("inviteLink");
-      input.select();
-      try {
-        await navigator.clipboard.writeText(input.value);
-        toast("Link copiado.");
-      } catch {
-        document.execCommand("copy");
-        toast("Link copiado.");
+    // UI
+    const btnBack = document.getElementById("btnBack");
+    const tabLogin = document.getElementById("tabLogin");
+    const tabSignup = document.getElementById("tabSignup");
+    const panelLogin = document.getElementById("panelLogin");
+    const panelSignup = document.getElementById("panelSignup");
+    const btnGoSignup = document.getElementById("btnGoSignup");
+    const btnGoLogin = document.getElementById("btnGoLogin");
+
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPass = document.getElementById("loginPass");
+    const remember = document.getElementById("remember");
+    const btnLogin = document.getElementById("btnLogin");
+    const btnForgot = document.getElementById("btnForgot");
+    const msg = document.getElementById("msg");
+
+    const signupName = document.getElementById("signupName");
+    const signupEmail = document.getElementById("signupEmail");
+    const signupPass = document.getElementById("signupPass");
+    const btnSignup = document.getElementById("btnSignup");
+    const msg2 = document.getElementById("msg2");
+
+    function showMsg(el, type, text){
+      el.className = "msg show " + (type === "error" ? "error" : "success");
+      el.textContent = text;
+    }
+    function hideMsg(el){
+      el.className = "msg";
+      el.textContent = "";
+    }
+
+    function setTab(which){
+      const isLogin = which === "login";
+      tabLogin.classList.toggle("active", isLogin);
+      tabSignup.classList.toggle("active", !isLogin);
+      panelLogin.style.display = isLogin ? "block" : "none";
+      panelSignup.style.display = isLogin ? "none" : "block";
+      hideMsg(msg); hideMsg(msg2);
+    }
+
+    tabLogin.addEventListener("click", () => setTab("login"));
+    tabSignup.addEventListener("click", () => setTab("signup"));
+    btnGoSignup.addEventListener("click", () => setTab("signup"));
+    btnGoLogin.addEventListener("click", () => setTab("login"));
+
+    btnBack.addEventListener("click", () => window.location.href = "index.html");
+
+    async function applyPersistence(){
+      const p = remember.checked ? browserLocalPersistence : browserSessionPersistence;
+      await setPersistence(auth, p);
+    }
+
+    async function redirectByProfile(uid){
+      const snap = await getDoc(doc(db, "users", uid));
+      if(!snap.exists()){
+        showMsg(msg, "error", "Perfil não encontrado em users/{uid}.");
+        return;
+      }
+
+      const profile = snap.data();
+      const status = String(profile.status || "pending").toLowerCase();
+      const role = String(profile.role || "").toLowerCase();
+
+      if(status !== "active"){
+        showMsg(msg, "error", "Seu acesso ainda não está ativo. Aguarde análise da governança.");
+        return;
+      }
+
+      const target = ROUTES[role];
+      if(!target){
+        showMsg(msg, "error", `Role sem rota configurada: ${role || "(vazio)"}`);
+        return;
+      }
+
+      window.location.href = target; // relativo -> mantém host
+    }
+
+    // ✅ Auto-redirect quando já estiver logado
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try{
+          await redirectByProfile(user.uid);
+        }catch(e){
+          console.warn("Auto-redirect falhou:", e);
+        }
       }
     });
 
-    // DEMO: ao “logar”, manda para a plataforma (app.html)
-    document.getElementById("loginForm")?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      toast("Login demo: entrando...");
-      setTimeout(() => window.location.href = "app.html#/home", 400);
+    // ✅ LOGIN
+    btnLogin.addEventListener("click", async () => {
+      hideMsg(msg);
+
+      const em = (loginEmail.value || "").trim();
+      const pw = (loginPass.value || "").trim();
+      if(!em || !pw){
+        showMsg(msg, "error", "Informe e-mail e senha.");
+        return;
+      }
+
+      btnLogin.disabled = true;
+      btnLogin.textContent = "Entrando...";
+
+      try{
+        await applyPersistence();
+        const cred = await signInWithEmailAndPassword(auth, em, pw);
+        await redirectByProfile(cred.user.uid);
+      }catch(err){
+        console.error("LOGIN ERROR:", err);
+        showMsg(msg, "error", `Erro: ${err.code || err.message}`);
+      }finally{
+        btnLogin.disabled = false;
+        btnLogin.textContent = "Entrar";
+      }
     });
+
+    // ✅ RESET
+    btnForgot.addEventListener("click", async () => {
+      hideMsg(msg);
+      const em = (loginEmail.value || "").trim();
+      if(!em){
+        showMsg(msg, "error", "Digite seu e-mail para enviar o link de redefinição.");
+        return;
+      }
+      try{
+        await sendPasswordResetEmail(auth, em);
+        showMsg(msg, "success", "Link de redefinição enviado para seu e-mail.");
+      }catch(err){
+        console.error("RESET ERROR:", err);
+        showMsg(msg, "error", `Erro: ${err.code || err.message}`);
+      }
+    });
+
+    // ✅ SIGNUP
+    btnSignup.addEventListener("click", async () => {
+      hideMsg(msg2);
+
+      const name = (signupName.value || "").trim();
+      const em = (signupEmail.value || "").trim();
+      const pw = (signupPass.value || "").trim();
+
+      if(!name || !em || !pw){
+        showMsg(msg2, "error", "Preencha nome, e-mail e senha.");
+        return;
+      }
+      if(pw.length < 6){
+        showMsg(msg2, "error", "A senha deve ter pelo menos 6 caracteres.");
+        return;
+      }
+
+      btnSignup.disabled = true;
+      btnSignup.textContent = "Criando...";
+
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, em, pw);
+
+        await setDoc(doc(db, "users", cred.user.uid), {
+          uid: cred.user.uid,
+          name,
+          displayName: name,
+          email: em,
+          role: "cooperativa",
+          status: "pending",
+          territoryId: null,
+          permissions: [],
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        showMsg(msg2, "success", "Conta criada! Seu acesso ficará em análise até liberação.");
+        setTimeout(() => setTab("login"), 900);
+      }catch(err){
+        console.error("SIGNUP ERROR:", err);
+        showMsg(msg2, "error", `Erro: ${err.code || err.message}`);
+      }finally{
+        btnSignup.disabled = false;
+        btnSignup.textContent = "Criar conta";
+      }
+    });
+
+    setTab("login");
   </script>
 </body>
 </html>
