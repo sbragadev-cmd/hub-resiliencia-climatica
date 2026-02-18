@@ -38,6 +38,7 @@
     }
     html{ visibility:hidden; }
 
+    /* TOPBAR */
     .topbar{
       position: sticky;
       top: 0;
@@ -47,7 +48,7 @@
       border-bottom: 1px solid rgba(13,59,102,.08);
     }
     .topbar-inner{
-      max-width: 1220px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 14px 18px;
       display:flex;
@@ -101,13 +102,14 @@
       cursor:pointer;
       display:flex; align-items:center; gap:10px;
       color: rgba(13,59,102,.92);
+      white-space: nowrap;
     }
     .badge{
       border-radius: 999px;
       padding: 8px 12px;
       font-weight: 1000;
-      background: rgba(13,59,102,.08);
-      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(13,59,102,.06);
+      border: 1px solid rgba(13,59,102,.12);
       color: rgba(13,59,102,.92);
       font-size: 12px;
       display:flex;
@@ -115,19 +117,29 @@
       gap: 8px;
       white-space: nowrap;
     }
+    .badge.good{
+      background: rgba(27,127,90,.10);
+      border: 1px solid rgba(27,127,90,.18);
+      color: rgba(12,77,68,.95);
+    }
+    .badge.warn{
+      background: rgba(242,201,76,.16);
+      border: 1px solid rgba(242,201,76,.30);
+      color: rgba(91,74,18,.95);
+    }
 
+    /* LAYOUT */
     .layout{
-      max-width: 1220px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 16px 18px 38px;
       display:grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 300px 1fr;
       gap: 14px;
     }
     @media (max-width: 980px){
       .layout{ grid-template-columns: 1fr; }
     }
-
     .sidebar{
       position: sticky;
       top: 78px;
@@ -142,16 +154,14 @@
     @media (max-width: 980px){
       .sidebar{ position: relative; top: 0; }
     }
-
     .nav-title{
       font-family: Poppins, Inter, sans-serif;
       font-weight: 800;
       letter-spacing: -.02em;
       font-size: 14px;
       margin: 4px 0 10px;
-      color: rgba(13,59,102,.92);
+      color: rgba(13,59,102,.95);
     }
-
     .nav{
       display:flex;
       flex-direction: column;
@@ -175,13 +185,15 @@
     }
     .nav button:hover{ filter: brightness(1.01); transform: translateY(-1px); }
     .nav button.active{
-      background: rgba(76,175,143,.14);
-      border-color: rgba(76,175,143,.26);
-      color: #0c4d44;
+      background: rgba(13,59,102,.10);
+      border-color: rgba(13,59,102,.18);
+      color: rgba(13,59,102,.95);
     }
     .nav small{ font-weight: 1000; opacity: .75; }
 
     .content{ min-height: 60vh; }
+    .section{ display:none; }
+    .section.active{ display:block; }
 
     .card{
       background: var(--card);
@@ -208,6 +220,71 @@
       line-height: 1.5;
       margin: 0 0 12px;
       max-width: 110ch;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 900px){
+      .kpi{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 560px){
+      .kpi{ grid-template-columns: 1fr; }
+    }
+    .kpi .box{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .kpi .box b{
+      display:block;
+      font-size: 18px;
+      font-weight: 1000;
+      letter-spacing: -.02em;
+    }
+    .kpi .box span{
+      display:block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .7;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.86);
+      font-weight: 1000;
+      font-size: 12px;
+      color: rgba(13,59,102,.92);
+      white-space: nowrap;
+    }
+    .chip.good{
+      border-color: rgba(27,127,90,.22);
+      background: rgba(27,127,90,.12);
+      color: rgba(12,77,68,.95);
+    }
+    .chip.warn{
+      border-color: rgba(242,201,76,.40);
+      background: rgba(242,201,76,.16);
+      color: rgba(91,74,18,.95);
     }
 
     .table{
@@ -237,49 +314,37 @@
     }
     .table tr:last-child td{ border-bottom:none; }
 
-    .chip{
-      display:inline-flex;
+    .searchbar{
+      display:flex;
+      gap: 10px;
       align-items:center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
+      flex-wrap: wrap;
+      margin: 10px 0 12px;
+    }
+    .input{
+      flex: 1 1 260px;
+      padding: 10px 12px;
+      border-radius: 12px;
       border: 1px solid rgba(13,59,102,.14);
-      background: rgba(255,255,255,.86);
-      font-weight: 1000;
-      font-size: 12px;
-      color: rgba(13,59,102,.92);
-      white-space: nowrap;
+      background: rgba(242,246,255,.55);
+      outline: none;
+      font-weight: 900;
     }
-    .chip.pending{
-      border-color: rgba(242,201,76,.35);
-      background: rgba(242,201,76,.14);
-      color: rgba(91,74,18,.95);
+    .input:focus{
+      border-color: rgba(13,59,102,.28);
+      box-shadow: 0 0 0 4px rgba(13,59,102,.10);
+      background: rgba(242,246,255,.80);
     }
-    .chip.active{
-      border-color: rgba(76,175,143,.28);
-      background: rgba(76,175,143,.14);
-      color: #0c4d44;
+    .select{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor:pointer;
+      width: 100%;
     }
-    .chip.inactive{
-      border-color: rgba(13,59,102,.16);
-      background: rgba(13,59,102,.06);
-      color: rgba(13,59,102,.86);
-    }
-    .chip.published{
-      border-color: rgba(76,175,143,.28);
-      background: rgba(76,175,143,.14);
-      color: #0c4d44;
-    }
-    .chip.draft{
-      border-color: rgba(13,59,102,.16);
-      background: rgba(13,59,102,.06);
-      color: rgba(13,59,102,.86);
-    }
-    .chip.archived{
-      border-color: rgba(242,201,76,.40);
-      background: rgba(242,201,76,.16);
-      color: rgba(91,74,18,.95);
-    }
+    textarea.input{ min-height: 90px; resize: vertical; line-height: 1.35; }
 
     .btn{
       border: 1px solid rgba(13,59,102,.18);
@@ -293,14 +358,14 @@
       white-space: nowrap;
     }
     .btn.primary{
-      border: 1px solid rgba(76,175,143,.28);
-      background: rgba(76,175,143,.14);
-      color: #0c4d44;
+      border: 1px solid rgba(27,127,90,.22);
+      background: rgba(27,127,90,.12);
+      color: rgba(12,77,68,.95);
     }
     .btn.danger{
-      border: 1px solid rgba(242,201,76,.40);
-      background: rgba(242,201,76,.16);
-      color: rgba(91,74,18,.95);
+      border: 1px solid rgba(220,38,38,.22);
+      background: rgba(220,38,38,.08);
+      color: rgba(153,27,27,.95);
     }
     .btn:disabled{ opacity:.6; cursor:not-allowed; }
 
@@ -309,76 +374,23 @@
       gap: 8px;
       flex-wrap: wrap;
       justify-content: flex-end;
+      margin-top: 10px;
     }
 
-    .searchbar{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      flex-wrap: wrap;
-      margin: 10px 0 12px;
-    }
-    .input{
-      flex: 1 1 240px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(13,59,102,.14);
-      background: rgba(242,246,255,.55);
-      outline: none;
-      font-weight: 900;
-    }
-    .input:focus{
-      border-color: rgba(76,175,143,.42);
-      box-shadow: 0 0 0 4px rgba(76,175,143,.14);
-      background: rgba(242,246,255,.80);
-    }
-    .select{
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(13,59,102,.14);
-      background: rgba(255,255,255,.92);
-      font-weight: 900;
-      cursor:pointer;
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr .4fr;
-      gap: 10px;
-      margin: 10px 0 12px;
-    }
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 860px){
-      .grid2{ grid-template-columns: 1fr; }
-    }
-    @media (max-width: 760px){
-      .form-grid{ grid-template-columns: 1fr; }
-    }
-    .field label{
-      display:block;
+    .muted-note{
+      margin-top: 10px;
       font-size: 12px;
-      font-weight: 1000;
-      color: rgba(24,32,24,.68);
-      margin: 0 0 6px;
+      font-weight: 900;
+      color: rgba(24,32,24,.60);
+      line-height: 1.45;
+      white-space: pre-line;
     }
-    textarea.input{
-      min-height: 90px;
-      resize: vertical;
-      line-height: 1.35;
-    }
-
-    .section{ display:none; }
-    .section.active{ display:block; }
 
     .toast{
       position: fixed;
       right: 16px;
       bottom: 16px;
-      max-width: 520px;
+      max-width: 560px;
       z-index: 99;
       background: rgba(255,255,255,.96);
       border: 1px solid rgba(13,59,102,.12);
@@ -388,50 +400,19 @@
       display:none;
       font-weight: 900;
       color: rgba(24,32,24,.80);
+      white-space: pre-line;
     }
     .toast.show{ display:block; }
-
-    .muted-note{
-      margin-top: 10px;
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(24,32,24,.60);
-      line-height: 1.45;
-    }
-
-    .kpi{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-    @media (max-width: 760px){
-      .kpi{ grid-template-columns: 1fr; }
-    }
-    .kpi .box{
-      border: 1px solid rgba(13,59,102,.10);
-      background: rgba(245,247,246,.70);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .kpi .box b{
-      display:block;
-      font-size: 18px;
-      font-weight: 1000;
-      letter-spacing: -.02em;
-    }
-    .kpi .box span{
-      display:block;
-      margin-top: 4px;
-      font-size: 12px;
-      font-weight: 900;
-      opacity: .7;
-    }
 
     .mini{
       font-size: 12px;
       font-weight: 900;
       color: rgba(24,32,24,.62);
+    }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -448,8 +429,8 @@
       </div>
 
       <div class="actions">
-        <span class="badge" id="badgeRole">Validando…</span>
-        <span class="badge" id="badgeCounts">⏳ 0 pendentes • ✅ 0 ativos</span>
+        <span class="badge good" id="badgeRole">role: —</span>
+        <span class="badge" id="badgeUser">—</span>
         <button class="pill" id="btnRefresh" type="button">🔄 <span>Atualizar</span></button>
         <button class="pill" id="btnLogout" type="button">🚪 <span>Sair</span></button>
       </div>
@@ -458,73 +439,69 @@
 
   <main class="layout">
     <aside class="sidebar">
-      <div class="nav-title">Menu</div>
+      <div class="nav-title">Menu governança</div>
       <nav class="nav">
-        <button data-section="dashboard" class="active">
-          <span>📌 Dashboard</span><small>visão geral</small>
-        </button>
-        <button data-section="users">
-          <span>👥 Usuários</span><small>aprovações</small>
-        </button>
-        <button data-section="territories">
-          <span>🗺️ Territórios</span><small>CRUD</small>
-        </button>
-        <button data-section="contents">
-          <span>📚 Conteúdos</span><small>CRUD</small>
-        </button>
-        <button data-section="plans">
-          <span>📌 Planos & Ações</span><small>em breve</small>
-        </button>
-        <button data-section="decisions">
-          <span>🧾 Decisões</span><small>em breve</small>
-        </button>
+        <button data-section="home" class="active"><span>📌 Visão geral</span><small>KPIs</small></button>
+        <button data-section="users"><span>👥 Usuários</span><small>ativos + pendentes</small></button>
+        <button data-section="territories"><span>🗺️ Territórios</span><small>CRUD</small></button>
+        <button data-section="contents"><span>📚 Conteúdos</span><small>materiais</small></button>
+        <button data-section="notices"><span>📣 Avisos</span><small>comunicados</small></button>
+        <button data-section="plans"><span>🧭 Planos</span><small>ação</small></button>
+        <button data-section="profile"><span>👤 Meu perfil</span><small>dados</small></button>
       </nav>
 
       <p class="muted-note">
+        Acesso permitido apenas para <b>admin/governanca/gestor</b> com <b>status=active</b>.
         As abas só aparecem quando você clica no menu.
       </p>
     </aside>
 
     <section class="content">
-      <!-- DASHBOARD -->
-      <div id="section-dashboard" class="section active">
+      <!-- HOME -->
+      <div id="section-home" class="section active">
         <div class="card">
           <h2>
-            <span>Dashboard</span>
-            <span class="chip" id="chipNow">🟢 online</span>
+            <span>Visão geral</span>
+            <span class="chip good" id="chipReady">🟢 online</span>
           </h2>
           <p class="sub">
-            Visão geral do sistema: contagens em tempo real.
+            Visão rápida da plataforma: usuários, solicitações, territórios e conteúdos.
           </p>
 
           <div class="kpi">
             <div class="box">
-              <b id="kpiPending">0</b>
-              <span>Usuários pendentes</span>
-            </div>
-            <div class="box">
-              <b id="kpiActive">0</b>
+              <b id="kpiUsersActive">0</b>
               <span>Usuários ativos</span>
             </div>
             <div class="box">
-              <b id="kpiTerr">0</b>
-              <span>Territórios cadastrados</span>
+              <b id="kpiUsersPending">0</b>
+              <span>Usuários pendentes</span>
+            </div>
+            <div class="box">
+              <b id="kpiReqPending">0</b>
+              <span>Solicitações pendentes</span>
+            </div>
+            <div class="box">
+              <b id="kpiTerritories">0</b>
+              <span>Territórios</span>
             </div>
           </div>
 
-          <div class="kpi" style="margin-top:10px;">
-            <div class="box">
-              <b id="kpiContents">0</b>
-              <span>Conteúdos cadastrados</span>
-            </div>
-            <div class="box">
-              <b id="kpiPublished">0</b>
-              <span>Conteúdos publicados</span>
-            </div>
-            <div class="box">
-              <b id="kpiDrafts">0</b>
-              <span>Conteúdos em rascunho</span>
-            </div>
+          <div class="muted-note" id="homeHint">
+            Dica: use <b>Usuários</b> para aprovar e atribuir territórios (territoryId).
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>Atalhos</span>
+            <span class="chip">⚡ rápido</span>
+          </h2>
+          <div class="row-actions" style="justify-content:flex-start;">
+            <button class="btn" id="goUsers" type="button">👥 Ir para Usuários</button>
+            <button class="btn" id="goTerr" type="button">🗺️ Ir para Territórios</button>
+            <button class="btn" id="goContent" type="button">📚 Ir para Conteúdos</button>
+            <button class="btn" id="goNotices" type="button">📣 Ir para Avisos</button>
           </div>
         </div>
       </div>
@@ -533,60 +510,51 @@
       <div id="section-users" class="section">
         <div class="card">
           <h2>
-            <span>Usuários</span>
-            <span class="badge" id="badgeCounts2">⏳ 0 pendentes • ✅ 0 ativos</span>
+            <span>Solicitações de aprovação</span>
+            <span class="chip warn" id="chipReq">⏳ 0</span>
           </h2>
-          <p class="sub">Aprovar: <b>pending → active</b>. Recusar: <b>pending → inactive</b>. Desativar: <b>active → inactive</b>.</p>
+          <p class="sub">
+            Lista de <code>access_requests</code> pendentes (aprovar/rejeitar).
+            Ao aprovar, o sistema atualiza <code>users/{uid}</code> (status/role/territoryId).
+          </p>
 
           <div class="searchbar">
-            <input id="qSearch" class="input" placeholder="Buscar por nome, e-mail ou perfil (role)…">
-            <select id="qRole" class="select">
-              <option value="">Todos perfis</option>
-              <option value="admin">admin</option>
-              <option value="governanca">governanca</option>
-              <option value="gestor">gestor</option>
-              <option value="cooperativa">cooperativa</option>
-            </select>
-            <select id="qScope" class="select">
-              <option value="all">Todos</option>
-              <option value="pending">Pendentes</option>
-              <option value="active">Ativos</option>
-            </select>
+            <input id="reqSearch" class="input" placeholder="Buscar (nome, email, uid, território)...">
           </div>
 
-          <h2 style="margin-top:10px;">
-            <span>Solicitações de aprovação</span>
-            <span class="chip pending" id="chipPending">⏳ 0</span>
-          </h2>
-
           <table class="table">
             <thead>
               <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Perfil</th>
-                <th>Status</th>
-                <th style="width:240px;">Ações</th>
+                <th>Usuário</th>
+                <th>Pedido</th>
+                <th>Território</th>
+                <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="tbodyPending">
-              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            <tbody id="tbodyReq">
+              <tr><td colspan="4" class="mini">Carregando…</td></tr>
             </tbody>
           </table>
+        </div>
 
-          <h2 style="margin-top:14px;">
-            <span>Perfis ativos</span>
-            <span class="chip active" id="chipActive">✅ 0</span>
+        <div class="card">
+          <h2>
+            <span>Usuários ativos</span>
+            <span class="chip good" id="chipActive">✅ 0</span>
           </h2>
+
+          <div class="searchbar">
+            <input id="uSearchActive" class="input" placeholder="Buscar ativo (nome, email, uid, território)...">
+          </div>
 
           <table class="table">
             <thead>
               <tr>
                 <th>Nome</th>
                 <th>E-mail</th>
-                <th>Perfil</th>
+                <th>Role</th>
+                <th>Território</th>
                 <th>Status</th>
-                <th style="width:200px;">Ações</th>
               </tr>
             </thead>
             <tbody id="tbodyActive">
@@ -594,215 +562,437 @@
             </tbody>
           </table>
         </div>
-      </div>
 
-      <!-- TERRITORIES -->
-      <div id="section-territories" class="section">
         <div class="card">
           <h2>
-            <span>Territórios</span>
-            <span class="badge" id="badgeTerritories">🗺️ 0</span>
+            <span>Usuários pendentes</span>
+            <span class="chip warn" id="chipPending">🕒 0</span>
           </h2>
-          <p class="sub">Criar, editar e excluir territórios na collection <b>territories</b>.</p>
 
           <div class="searchbar">
-            <input id="tSearch" class="input" placeholder="Buscar território por nome, cidade, UF, código…">
-            <select id="tStatus" class="select">
-              <option value="">Todos status</option>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
-            </select>
-          </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="tName">Nome do território *</label>
-              <input id="tName" class="input" placeholder="Ex: CRC Centro / Território A">
-            </div>
-
-            <div class="field">
-              <label for="tCity">Cidade</label>
-              <input id="tCity" class="input" placeholder="Ex: São Paulo">
-            </div>
-
-            <div class="field">
-              <label for="tState">UF</label>
-              <input id="tState" class="input" placeholder="SP" maxlength="2">
-            </div>
-
-            <div class="field">
-              <label for="tCode">Código</label>
-              <input id="tCode" class="input" placeholder="Ex: CRC-001">
-            </div>
-
-            <div class="field">
-              <label for="tCrc">Nome do CRC</label>
-              <input id="tCrc" class="input" placeholder="Ex: CRGR Centro">
-            </div>
-
-            <div class="field">
-              <label for="tStatusEdit">Status</label>
-              <select id="tStatusEdit" class="select" style="width:100%;">
-                <option value="active">active</option>
-                <option value="inactive">inactive</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row-actions" style="margin-bottom:12px;">
-            <button class="btn primary" id="btnTerrSave" type="button">➕ Criar território</button>
-            <button class="btn" id="btnTerrCancel" type="button" style="display:none;">✖️ Cancelar edição</button>
+            <input id="uSearchPending" class="input" placeholder="Buscar pendente (nome, email, uid)...">
           </div>
 
           <table class="table">
             <thead>
               <tr>
                 <th>Nome</th>
-                <th>Cidade/UF</th>
-                <th>Código</th>
-                <th>CRC</th>
-                <th>Status</th>
-                <th style="width:220px;">Ações</th>
+                <th>E-mail</th>
+                <th>Role</th>
+                <th>Território</th>
+                <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="tbodyTerritories">
-              <tr><td colspan="6" class="mini">Carregando…</td></tr>
+            <tbody id="tbodyPending">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
             </tbody>
           </table>
-
-          <p class="muted-note">
-            Dica: depois a gente liga <b>users.territoryId</b> com o id do território.
-          </p>
         </div>
-      </div>
 
-      <!-- CONTENTS (FULL CRUD) -->
-      <div id="section-contents" class="section">
+        <!-- NEW: UPDATE TERRITORY -->
         <div class="card">
           <h2>
-            <span>Conteúdos</span>
-            <span class="chip" id="chipContentMode">📝 editor</span>
+            <span>Atualizar território do usuário</span>
+            <span class="chip">🗺️ governança</span>
           </h2>
           <p class="sub">
-            CRUD completo da collection <b>contents</b>: criar, editar, publicar, arquivar e excluir.
-            (Sem <code>orderBy</code> na query; ordenação no JS.)
+            Selecione um usuário e atribua o <b>territoryId</b>. Isso controla o acesso do app-coop e o filtro de dados.
           </p>
 
-          <div class="searchbar">
-            <input id="cSearch" class="input" placeholder="Buscar por título, tipo, resumo, território…">
-            <select id="cStatus" class="select">
-              <option value="">Todos status</option>
-              <option value="draft">draft</option>
-              <option value="published">published</option>
-              <option value="archived">archived</option>
-            </select>
-            <select id="cType" class="select">
-              <option value="">Todos tipos</option>
-              <option value="guia">guia</option>
-              <option value="material">material</option>
-              <option value="link">link</option>
-              <option value="noticia">noticia</option>
-              <option value="aviso">aviso</option>
-            </select>
-            <select id="cTerritory" class="select">
-              <option value="">Todos territórios</option>
-            </select>
-          </div>
-
           <div class="grid2">
-            <div class="field">
-              <label for="cTitle">Título *</label>
-              <input id="cTitle" class="input" placeholder="Ex: Manual de triagem / Guia de segurança">
-            </div>
-
-            <div class="field">
-              <label for="cTypeEdit">Tipo</label>
-              <select id="cTypeEdit" class="select" style="width:100%;">
-                <option value="guia">guia</option>
-                <option value="material">material</option>
-                <option value="link">link</option>
-                <option value="noticia">noticia</option>
-                <option value="aviso">aviso</option>
+            <div>
+              <label class="mini"><b>Usuário</b></label>
+              <select id="selUserTerr" class="select">
+                <option value="">Carregando usuários…</option>
               </select>
+              <div class="muted-note" id="userTerrMeta">—</div>
             </div>
 
-            <div class="field">
-              <label for="cTerritoryEdit">Território (territoryId)</label>
-              <select id="cTerritoryEdit" class="select" style="width:100%;">
-                <option value="">(sem território)</option>
+            <div>
+              <label class="mini"><b>Território</b></label>
+              <select id="selTerritory" class="select">
+                <option value="">Carregando territórios…</option>
               </select>
-            </div>
-
-            <div class="field">
-              <label for="cStatusEdit">Status</label>
-              <select id="cStatusEdit" class="select" style="width:100%;">
-                <option value="draft">draft</option>
-                <option value="published">published</option>
-                <option value="archived">archived</option>
-              </select>
-            </div>
-
-            <div class="field" style="grid-column: 1 / -1;">
-              <label for="cSummary">Resumo (curto)</label>
-              <textarea id="cSummary" class="input" placeholder="Uma descrição rápida do conteúdo..."></textarea>
-            </div>
-
-            <div class="field" style="grid-column: 1 / -1;">
-              <label for="cBody">Conteúdo (texto completo)</label>
-              <textarea id="cBody" class="input" placeholder="Escreva aqui o conteúdo completo (opcional)..."></textarea>
-            </div>
-
-            <div class="field" style="grid-column: 1 / -1;">
-              <label for="cUrl">Link/URL (opcional)</label>
-              <input id="cUrl" class="input" placeholder="https://...">
+              <div class="muted-note">Dica: o valor salvo no usuário será o <b>ID do doc</b> em <code>territories/{territoryId}</code>. Você pode deixar vazio para remover.</div>
             </div>
           </div>
 
           <div class="row-actions" style="margin-top:10px;">
-            <button class="btn primary" id="btnContentSave" type="button">➕ Criar conteúdo</button>
-            <button class="btn" id="btnContentCancel" type="button" style="display:none;">✖️ Cancelar edição</button>
+            <button class="btn" id="btnClearTerr" type="button">🧹 Limpar</button>
+            <button class="btn primary" id="btnSaveTerr" type="button">💾 Salvar território</button>
           </div>
+
+          <div class="muted-note" id="terrSaveMsg">—</div>
+        </div>
+      </div>
+
+      <!-- TERRITORIES -->
+      <div id="section-territories" class="section">
+        <div class="card">
+          <h2>
+            <span>Territórios • Cadastro</span>
+            <span class="chip">🗺️ CRUD</span>
+          </h2>
+          <p class="sub">
+            Crie/edite territórios em <code>territories</code>. O <b>ID do documento</b> é o <code>territoryId</code>.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>ID (opcional)</b></label>
+              <input id="tId" class="input" placeholder="Ex: crc_centro (se vazio, auto-id)">
+              <div class="muted-note">Se você preencher, o doc será criado com esse ID. Se vazio, o Firestore gera.</div>
+            </div>
+            <div>
+              <label class="mini"><b>Nome</b></label>
+              <input id="tName" class="input" placeholder="Ex: CRGR Centro">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Cidade</b></label>
+              <input id="tCity" class="input" placeholder="Cidade">
+            </div>
+            <div>
+              <label class="mini"><b>UF</b></label>
+              <input id="tState" class="input" placeholder="UF">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>CRC/CRGR (nome)</b></label>
+              <input id="tCrcName" class="input" placeholder="Nome do CRC/CRGR">
+            </div>
+            <div>
+              <label class="mini"><b>Código</b></label>
+              <input id="tCode" class="input" placeholder="Código interno">
+            </div>
+          </div>
+
+          <div>
+            <label class="mini"><b>Descrição</b></label>
+            <textarea id="tDesc" class="input" placeholder="Descrição do território, horários, operação..."></textarea>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Contatos (texto)</b></label>
+              <textarea id="tContacts" class="input" placeholder="Ex: Coordenação: (xx) xxxx-xxxx&#10;E-mail: ..."></textarea>
+            </div>
+            <div>
+              <label class="mini"><b>Links (um por linha)</b></label>
+              <textarea id="tLinks" class="input" placeholder="https://...&#10;https://..."></textarea>
+            </div>
+          </div>
+
+          <div class="row-actions">
+            <button class="btn" id="btnTerrClear" type="button">🧹 Limpar</button>
+            <button class="btn primary" id="btnTerrSave" type="button">💾 Salvar (criar/atualizar)</button>
+          </div>
+
+          <div class="muted-note" id="terrMsg">—</div>
         </div>
 
         <div class="card">
           <h2>
-            <span>Lista de conteúdos</span>
-            <span class="badge" id="badgeContents">📚 0</span>
+            <span>Lista de territórios</span>
+            <span class="chip" id="chipTerr">🗺️ 0</span>
           </h2>
+
+          <div class="searchbar">
+            <input id="tSearch" class="input" placeholder="Buscar território (nome, id, cidade, uf)...">
+          </div>
 
           <table class="table">
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Tipo</th>
-                <th>Território</th>
-                <th>Status</th>
-                <th style="width:290px;">Ações</th>
+                <th>Nome</th>
+                <th>ID</th>
+                <th>Cidade/UF</th>
+                <th>CRC</th>
+                <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="tbodyContents">
+            <tbody id="tbodyTerr">
               <tr><td colspan="5" class="mini">Carregando…</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- PLANS (placeholder) -->
+      <!-- CONTENTS -->
+      <div id="section-contents" class="section">
+        <div class="card">
+          <h2>
+            <span>Conteúdos • Criar/editar</span>
+            <span class="chip">📚 materials</span>
+          </h2>
+          <p class="sub">
+            Conteúdos em <code>contents</code>. Cooperativas veem os do seu território e os gerais (<code>territoryId=null</code>), quando <code>status="published"</code>.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>ID (para editar)</b></label>
+              <input id="cId" class="input" placeholder="Cole o ID para carregar/editar (opcional)">
+            </div>
+            <div>
+              <label class="mini"><b>Título</b></label>
+              <input id="cTitle" class="input" placeholder="Título do conteúdo">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Nível</b></label>
+              <select id="cLevel" class="select">
+                <option value="iniciante">iniciante</option>
+                <option value="operacional">operacional</option>
+                <option value="gestao">gestao</option>
+              </select>
+            </div>
+            <div>
+              <label class="mini"><b>Território</b></label>
+              <select id="cTerritory" class="select">
+                <option value="">Geral (null)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Tipo</b></label>
+              <select id="cType" class="select">
+                <option value="material">material</option>
+                <option value="video">video</option>
+                <option value="link">link</option>
+                <option value="documento">documento</option>
+              </select>
+            </div>
+            <div>
+              <label class="mini"><b>Status</b></label>
+              <select id="cStatus" class="select">
+                <option value="published">published</option>
+                <option value="draft">draft</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>URL (opcional)</b></label>
+              <input id="cUrl" class="input" placeholder="https://...">
+            </div>
+            <div>
+              <label class="mini"><b>Resumo</b></label>
+              <input id="cSummary" class="input" placeholder="Resumo curto">
+            </div>
+          </div>
+
+          <div>
+            <label class="mini"><b>Texto (body)</b></label>
+            <textarea id="cBody" class="input" placeholder="Conteúdo completo..."></textarea>
+          </div>
+
+          <div class="row-actions">
+            <button class="btn" id="btnContentClear" type="button">🧹 Limpar</button>
+            <button class="btn primary" id="btnContentSave" type="button">💾 Salvar</button>
+            <button class="btn danger" id="btnContentDelete" type="button">🗑️ Excluir</button>
+          </div>
+
+          <div class="muted-note" id="contentMsg">—</div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>Lista de conteúdos</span>
+            <span class="chip" id="chipContent">📚 0</span>
+          </h2>
+
+          <div class="searchbar">
+            <input id="cSearch" class="input" placeholder="Buscar (título, resumo, nível, tipo)...">
+            <select id="cFilterStatus" class="select" style="max-width:260px;">
+              <option value="">Todos status</option>
+              <option value="published">published</option>
+              <option value="draft">draft</option>
+            </select>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Território</th>
+                <th>Nível</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyContent">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NOTICES -->
+      <div id="section-notices" class="section">
+        <div class="card">
+          <h2>
+            <span>Avisos • Criar/editar</span>
+            <span class="chip">📣 notices</span>
+          </h2>
+          <p class="sub">
+            Avisos em <code>notices</code>. Cooperativas veem os do território e os gerais (<code>territoryId=null</code>), quando <code>active=true</code>.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>ID (para editar)</b></label>
+              <input id="nId" class="input" placeholder="Cole o ID para carregar/editar (opcional)">
+            </div>
+            <div>
+              <label class="mini"><b>Título</b></label>
+              <input id="nTitle" class="input" placeholder="Título do aviso">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Território</b></label>
+              <select id="nTerritory" class="select">
+                <option value="">Geral (null)</option>
+              </select>
+            </div>
+            <div>
+              <label class="mini"><b>Prioridade</b></label>
+              <select id="nPriority" class="select">
+                <option value="normal">normal</option>
+                <option value="alta">alta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="mini"><b>Ativo?</b></label>
+              <select id="nActive" class="select">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </div>
+            <div>
+              <label class="mini"><b>Tags (opcional)</b></label>
+              <input id="nTags" class="input" placeholder="Ex: segurança, operação, evento">
+            </div>
+          </div>
+
+          <div>
+            <label class="mini"><b>Mensagem</b></label>
+            <textarea id="nBody" class="input" placeholder="Texto do aviso..."></textarea>
+          </div>
+
+          <div class="row-actions">
+            <button class="btn" id="btnNoticeClear" type="button">🧹 Limpar</button>
+            <button class="btn primary" id="btnNoticeSave" type="button">💾 Salvar</button>
+            <button class="btn danger" id="btnNoticeDelete" type="button">🗑️ Excluir</button>
+          </div>
+
+          <div class="muted-note" id="noticeMsg">—</div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>Lista de avisos</span>
+            <span class="chip" id="chipNotice">📣 0</span>
+          </h2>
+
+          <div class="searchbar">
+            <input id="nSearchList" class="input" placeholder="Buscar (título, texto, território, prioridade)...">
+            <select id="nFilterActive" class="select" style="max-width:260px;">
+              <option value="">Todos</option>
+              <option value="true">ativos</option>
+              <option value="false">inativos</option>
+            </select>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Território</th>
+                <th>Prioridade</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyNotice">
+              <tr><td colspan="5" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PLANS -->
       <div id="section-plans" class="section">
         <div class="card">
-          <h2><span>Planos & Ações</span><span class="chip">📌</span></h2>
-          <p class="sub">Aba pronta. Próximo passo: CRUD da collection <b>action_plans</b> por território.</p>
+          <h2>
+            <span>Planos de ação</span>
+            <span class="chip">🧭 action_plans</span>
+          </h2>
+          <p class="sub">
+            (Base) lista de <code>action_plans</code>. Você pode evoluir isso depois com metas, responsáveis e prazos.
+          </p>
+
+          <div class="searchbar">
+            <input id="pSearch" class="input" placeholder="Buscar plano...">
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Território</th>
+                <th>Status</th>
+                <th>Prazo</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPlans">
+              <tr><td colspan="4" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+
+          <p class="muted-note">
+            Se você quiser, eu completo esta aba com CRUD, checklists e indicadores.
+          </p>
         </div>
       </div>
 
-      <!-- DECISIONS (placeholder) -->
-      <div id="section-decisions" class="section">
+      <!-- PROFILE -->
+      <div id="section-profile" class="section">
         <div class="card">
-          <h2><span>Decisões</span><span class="chip">🧾</span></h2>
-          <p class="sub">Aba pronta. Próximo passo: histórico de decisões / atas com vínculo ao território.</p>
+          <h2>
+            <span>Meu perfil</span>
+            <span class="chip good" id="chipStatus">—</span>
+          </h2>
+
+          <table class="table">
+            <tbody>
+              <tr><th style="width:180px;">Nome</th><td id="pName">—</td></tr>
+              <tr><th>E-mail</th><td id="pEmail">—</td></tr>
+              <tr><th>Role</th><td id="pRole">—</td></tr>
+              <tr><th>Status</th><td id="pStatus">—</td></tr>
+              <tr><th>UID</th><td id="pUid">—</td></tr>
+            </tbody>
+          </table>
+
+          <p class="muted-note">
+            Você pode aprovar usuários e atribuir território em <b>Usuários</b>.
+          </p>
         </div>
       </div>
-
     </section>
   </main>
 
@@ -813,27 +1003,21 @@
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
     import {
       collection,
-      doc,
-      getDoc,
       query,
       where,
       limit,
       onSnapshot,
-      updateDoc,
+      getDocs,
+      getDoc,
+      doc,
+      setDoc,
       addDoc,
+      updateDoc,
       deleteDoc,
-      serverTimestamp,
-      getDocs
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // ===== UI: top =====
-    const hdrSubtitle = document.getElementById("hdrSubtitle");
-    const badgeRole = document.getElementById("badgeRole");
-    const badgeCounts = document.getElementById("badgeCounts");
-    const btnLogout = document.getElementById("btnLogout");
-    const btnRefresh = document.getElementById("btnRefresh");
-
-    // ===== UI: menu/sections =====
+    // ========= UI: menu/sections =========
     const navButtons = Array.from(document.querySelectorAll(".nav button[data-section]"));
     const sections = Array.from(document.querySelectorAll(".section"));
     function setSection(key){
@@ -842,17 +1026,21 @@
     }
     navButtons.forEach(b => b.addEventListener("click", () => setSection(b.dataset.section)));
 
-    // ===== Toast =====
+    // Home shortcuts
+    document.getElementById("goUsers").addEventListener("click", ()=> setSection("users"));
+    document.getElementById("goTerr").addEventListener("click", ()=> setSection("territories"));
+    document.getElementById("goContent").addEventListener("click", ()=> setSection("contents"));
+    document.getElementById("goNotices").addEventListener("click", ()=> setSection("notices"));
+
+    // ========= Toast =========
     const toast = document.getElementById("toast");
     function notify(text){
       toast.textContent = text;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2600);
+      setTimeout(() => toast.classList.remove("show"), 2800);
     }
 
-    function goLogin(){ window.location.href = "login.html"; }
-    btnLogout?.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
-
+    // ========= Helpers =========
     function esc(s){
       return String(s ?? "").replace(/[&<>"']/g, (m) => ({
         "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
@@ -860,11 +1048,6 @@
     }
     function norm(v){ return String(v ?? "").trim(); }
     function lower(v){ return norm(v).toLowerCase(); }
-
-    function renderEmpty(tbody, colSpan, text){
-      tbody.innerHTML = `<tr><td colspan="${colSpan}" class="mini">${esc(text)}</td></tr>`;
-    }
-
     function tsToMillis(t){
       if (!t) return 0;
       if (typeof t.toMillis === "function") return t.toMillis();
@@ -873,825 +1056,1143 @@
       const ms = d.getTime();
       return Number.isFinite(ms) ? ms : 0;
     }
+    function mergeById(list){
+      const map = new Map();
+      for (const x of list) map.set(x.id, x);
+      return Array.from(map.values());
+    }
+    function renderEmpty(tbody, colSpan, text){
+      tbody.innerHTML = `<tr><td colspan="${colSpan}" class="mini">${esc(text)}</td></tr>`;
+    }
 
-    // =========================
-    // USERS (approvals)
-    // =========================
-    const badgeCounts2 = document.getElementById("badgeCounts2");
-    const chipPending = document.getElementById("chipPending");
+    // ========= Header =========
+    const hdrSubtitle = document.getElementById("hdrSubtitle");
+    const badgeRole = document.getElementById("badgeRole");
+    const badgeUser = document.getElementById("badgeUser");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnRefresh = document.getElementById("btnRefresh");
+    function goLogin(){ window.location.href = "login.html"; }
+    btnLogout.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
+
+    // ========= Profile =========
+    const chipStatus = document.getElementById("chipStatus");
+    const pName = document.getElementById("pName");
+    const pEmail = document.getElementById("pEmail");
+    const pRole = document.getElementById("pRole");
+    const pStatus = document.getElementById("pStatus");
+    const pUid = document.getElementById("pUid");
+
+    // ========= KPIs =========
+    const kpiUsersActive = document.getElementById("kpiUsersActive");
+    const kpiUsersPending = document.getElementById("kpiUsersPending");
+    const kpiReqPending = document.getElementById("kpiReqPending");
+    const kpiTerritories = document.getElementById("kpiTerritories");
+
+    // ========= USERS UI =========
+    const chipReq = document.getElementById("chipReq");
+    const tbodyReq = document.getElementById("tbodyReq");
+    const reqSearch = document.getElementById("reqSearch");
+
     const chipActive = document.getElementById("chipActive");
-    const tbodyPending = document.getElementById("tbodyPending");
     const tbodyActive = document.getElementById("tbodyActive");
-    const qSearch = document.getElementById("qSearch");
-    const qRole = document.getElementById("qRole");
-    const qScope = document.getElementById("qScope");
+    const uSearchActive = document.getElementById("uSearchActive");
 
-    function getName(u){ return u.displayName || u.name || "—"; }
-    function getEmail(u){ return u.email || "—"; }
-    function getRole(u){ return lower(u.role) || "—"; }
-    function getStatus(u){ return lower(u.status) || "—"; }
+    const chipPending = document.getElementById("chipPending");
+    const tbodyPending = document.getElementById("tbodyPending");
+    const uSearchPending = document.getElementById("uSearchPending");
 
-    async function setUserStatus(uid, status){
-      await updateDoc(doc(db, "users", uid), { status, updatedAt: serverTimestamp() });
+    // Territory assignment UI (NEW)
+    const selUserTerr = document.getElementById("selUserTerr");
+    const selTerritory = document.getElementById("selTerritory");
+    const btnSaveTerr = document.getElementById("btnSaveTerr");
+    const btnClearTerr = document.getElementById("btnClearTerr");
+    const userTerrMeta = document.getElementById("userTerrMeta");
+    const terrSaveMsg = document.getElementById("terrSaveMsg");
+
+    function setTerrMsg(text, ok=true){
+      terrSaveMsg.textContent = text;
+      terrSaveMsg.style.color = ok ? "rgba(12,77,68,.95)" : "rgba(91,74,18,.95)";
     }
 
-    function matchUserFilter(u){
-      const s = lower(qSearch?.value);
-      const roleFilter = lower(qRole?.value);
-      const scope = lower(qScope?.value || "all");
-
-      const name = lower(getName(u));
-      const email = lower(getEmail(u));
-      const role = lower(getRole(u));
-      const status = lower(getStatus(u));
-
-      if (roleFilter && role !== roleFilter) return false;
-      if (scope === "pending" && status !== "pending") return false;
-      if (scope === "active" && status !== "active") return false;
-
-      if (!s) return true;
-      return name.includes(s) || email.includes(s) || role.includes(s) || status.includes(s);
-    }
-
-    function pendingRow(id, u){
-      return `
-        <tr data-id="${esc(id)}">
-          <td>${esc(getName(u))}</td>
-          <td>${esc(getEmail(u))}</td>
-          <td><span class="chip">${esc(getRole(u))}</span></td>
-          <td><span class="chip pending">⏳ pending</span></td>
-          <td>
-            <div class="row-actions">
-              <button class="btn primary" data-action="approve">✅ Aprovar</button>
-              <button class="btn danger" data-action="deny">⛔ Recusar</button>
-            </div>
-          </td>
-        </tr>
-      `;
-    }
-
-    function activeRow(id, u){
-      return `
-        <tr data-id="${esc(id)}">
-          <td>${esc(getName(u))}</td>
-          <td>${esc(getEmail(u))}</td>
-          <td><span class="chip">${esc(getRole(u))}</span></td>
-          <td><span class="chip active">✅ active</span></td>
-          <td>
-            <div class="row-actions">
-              <button class="btn danger" data-action="deactivate">🛑 Desativar</button>
-            </div>
-          </td>
-        </tr>
-      `;
-    }
-
-    tbodyPending?.addEventListener("click", async (e) => {
-      const btn = e.target.closest("button");
-      if(!btn) return;
-      const tr = btn.closest("tr");
-      const uid = tr?.getAttribute("data-id");
-      const action = btn.getAttribute("data-action");
-      if(!uid) return;
-
-      try{
-        btn.disabled = true;
-        if(action === "approve"){
-          await setUserStatus(uid, "active");
-          notify("Aprovado ✅");
-        } else if(action === "deny"){
-          await setUserStatus(uid, "inactive");
-          notify("Recusado ⛔ (inactive)");
-        }
-      }catch(err){
-        console.error(err);
-        notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btn.disabled = false;
-      }
-    });
-
-    tbodyActive?.addEventListener("click", async (e) => {
-      const btn = e.target.closest("button");
-      if(!btn) return;
-      const tr = btn.closest("tr");
-      const uid = tr?.getAttribute("data-id");
-      const action = btn.getAttribute("data-action");
-      if(!uid) return;
-      if(action !== "deactivate") return;
-
-      try{
-        btn.disabled = true;
-        await setUserStatus(uid, "inactive");
-        notify("Desativado 🛑 (inactive)");
-      }catch(err){
-        console.error(err);
-        notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btn.disabled = false;
-      }
-    });
-
-    let unsubPending = null;
-    let unsubActive = null;
-    let pendingCache = [];
-    let activeCache = [];
-
-    function updateUserCounts(){
-      const pendingN = pendingCache.length;
-      const activeN = activeCache.length;
-      chipPending.textContent = `⏳ ${pendingN}`;
-      chipActive.textContent = `✅ ${activeN}`;
-
-      const txt = `⏳ ${pendingN} pendentes • ✅ ${activeN} ativos`;
-      badgeCounts.textContent = txt;
-      badgeCounts2.textContent = txt;
-
-      document.getElementById("kpiPending").textContent = String(pendingN);
-      document.getElementById("kpiActive").textContent = String(activeN);
-    }
-
-    function renderUsers(){
-      pendingCache.sort((a,b) => tsToMillis(b.data.createdAt) - tsToMillis(a.data.createdAt));
-      activeCache.sort((a,b) => tsToMillis(b.data.updatedAt || b.data.createdAt) - tsToMillis(a.data.updatedAt || a.data.createdAt));
-
-      const pendings = pendingCache.filter(({data}) => matchUserFilter(data));
-      const actives  = activeCache.filter(({data}) => matchUserFilter(data));
-
-      if (pendings.length === 0) renderEmpty(tbodyPending, 5, "Nenhuma solicitação pendente (ou filtrada).");
-      else tbodyPending.innerHTML = pendings.map(x => pendingRow(x.id, x.data)).join("");
-
-      if (actives.length === 0) renderEmpty(tbodyActive, 5, "Nenhum perfil ativo (ou filtrado).");
-      else tbodyActive.innerHTML = actives.map(x => activeRow(x.id, x.data)).join("");
-
-      updateUserCounts();
-    }
-
-    function startUsers(){
-      const qP = query(collection(db, "users"), where("status", "==", "pending"), limit(300));
-      const qA = query(collection(db, "users"), where("status", "==", "active"),  limit(600));
-
-      unsubPending = onSnapshot(qP, (snap) => {
-        pendingCache = [];
-        snap.forEach((d) => pendingCache.push({ id: d.id, data: d.data() }));
-        renderUsers();
-      }, (err) => {
-        console.error(err);
-        renderEmpty(tbodyPending, 5, `Erro ao carregar pendentes: ${err.code || err.message}`);
-      });
-
-      unsubActive = onSnapshot(qA, (snap) => {
-        activeCache = [];
-        snap.forEach((d) => activeCache.push({ id: d.id, data: d.data() }));
-        renderUsers();
-      }, (err) => {
-        console.error(err);
-        renderEmpty(tbodyActive, 5, `Erro ao carregar ativos: ${err.code || err.message}`);
-      });
-    }
-
-    function stopUsers(){
-      if(typeof unsubPending === "function") unsubPending();
-      if(typeof unsubActive === "function") unsubActive();
-      unsubPending = null;
-      unsubActive = null;
-    }
-
-    [qSearch, qRole, qScope].forEach((el) => {
-      el?.addEventListener("input", () => renderUsers());
-      el?.addEventListener("change", () => renderUsers());
-    });
-
-    // =========================
-    // TERRITORIES (CRUD)
-    // =========================
-    const badgeTerritories = document.getElementById("badgeTerritories");
-    const tbodyTerritories = document.getElementById("tbodyTerritories");
+    // ========= TERRITORIES UI =========
+    const chipTerr = document.getElementById("chipTerr");
+    const tbodyTerr = document.getElementById("tbodyTerr");
     const tSearch = document.getElementById("tSearch");
-    const tStatus = document.getElementById("tStatus");
 
+    const tId = document.getElementById("tId");
     const tName = document.getElementById("tName");
     const tCity = document.getElementById("tCity");
     const tState = document.getElementById("tState");
+    const tCrcName = document.getElementById("tCrcName");
     const tCode = document.getElementById("tCode");
-    const tCrc = document.getElementById("tCrc");
-    const tStatusEdit = document.getElementById("tStatusEdit");
-
+    const tDesc = document.getElementById("tDesc");
+    const tContacts = document.getElementById("tContacts");
+    const tLinks = document.getElementById("tLinks");
+    const btnTerrClear = document.getElementById("btnTerrClear");
     const btnTerrSave = document.getElementById("btnTerrSave");
-    const btnTerrCancel = document.getElementById("btnTerrCancel");
+    const terrMsg = document.getElementById("terrMsg");
 
+    function setTerrCrudMsg(text, ok=true){
+      terrMsg.textContent = text;
+      terrMsg.style.color = ok ? "rgba(12,77,68,.95)" : "rgba(91,74,18,.95)";
+    }
+
+    // ========= CONTENTS UI =========
+    const chipContent = document.getElementById("chipContent");
+    const tbodyContent = document.getElementById("tbodyContent");
+    const cSearch = document.getElementById("cSearch");
+    const cFilterStatus = document.getElementById("cFilterStatus");
+
+    const cId = document.getElementById("cId");
+    const cTitle = document.getElementById("cTitle");
+    const cLevel = document.getElementById("cLevel");
+    const cTerritory = document.getElementById("cTerritory");
+    const cType = document.getElementById("cType");
+    const cStatus = document.getElementById("cStatus");
+    const cUrl = document.getElementById("cUrl");
+    const cSummary = document.getElementById("cSummary");
+    const cBody = document.getElementById("cBody");
+    const btnContentClear = document.getElementById("btnContentClear");
+    const btnContentSave = document.getElementById("btnContentSave");
+    const btnContentDelete = document.getElementById("btnContentDelete");
+    const contentMsg = document.getElementById("contentMsg");
+
+    function setContentMsg(text, ok=true){
+      contentMsg.textContent = text;
+      contentMsg.style.color = ok ? "rgba(12,77,68,.95)" : "rgba(91,74,18,.95)";
+    }
+
+    // ========= NOTICES UI =========
+    const chipNotice = document.getElementById("chipNotice");
+    const tbodyNotice = document.getElementById("tbodyNotice");
+    const nSearchList = document.getElementById("nSearchList");
+    const nFilterActive = document.getElementById("nFilterActive");
+
+    const nId = document.getElementById("nId");
+    const nTitle = document.getElementById("nTitle");
+    const nTerritory = document.getElementById("nTerritory");
+    const nPriority = document.getElementById("nPriority");
+    const nActive = document.getElementById("nActive");
+    const nTags = document.getElementById("nTags");
+    const nBody = document.getElementById("nBody");
+    const btnNoticeClear = document.getElementById("btnNoticeClear");
+    const btnNoticeSave = document.getElementById("btnNoticeSave");
+    const btnNoticeDelete = document.getElementById("btnNoticeDelete");
+    const noticeMsg = document.getElementById("noticeMsg");
+
+    function setNoticeMsg(text, ok=true){
+      noticeMsg.textContent = text;
+      noticeMsg.style.color = ok ? "rgba(12,77,68,.95)" : "rgba(91,74,18,.95)";
+    }
+
+    // ========= PLANS UI =========
+    const tbodyPlans = document.getElementById("tbodyPlans");
+    const pSearch = document.getElementById("pSearch");
+
+    // ========= State =========
+    let myUid = null;
+    let myUser = null;
+
+    let unsubUsers = null;
+    let unsubReq = null;
     let unsubTerr = null;
-    let territoriesCache = []; // [{id,data}]
-    let editingTerrId = null;
+    let unsubContents = null;
+    let unsubNotices = null;
+    let unsubPlans = null;
 
-    function cleanUF(v){
-      return lower(v).replace(/[^a-z]/g, "").slice(0,2).toUpperCase();
+    let USERS_CACHE = [];      // {uid,data}
+    let REQ_CACHE = [];        // {id,data}
+    let TERR_CACHE = [];       // {id,data}
+    let CONTENTS_CACHE = [];   // {id,data}
+    let NOTICES_CACHE = [];    // {id,data}
+    let PLANS_CACHE = [];      // {id,data}
+
+    function stopAll(){
+      if (typeof unsubUsers === "function") unsubUsers();
+      if (typeof unsubReq === "function") unsubReq();
+      if (typeof unsubTerr === "function") unsubTerr();
+      if (typeof unsubContents === "function") unsubContents();
+      if (typeof unsubNotices === "function") unsubNotices();
+      if (typeof unsubPlans === "function") unsubPlans();
+      unsubUsers = unsubReq = unsubTerr = unsubContents = unsubNotices = unsubPlans = null;
     }
 
-    function terrStatusChip(status){
-      const s = lower(status);
-      if (s === "inactive") return `<span class="chip inactive">inactive</span>`;
-      return `<span class="chip active">active</span>`;
+    // ========= Start listeners =========
+    function startUsers(){
+      unsubUsers = onSnapshot(query(collection(db, "users"), limit(800)), (snap) => {
+        USERS_CACHE = [];
+        snap.forEach(d => USERS_CACHE.push({ uid: d.id, data: d.data() || {} }));
+        renderUsers();
+        renderUserTerritoryPicker();
+        renderKpis();
+      }, (err)=> {
+        console.error(err);
+        renderEmpty(tbodyActive, 5, `Erro: ${err.code || err.message}`);
+        renderEmpty(tbodyPending, 5, `Erro: ${err.code || err.message}`);
+      });
     }
 
-    function matchTerrFilter(t){
-      const s = lower(tSearch?.value);
-      const statusFilter = lower(tStatus?.value);
-
-      const name = lower(t.name);
-      const city = lower(t.city);
-      const uf = lower(t.state);
-      const code = lower(t.code);
-      const crc = lower(t.crcName);
-      const status = lower(t.status);
-
-      if (statusFilter && status !== statusFilter) return false;
-      if (!s) return true;
-
-      return name.includes(s) || city.includes(s) || uf.includes(s) || code.includes(s) || crc.includes(s);
+    function startRequests(){
+      unsubReq = onSnapshot(query(collection(db, "access_requests"), limit(800)), (snap) => {
+        REQ_CACHE = [];
+        snap.forEach(d => REQ_CACHE.push({ id: d.id, data: d.data() || {} }));
+        renderRequests();
+        renderKpis();
+      }, (err)=>{
+        console.error(err);
+        renderEmpty(tbodyReq, 4, `Erro: ${err.code || err.message}`);
+      });
     }
 
-    function terrRow(id, t){
-      const cityUf = [t.city || "—", t.state || "—"].filter(Boolean).join(" / ");
-      return `
-        <tr data-id="${esc(id)}">
-          <td>${esc(t.name || "—")}</td>
-          <td>${esc(cityUf)}</td>
-          <td>${esc(t.code || "—")}</td>
-          <td>${esc(t.crcName || "—")}</td>
-          <td>${terrStatusChip(t.status || "active")}</td>
-          <td>
-            <div class="row-actions">
-              <button class="btn" data-action="edit">✏️ Editar</button>
-              <button class="btn danger" data-action="delete">🗑️ Excluir</button>
-            </div>
-          </td>
-        </tr>
-      `;
+    function startTerritories(){
+      unsubTerr = onSnapshot(query(collection(db, "territories"), limit(800)), (snap) => {
+        TERR_CACHE = [];
+        snap.forEach(d => TERR_CACHE.push({ id: d.id, data: d.data() || {} }));
+        renderTerritories();
+        renderTerritorySelects();
+        renderKpis();
+      }, (err)=>{
+        console.error(err);
+        renderEmpty(tbodyTerr, 5, `Erro: ${err.code || err.message}`);
+      });
     }
 
-    function updateTerrCount(){
-      badgeTerritories.textContent = `🗺️ ${territoriesCache.length}`;
-      document.getElementById("kpiTerr").textContent = String(territoriesCache.length);
-      // também atualiza selects de conteúdos quando territórios mudam
-      refreshContentTerritorySelects();
+    function startContents(){
+      unsubContents = onSnapshot(query(collection(db, "contents"), limit(800)), (snap) => {
+        CONTENTS_CACHE = [];
+        snap.forEach(d => CONTENTS_CACHE.push({ id: d.id, data: d.data() || {} }));
+        renderContents();
+        renderKpis();
+      }, (err)=>{
+        console.error(err);
+        renderEmpty(tbodyContent, 5, `Erro: ${err.code || err.message}`);
+      });
     }
 
-    function renderTerritories(){
-      territoriesCache.sort((a,b) => {
-        const am = tsToMillis(a.data.updatedAt || a.data.createdAt);
-        const bm = tsToMillis(b.data.updatedAt || b.data.createdAt);
-        return bm - am;
+    function startNotices(){
+      unsubNotices = onSnapshot(query(collection(db, "notices"), limit(800)), (snap) => {
+        NOTICES_CACHE = [];
+        snap.forEach(d => NOTICES_CACHE.push({ id: d.id, data: d.data() || {} }));
+        renderNotices();
+        renderKpis();
+      }, (err)=>{
+        console.error(err);
+        renderEmpty(tbodyNotice, 5, `Erro: ${err.code || err.message}`);
+      });
+    }
+
+    function startPlans(){
+      unsubPlans = onSnapshot(query(collection(db, "action_plans"), limit(800)), (snap) => {
+        PLANS_CACHE = [];
+        snap.forEach(d => PLANS_CACHE.push({ id: d.id, data: d.data() || {} }));
+        renderPlans();
+      }, (err)=>{
+        console.error(err);
+        renderEmpty(tbodyPlans, 4, `Erro: ${err.code || err.message}`);
+      });
+    }
+
+    // ========= KPIs =========
+    function renderKpis(){
+      const users = USERS_CACHE.map(x => x.data || {});
+      const active = users.filter(u => lower(u.status) === "active").length;
+      const pending = users.filter(u => lower(u.status) === "pending").length;
+
+      const reqPending = REQ_CACHE.filter(r => lower(r.data.status || "pending") === "pending").length;
+      const terrCount = TERR_CACHE.length;
+
+      kpiUsersActive.textContent = String(active);
+      kpiUsersPending.textContent = String(pending);
+      kpiReqPending.textContent = String(reqPending);
+      kpiTerritories.textContent = String(terrCount);
+
+      chipReq.textContent = `⏳ ${reqPending}`;
+      chipActive.textContent = `✅ ${active}`;
+      chipPending.textContent = `🕒 ${pending}`;
+      chipTerr.textContent = `🗺️ ${terrCount}`;
+      chipContent.textContent = `📚 ${CONTENTS_CACHE.length}`;
+      chipNotice.textContent = `📣 ${NOTICES_CACHE.length}`;
+    }
+
+    // ========= USERS rendering =========
+    function renderUsers(){
+      const sA = lower(uSearchActive.value);
+      const sP = lower(uSearchPending.value);
+
+      const usersNorm = USERS_CACHE.map(x => {
+        const u = x.data || {};
+        return {
+          uid: x.uid,
+          name: u.displayName || u.name || "(sem nome)",
+          email: u.email || "",
+          role: lower(u.role),
+          status: lower(u.status),
+          territoryId: u.territoryId || "",
+        };
       });
 
-      const filtered = territoriesCache.filter(({data}) => matchTerrFilter(data));
-      if (filtered.length === 0) renderEmpty(tbodyTerritories, 6, "Nenhum território (ou filtrado).");
-      else tbodyTerritories.innerHTML = filtered.map(x => terrRow(x.id, x.data)).join("");
+      const act = usersNorm
+        .filter(u => u.status === "active")
+        .filter(u => !sA || (lower(u.name).includes(sA) || lower(u.email).includes(sA) || lower(u.uid).includes(sA) || lower(u.territoryId).includes(sA)))
+        .sort((a,b)=> (a.name||"").localeCompare(b.name||""));
 
-      updateTerrCount();
+      const pend = usersNorm
+        .filter(u => u.status !== "active") // pending/other
+        .filter(u => !sP || (lower(u.name).includes(sP) || lower(u.email).includes(sP) || lower(u.uid).includes(sP)))
+        .sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+
+      if (act.length === 0) renderEmpty(tbodyActive, 5, "Nenhum usuário ativo (ou filtrado).");
+      else {
+        tbodyActive.innerHTML = act.map(u => `
+          <tr>
+            <td>${esc(u.name)}</td>
+            <td>${esc(u.email)}</td>
+            <td><span class="chip">${esc(u.role || "—")}</span></td>
+            <td><span class="chip">${esc(u.territoryId || "—")}</span></td>
+            <td><span class="chip good">active</span></td>
+          </tr>
+        `).join("");
+      }
+
+      if (pend.length === 0) renderEmpty(tbodyPending, 5, "Nenhum usuário pendente (ou filtrado).");
+      else {
+        tbodyPending.innerHTML = pend.map(u => `
+          <tr>
+            <td>${esc(u.name)}</td>
+            <td>${esc(u.email)}</td>
+            <td><span class="chip">${esc(u.role || "—")}</span></td>
+            <td><span class="chip">${esc(u.territoryId || "—")}</span></td>
+            <td>
+              <button class="btn primary" data-act="activate" data-uid="${esc(u.uid)}">✅ Ativar</button>
+              <button class="btn" data-act="setpending" data-uid="${esc(u.uid)}">🕒 Pending</button>
+              <button class="btn danger" data-act="delete" data-uid="${esc(u.uid)}">🗑️ Excluir</button>
+            </td>
+          </tr>
+        `).join("");
+      }
     }
 
-    function resetTerrForm(){
-      editingTerrId = null;
+    tbodyPending.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-act]");
+      if (!btn) return;
+      const act = btn.dataset.act;
+      const uid = btn.dataset.uid;
+      if (!uid) return;
+
+      try{
+        if (act === "activate"){
+          await updateDoc(doc(db, "users", uid), { status: "active", updatedAt: serverTimestamp() });
+          notify("Usuário ativado ✅");
+        } else if (act === "setpending"){
+          await updateDoc(doc(db, "users", uid), { status: "pending", updatedAt: serverTimestamp() });
+          notify("Usuário marcado como pending ✅");
+        } else if (act === "delete"){
+          if (!confirm("Excluir usuário (doc users/{uid})?")) return;
+          await deleteDoc(doc(db, "users", uid));
+          notify("Usuário excluído ✅");
+        }
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+      }
+    });
+
+    uSearchActive.addEventListener("input", renderUsers);
+    uSearchPending.addEventListener("input", renderUsers);
+
+    // ========= REQUESTS rendering + approve/reject =========
+    function renderRequests(){
+      const s = lower(reqSearch.value);
+
+      const list = REQ_CACHE
+        .map(x => ({ id: x.id, data: x.data || {} }))
+        .filter(x => lower(x.data.status || "pending") === "pending")
+        .filter(x => {
+          if (!s) return true;
+          const d = x.data || {};
+          return (
+            lower(d.uid).includes(s) ||
+            lower(d.email).includes(s) ||
+            lower(d.name).includes(s) ||
+            lower(d.role).includes(s) ||
+            lower(d.territoryId).includes(s)
+          );
+        })
+        .sort((a,b)=> tsToMillis(b.data.createdAt) - tsToMillis(a.data.createdAt));
+
+      if (list.length === 0) renderEmpty(tbodyReq, 4, "Nenhuma solicitação pendente (ou filtrada).");
+      else {
+        tbodyReq.innerHTML = list.map(x => {
+          const d = x.data || {};
+          const who = `${d.name || "(sem nome)"} • ${d.email || ""} • uid: ${d.uid || "—"}`;
+          const role = d.role || "cooperativa";
+          const territoryId = d.territoryId || "";
+          return `
+            <tr>
+              <td>${esc(who)}</td>
+              <td>
+                <span class="chip">${esc(role)}</span>
+                <span class="chip warn">pending</span>
+              </td>
+              <td><span class="chip">${esc(territoryId || "—")}</span></td>
+              <td>
+                <button class="btn primary" data-act="approve" data-id="${esc(x.id)}">✅ Aprovar</button>
+                <button class="btn danger" data-act="reject" data-id="${esc(x.id)}">⛔ Rejeitar</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      }
+    }
+
+    reqSearch.addEventListener("input", renderRequests);
+
+    tbodyReq.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-act]");
+      if (!btn) return;
+      const act = btn.dataset.act;
+      const reqId = btn.dataset.id;
+      const req = REQ_CACHE.find(x => x.id === reqId);
+      if (!req) return;
+
+      const d = req.data || {};
+      const uid = d.uid;
+      const role = lower(d.role) || "cooperativa";
+      const territoryId = d.territoryId || null;
+
+      try{
+        if (act === "approve"){
+          if (!uid) throw new Error("Solicitação sem uid.");
+
+          // atualiza usuário
+          await updateDoc(doc(db, "users", uid), {
+            status: "active",
+            role: role,
+            territoryId: territoryId,
+            updatedAt: serverTimestamp()
+          });
+
+          // marca request
+          await updateDoc(doc(db, "access_requests", reqId), {
+            status: "approved",
+            decidedBy: myUid,
+            decidedAt: serverTimestamp()
+          });
+
+          notify("Solicitação aprovada ✅");
+        }
+
+        if (act === "reject"){
+          if (!confirm("Rejeitar solicitação?")) return;
+          await updateDoc(doc(db, "access_requests", reqId), {
+            status: "rejected",
+            decidedBy: myUid,
+            decidedAt: serverTimestamp()
+          });
+          notify("Solicitação rejeitada ✅");
+        }
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+      }
+    });
+
+    // ========= NEW: Update territory picker =========
+    function renderUserTerritoryPicker(){
+      if (!selUserTerr) return;
+
+      const users = USERS_CACHE.map(x => {
+        const u = x.data || {};
+        return {
+          uid: x.uid,
+          name: u.displayName || u.name || "(sem nome)",
+          email: u.email || "",
+          role: lower(u.role),
+          status: lower(u.status),
+          territoryId: u.territoryId || ""
+        };
+      }).sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+
+      const current = selUserTerr.value || "";
+      selUserTerr.innerHTML =
+        `<option value="">Selecione um usuário…</option>` +
+        users.map(u => {
+          const label = `${u.name} • ${u.role||"-"} • ${u.status||"-"} • ${u.email||""}`.trim();
+          return `<option value="${esc(u.uid)}">${esc(label)}</option>`;
+        }).join("");
+
+      if (current && users.some(u => u.uid === current)){
+        selUserTerr.value = current;
+      } else {
+        selUserTerr.value = "";
+        userTerrMeta.textContent = "—";
+      }
+    }
+
+    function renderTerritorySelects(){
+      const terrs = TERR_CACHE.map(x => ({ id: x.id, name: x.data?.name || x.data?.nome || x.id }))
+        .sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+
+      // users picker territory select
+      if (selTerritory){
+        const cur = selTerritory.value || "";
+        selTerritory.innerHTML = `<option value="">(vazio) remover</option>` + terrs.map(t => `
+          <option value="${esc(t.id)}">${esc(t.name)} • (${esc(t.id)})</option>
+        `).join("");
+        if (cur && terrs.some(t => t.id === cur)) selTerritory.value = cur;
+      }
+
+      // content territory select
+      if (cTerritory){
+        const curC = cTerritory.value || "";
+        cTerritory.innerHTML = `<option value="">Geral (null)</option>` + terrs.map(t => `
+          <option value="${esc(t.id)}">${esc(t.name)} • (${esc(t.id)})</option>
+        `).join("");
+        if (curC && terrs.some(t => t.id === curC)) cTerritory.value = curC;
+      }
+
+      // notice territory select
+      if (nTerritory){
+        const curN = nTerritory.value || "";
+        nTerritory.innerHTML = `<option value="">Geral (null)</option>` + terrs.map(t => `
+          <option value="${esc(t.id)}">${esc(t.name)} • (${esc(t.id)})</option>
+        `).join("");
+        if (curN && terrs.some(t => t.id === curN)) nTerritory.value = curN;
+      }
+    }
+
+    selUserTerr?.addEventListener("change", () => {
+      const uid = selUserTerr.value || "";
+      const u = USERS_CACHE.find(x => x.uid === uid)?.data || null;
+      if (!u){
+        userTerrMeta.textContent = "—";
+        selTerritory.value = "";
+        setTerrMsg("—", true);
+        return;
+      }
+      userTerrMeta.textContent = `Atual: territoryId = ${u.territoryId || "(vazio)"} • UID: ${uid}`;
+      selTerritory.value = u.territoryId || "";
+      setTerrMsg("—", true);
+    });
+
+    btnClearTerr?.addEventListener("click", () => {
+      selUserTerr.value = "";
+      selTerritory.value = "";
+      userTerrMeta.textContent = "—";
+      setTerrMsg("—", true);
+    });
+
+    btnSaveTerr?.addEventListener("click", async () => {
+      const uid = selUserTerr.value || "";
+      const territoryId = selTerritory.value || "";
+
+      if (!uid){
+        setTerrMsg("Selecione um usuário.", false);
+        return;
+      }
+
+      btnSaveTerr.disabled = true;
+      btnSaveTerr.textContent = "Salvando...";
+
+      try{
+        await updateDoc(doc(db, "users", uid), {
+          territoryId: territoryId || null,
+          updatedAt: serverTimestamp()
+        });
+        setTerrMsg("Território atualizado com sucesso ✅", true);
+        notify("Território atualizado ✅");
+      }catch(err){
+        console.error(err);
+        setTerrMsg(`Erro ao salvar: ${err.code || err.message}`, false);
+        notify(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnSaveTerr.disabled = false;
+        btnSaveTerr.textContent = "💾 Salvar território";
+      }
+    });
+
+    // ========= TERRITORIES CRUD =========
+    function terrClear(){
+      tId.value = "";
       tName.value = "";
       tCity.value = "";
       tState.value = "";
+      tCrcName.value = "";
       tCode.value = "";
-      tCrc.value = "";
-      tStatusEdit.value = "active";
-      btnTerrSave.textContent = "➕ Criar território";
-      btnTerrCancel.style.display = "none";
+      tDesc.value = "";
+      tContacts.value = "";
+      tLinks.value = "";
+      setTerrCrudMsg("—", true);
     }
+    btnTerrClear.addEventListener("click", terrClear);
 
-    async function createTerritory(){
-      const name = norm(tName.value);
-      const city = norm(tCity.value);
-      const state = cleanUF(tState.value);
-      const code = norm(tCode.value);
-      const crcName = norm(tCrc.value);
-      const status = lower(tStatusEdit.value) || "active";
+    btnTerrSave.addEventListener("click", async () => {
+      const id = norm(tId.value);
+      const data = {
+        name: norm(tName.value) || null,
+        city: norm(tCity.value) || null,
+        state: norm(tState.value) || null,
+        crcName: norm(tCrcName.value) || null,
+        code: norm(tCode.value) || null,
+        description: norm(tDesc.value) || null,
+        contactsText: norm(tContacts.value) || null,
+        links: norm(tLinks.value)
+          ? norm(tLinks.value).split("\n").map(s => norm(s)).filter(Boolean)
+          : [],
+        updatedAt: serverTimestamp()
+      };
 
-      if (!name){
-        alert("Informe o nome do território.");
+      if (!data.name){
+        setTerrCrudMsg("Informe o nome do território.", false);
         return;
       }
 
       btnTerrSave.disabled = true;
+      btnTerrSave.textContent = "Salvando...";
+
       try{
-        await addDoc(collection(db, "territories"), {
-          name,
-          city: city || null,
-          state: state || null,
-          code: code || null,
-          crcName: crcName || null,
-          status,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
-        });
-        notify("Território criado ✅");
-        resetTerrForm();
+        if (id){
+          // upsert fixed id
+          await setDoc(doc(db, "territories", id), {
+            ...data,
+            createdAt: serverTimestamp()
+          }, { merge: true });
+          setTerrCrudMsg(`Território salvo ✅ (ID: ${id})`, true);
+        } else {
+          // auto-id
+          await addDoc(collection(db, "territories"), {
+            ...data,
+            createdAt: serverTimestamp()
+          });
+          setTerrCrudMsg("Território criado ✅ (auto-id)", true);
+        }
+        notify("Território salvo ✅");
+        terrClear();
       }catch(err){
         console.error(err);
+        setTerrCrudMsg(`Erro: ${err.code || err.message}`, false);
         notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
       }finally{
         btnTerrSave.disabled = false;
+        btnTerrSave.textContent = "💾 Salvar (criar/atualizar)";
       }
-    }
-
-    async function updateTerritory(id){
-      const name = norm(tName.value);
-      const city = norm(tCity.value);
-      const state = cleanUF(tState.value);
-      const code = norm(tCode.value);
-      const crcName = norm(tCrc.value);
-      const status = lower(tStatusEdit.value) || "active";
-
-      if (!name){
-        alert("Informe o nome do território.");
-        return;
-      }
-
-      btnTerrSave.disabled = true;
-      try{
-        await updateDoc(doc(db, "territories", id), {
-          name,
-          city: city || null,
-          state: state || null,
-          code: code || null,
-          crcName: crcName || null,
-          status,
-          updatedAt: serverTimestamp()
-        });
-        notify("Território atualizado ✅");
-        resetTerrForm();
-      }catch(err){
-        console.error(err);
-        notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btnTerrSave.disabled = false;
-      }
-    }
-
-    btnTerrSave?.addEventListener("click", async () => {
-      if (editingTerrId) await updateTerritory(editingTerrId);
-      else await createTerritory();
     });
-    btnTerrCancel?.addEventListener("click", () => resetTerrForm());
 
-    tbodyTerritories?.addEventListener("click", async (e) => {
-      const btn = e.target.closest("button");
-      if(!btn) return;
-      const tr = btn.closest("tr");
-      const id = tr?.getAttribute("data-id");
-      const action = btn.getAttribute("data-action");
-      if(!id) return;
+    function renderTerritories(){
+      const s = lower(tSearch.value);
+      const list = TERR_CACHE
+        .map(x => ({
+          id: x.id,
+          name: x.data?.name || x.data?.nome || x.id,
+          city: x.data?.city || "",
+          state: x.data?.state || "",
+          crcName: x.data?.crcName || "",
+          data: x.data || {}
+        }))
+        .filter(t => !s || (lower(t.name).includes(s) || lower(t.id).includes(s) || lower(t.city).includes(s) || lower(t.state).includes(s) || lower(t.crcName).includes(s)))
+        .sort((a,b)=> (a.name||"").localeCompare(b.name||""));
 
-      const item = territoriesCache.find(x => x.id === id);
-      if (!item) return;
+      chipTerr.textContent = `🗺️ ${list.length}`;
 
-      if (action === "edit"){
-        const t = item.data;
-        editingTerrId = id;
-        tName.value = t.name || "";
-        tCity.value = t.city || "";
-        tState.value = (t.state || "").toUpperCase();
-        tCode.value = t.code || "";
-        tCrc.value = t.crcName || "";
-        tStatusEdit.value = lower(t.status) === "inactive" ? "inactive" : "active";
-        btnTerrSave.textContent = "💾 Salvar alterações";
-        btnTerrCancel.style.display = "inline-flex";
-        notify("Editando território ✏️");
+      if (list.length === 0) renderEmpty(tbodyTerr, 5, "Nenhum território (ou filtrado).");
+      else {
+        tbodyTerr.innerHTML = list.map(t => `
+          <tr>
+            <td>${esc(t.name)}</td>
+            <td><span class="chip">${esc(t.id)}</span></td>
+            <td>${esc([t.city, t.state].filter(Boolean).join(" / ") || "—")}</td>
+            <td>${esc(t.crcName || "—")}</td>
+            <td>
+              <button class="btn" data-act="edit" data-id="${esc(t.id)}">✏️ Editar</button>
+              <button class="btn danger" data-act="del" data-id="${esc(t.id)}">🗑️ Excluir</button>
+            </td>
+          </tr>
+        `).join("");
+      }
+    }
+    tSearch.addEventListener("input", renderTerritories);
+
+    tbodyTerr.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-act]");
+      if (!btn) return;
+      const act = btn.dataset.act;
+      const id = btn.dataset.id;
+      if (!id) return;
+
+      if (act === "edit"){
+        const t = TERR_CACHE.find(x => x.id === id);
+        if (!t) return;
+        const d = t.data || {};
+        tId.value = id;
+        tName.value = d.name || "";
+        tCity.value = d.city || "";
+        tState.value = d.state || "";
+        tCrcName.value = d.crcName || "";
+        tCode.value = d.code || "";
+        tDesc.value = d.description || d.desc || "";
+        tContacts.value = d.contactsText || "";
+        tLinks.value = Array.isArray(d.links) ? d.links.join("\n") : "";
+        setTerrCrudMsg(`Editando: ${id}`, true);
+        notify("Território carregado para edição ✏️");
         setSection("territories");
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      if (action === "delete"){
-        const ok = confirm(`Excluir o território:\n\n${item.data.name || id}\n\nIsso não pode ser desfeito.`);
-        if (!ok) return;
-
-        btn.disabled = true;
+      if (act === "del"){
+        if (!confirm(`Excluir território ${id}?`)) return;
         try{
           await deleteDoc(doc(db, "territories", id));
-          notify("Território excluído 🗑️");
-          if (editingTerrId === id) resetTerrForm();
+          notify("Território excluído ✅");
         }catch(err){
           console.error(err);
           notify(`Erro: ${err.code || err.message}`);
-          alert(`Erro: ${err.code || err.message}`);
-        }finally{
-          btn.disabled = false;
         }
       }
     });
 
-    [tSearch, tStatus].forEach((el) => {
-      el?.addEventListener("input", () => renderTerritories());
-      el?.addEventListener("change", () => renderTerritories());
-    });
-
-    function startTerritories(){
-      const qT = query(collection(db, "territories"), limit(800));
-      unsubTerr = onSnapshot(qT, (snap) => {
-        territoriesCache = [];
-        snap.forEach((d) => territoriesCache.push({ id: d.id, data: d.data() }));
-        renderTerritories();
-      }, (err) => {
-        console.error(err);
-        renderEmpty(tbodyTerritories, 6, `Erro ao carregar territórios: ${err.code || err.message}`);
-      });
-    }
-
-    function stopTerritories(){
-      if(typeof unsubTerr === "function") unsubTerr();
-      unsubTerr = null;
-    }
-
-    // =========================
-    // CONTENTS (FULL CRUD)
-    // =========================
-    const chipContentMode = document.getElementById("chipContentMode");
-    const cSearch = document.getElementById("cSearch");
-    const cStatus = document.getElementById("cStatus");
-    const cType = document.getElementById("cType");
-    const cTerritory = document.getElementById("cTerritory");
-
-    const cTitle = document.getElementById("cTitle");
-    const cTypeEdit = document.getElementById("cTypeEdit");
-    const cTerritoryEdit = document.getElementById("cTerritoryEdit");
-    const cStatusEdit = document.getElementById("cStatusEdit");
-    const cSummary = document.getElementById("cSummary");
-    const cBody = document.getElementById("cBody");
-    const cUrl = document.getElementById("cUrl");
-    const btnContentSave = document.getElementById("btnContentSave");
-    const btnContentCancel = document.getElementById("btnContentCancel");
-
-    const badgeContents = document.getElementById("badgeContents");
-    const tbodyContents = document.getElementById("tbodyContents");
-
-    let unsubContents = null;
-    let contentsCache = []; // [{id,data}]
-    let editingContentId = null;
-
-    function territoryLabel(id){
-      if (!id) return "—";
-      const t = territoriesCache.find(x => x.id === id)?.data;
-      if (!t) return id;
-      const nm = t.name || id;
-      const place = [t.city, t.state].filter(Boolean).join("/");
-      return place ? `${nm} • ${place}` : nm;
-    }
-
-    function refreshContentTerritorySelects(){
-      // preserva valor selecionado
-      const curFilter = cTerritory.value;
-      const curEdit = cTerritoryEdit.value;
-
-      const list = territoriesCache
-        .map(x => ({ id: x.id, ...x.data }))
-        .sort((a,b) => String(a.name||a.id).localeCompare(String(b.name||b.id), "pt-BR"));
-
-      cTerritory.innerHTML =
-        `<option value="">Todos territórios</option>` +
-        list.map(t => {
-          const label = `${t.name || t.id}${t.city ? " • " + t.city : ""}${t.state ? "/" + t.state : ""}`;
-          return `<option value="${esc(t.id)}">${esc(label)}</option>`;
-        }).join("");
-
-      cTerritoryEdit.innerHTML =
-        `<option value="">(sem território)</option>` +
-        list.map(t => {
-          const label = `${t.name || t.id}${t.city ? " • " + t.city : ""}${t.state ? "/" + t.state : ""}`;
-          return `<option value="${esc(t.id)}">${esc(label)}</option>`;
-        }).join("");
-
-      // tenta restaurar seleção anterior
-      if ([...cTerritory.options].some(o => o.value === curFilter)) cTerritory.value = curFilter;
-      else cTerritory.value = "";
-
-      if ([...cTerritoryEdit.options].some(o => o.value === curEdit)) cTerritoryEdit.value = curEdit;
-      else cTerritoryEdit.value = (editingContentId ? curEdit : "");
-    }
-
-    function contentStatusChip(status){
-      const s = lower(status);
-      if (s === "published") return `<span class="chip published">published</span>`;
-      if (s === "archived") return `<span class="chip archived">archived</span>`;
-      return `<span class="chip draft">draft</span>`;
-    }
-
-    function resetContentForm(){
-      editingContentId = null;
-      chipContentMode.textContent = "📝 editor";
+    // ========= CONTENTS CRUD =========
+    function contentClear(){
+      cId.value = "";
       cTitle.value = "";
-      cTypeEdit.value = "guia";
-      cTerritoryEdit.value = "";
-      cStatusEdit.value = "draft";
+      cLevel.value = "iniciante";
+      cTerritory.value = "";
+      cType.value = "material";
+      cStatus.value = "published";
+      cUrl.value = "";
       cSummary.value = "";
       cBody.value = "";
-      cUrl.value = "";
-      btnContentSave.textContent = "➕ Criar conteúdo";
-      btnContentCancel.style.display = "none";
+      setContentMsg("—", true);
+    }
+    btnContentClear.addEventListener("click", contentClear);
+
+    async function loadContentById(id){
+      const snap = await getDoc(doc(db, "contents", id));
+      if (!snap.exists()){
+        setContentMsg("Conteúdo não encontrado.", false);
+        return;
+      }
+      const d = snap.data() || {};
+      cId.value = id;
+      cTitle.value = d.title || "";
+      cLevel.value = d.level || d.nivel || "iniciante";
+      cTerritory.value = d.territoryId || "";
+      cType.value = d.type || "material";
+      cStatus.value = d.status || "published";
+      cUrl.value = d.url || "";
+      cSummary.value = d.summary || "";
+      cBody.value = d.body || "";
+      setContentMsg(`Editando: ${id}`, true);
+      notify("Conteúdo carregado ✏️");
     }
 
-    function matchContentFilters(c){
-      const s = lower(cSearch.value);
-      const st = lower(cStatus.value);
-      const ty = lower(cType.value);
-      const terr = norm(cTerritory.value);
+    btnContentSave.addEventListener("click", async () => {
+      const id = norm(cId.value);
+      const data = {
+        title: norm(cTitle.value) || null,
+        level: norm(cLevel.value) || "iniciante",
+        territoryId: norm(cTerritory.value) || null,
+        type: norm(cType.value) || "material",
+        status: norm(cStatus.value) || "published",
+        url: norm(cUrl.value) || null,
+        summary: norm(cSummary.value) || null,
+        body: norm(cBody.value) || null,
+        updatedAt: serverTimestamp()
+      };
 
-      const title = lower(c.title);
-      const type = lower(c.type);
-      const status = lower(c.status);
-      const summary = lower(c.summary);
-      const body = lower(c.body);
-      const url = lower(c.url);
-      const territoryId = norm(c.territoryId);
-      const terrLabel = lower(territoryLabel(territoryId));
+      if (!data.title){
+        setContentMsg("Informe o título.", false);
+        return;
+      }
 
-      if (st && status !== st) return false;
-      if (ty && type !== ty) return false;
-      if (terr && territoryId !== terr) return false;
+      btnContentSave.disabled = true;
+      btnContentSave.textContent = "Salvando...";
 
-      if (!s) return true;
-      return (
-        title.includes(s) ||
-        type.includes(s) ||
-        status.includes(s) ||
-        summary.includes(s) ||
-        body.includes(s) ||
-        url.includes(s) ||
-        terrLabel.includes(s)
-      );
-    }
+      try{
+        if (id){
+          await setDoc(doc(db, "contents", id), { ...data, createdAt: serverTimestamp() }, { merge:true });
+          setContentMsg(`Conteúdo salvo ✅ (ID: ${id})`, true);
+        } else {
+          await addDoc(collection(db, "contents"), { ...data, createdAt: serverTimestamp() });
+          setContentMsg("Conteúdo criado ✅ (auto-id)", true);
+        }
+        notify("Conteúdo salvo ✅");
+        contentClear();
+      }catch(err){
+        console.error(err);
+        setContentMsg(`Erro: ${err.code || err.message}`, false);
+        notify(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnContentSave.disabled = false;
+        btnContentSave.textContent = "💾 Salvar";
+      }
+    });
 
-    function contentRow(id, c){
-      return `
-        <tr data-id="${esc(id)}">
-          <td>
-            ${esc(c.title || "—")}
-            ${c.url ? `<div class="mini" style="margin-top:4px; opacity:.78;">🔗 ${esc(c.url)}</div>` : ""}
-          </td>
-          <td><span class="chip">${esc(c.type || "—")}</span></td>
-          <td>${esc(territoryLabel(c.territoryId))}</td>
-          <td>${contentStatusChip(c.status || "draft")}</td>
-          <td>
-            <div class="row-actions">
-              <button class="btn" data-action="edit">✏️ Editar</button>
-              <button class="btn" data-action="publish">🚀 Publicar</button>
-              <button class="btn" data-action="archive">📦 Arquivar</button>
-              <button class="btn danger" data-action="delete">🗑️ Excluir</button>
-            </div>
-          </td>
-        </tr>
-      `;
-    }
+    btnContentDelete.addEventListener("click", async () => {
+      const id = norm(cId.value);
+      if (!id){
+        setContentMsg("Informe um ID para excluir.", false);
+        return;
+      }
+      if (!confirm(`Excluir conteúdo ${id}?`)) return;
 
-    function updateContentKPIs(){
-      const total = contentsCache.length;
-      const published = contentsCache.filter(x => lower(x.data.status) === "published").length;
-      const drafts = contentsCache.filter(x => !x.data.status || lower(x.data.status) === "draft").length;
-
-      document.getElementById("kpiContents").textContent = String(total);
-      document.getElementById("kpiPublished").textContent = String(published);
-      document.getElementById("kpiDrafts").textContent = String(drafts);
-    }
+      try{
+        await deleteDoc(doc(db, "contents", id));
+        notify("Conteúdo excluído ✅");
+        contentClear();
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+      }
+    });
 
     function renderContents(){
-      contentsCache.sort((a,b) => tsToMillis(b.data.updatedAt || b.data.createdAt) - tsToMillis(a.data.updatedAt || a.data.createdAt));
-      const filtered = contentsCache.filter(({data}) => matchContentFilters(data));
+      const s = lower(cSearch.value);
+      const fs = lower(cFilterStatus.value);
 
-      badgeContents.textContent = `📚 ${filtered.length}`;
+      const list = CONTENTS_CACHE
+        .map(x => ({
+          id: x.id,
+          d: x.data || {}
+        }))
+        .filter(x => {
+          const d = x.d;
+          if (fs && lower(d.status) !== fs) return false;
+          if (!s) return true;
+          return (
+            lower(d.title).includes(s) ||
+            lower(d.summary).includes(s) ||
+            lower(d.level || d.nivel).includes(s) ||
+            lower(d.type).includes(s)
+          );
+        })
+        .sort((a,b)=> tsToMillis(b.d.updatedAt || b.d.createdAt) - tsToMillis(a.d.updatedAt || a.d.createdAt));
 
-      if (filtered.length === 0) renderEmpty(tbodyContents, 5, "Nenhum conteúdo (ou filtrado).");
-      else tbodyContents.innerHTML = filtered.map(x => contentRow(x.id, x.data)).join("");
+      chipContent.textContent = `📚 ${list.length}`;
 
-      updateContentKPIs();
-    }
-
-    async function createContent(){
-      const title = norm(cTitle.value);
-      if (!title){ alert("Informe o título."); return; }
-
-      btnContentSave.disabled = true;
-      try{
-        await addDoc(collection(db, "contents"), {
-          title,
-          type: lower(cTypeEdit.value) || "guia",
-          territoryId: norm(cTerritoryEdit.value) || null,
-          status: lower(cStatusEdit.value) || "draft",
-          summary: norm(cSummary.value) || null,
-          body: norm(cBody.value) || null,
-          url: norm(cUrl.value) || null,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
-        });
-        notify("Conteúdo criado ✅");
-        resetContentForm();
-      }catch(err){
-        console.error(err);
-        notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btnContentSave.disabled = false;
+      if (list.length === 0) renderEmpty(tbodyContent, 5, "Nenhum conteúdo (ou filtrado).");
+      else {
+        tbodyContent.innerHTML = list.map(x => {
+          const d = x.d;
+          const terr = d.territoryId ? d.territoryId : "geral";
+          const st = lower(d.status || "published");
+          const stChip = st === "published" ? `<span class="chip good">published</span>` : `<span class="chip warn">draft</span>`;
+          return `
+            <tr>
+              <td>${esc(d.title || "—")}</td>
+              <td><span class="chip">${esc(terr)}</span></td>
+              <td><span class="chip">${esc(d.level || d.nivel || "—")}</span></td>
+              <td>${stChip}</td>
+              <td>
+                <button class="btn" data-act="edit" data-id="${esc(x.id)}">✏️ Editar</button>
+                <button class="btn danger" data-act="del" data-id="${esc(x.id)}">🗑️ Excluir</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
       }
     }
 
-    async function updateContent(id){
-      const title = norm(cTitle.value);
-      if (!title){ alert("Informe o título."); return; }
+    cSearch.addEventListener("input", renderContents);
+    cFilterStatus.addEventListener("change", renderContents);
 
-      btnContentSave.disabled = true;
-      try{
-        await updateDoc(doc(db, "contents", id), {
-          title,
-          type: lower(cTypeEdit.value) || "guia",
-          territoryId: norm(cTerritoryEdit.value) || null,
-          status: lower(cStatusEdit.value) || "draft",
-          summary: norm(cSummary.value) || null,
-          body: norm(cBody.value) || null,
-          url: norm(cUrl.value) || null,
-          updatedAt: serverTimestamp()
-        });
-        notify("Conteúdo atualizado ✅");
-        resetContentForm();
-      }catch(err){
-        console.error(err);
-        notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btnContentSave.disabled = false;
-      }
-    }
-
-    btnContentSave?.addEventListener("click", async () => {
-      if (editingContentId) await updateContent(editingContentId);
-      else await createContent();
-    });
-    btnContentCancel?.addEventListener("click", resetContentForm);
-
-    tbodyContents?.addEventListener("click", async (e) => {
-      const btn = e.target.closest("button");
+    tbodyContent.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-act]");
       if (!btn) return;
-
-      const tr = btn.closest("tr");
-      const id = tr?.getAttribute("data-id");
-      const action = btn.getAttribute("data-action");
+      const act = btn.dataset.act;
+      const id = btn.dataset.id;
       if (!id) return;
 
-      const item = contentsCache.find(x => x.id === id);
-      if (!item) return;
-      const c = item.data || {};
+      if (act === "edit"){
+        await loadContentById(id);
+        setSection("contents");
+      }
+      if (act === "del"){
+        if (!confirm(`Excluir conteúdo ${id}?`)) return;
+        try{
+          await deleteDoc(doc(db, "contents", id));
+          notify("Conteúdo excluído ✅");
+        }catch(err){
+          console.error(err);
+          notify(`Erro: ${err.code || err.message}`);
+        }
+      }
+    });
+
+    cId.addEventListener("change", async () => {
+      const id = norm(cId.value);
+      if (id) await loadContentById(id);
+    });
+
+    // ========= NOTICES CRUD =========
+    function noticeClear(){
+      nId.value = "";
+      nTitle.value = "";
+      nTerritory.value = "";
+      nPriority.value = "normal";
+      nActive.value = "true";
+      nTags.value = "";
+      nBody.value = "";
+      setNoticeMsg("—", true);
+    }
+    btnNoticeClear.addEventListener("click", noticeClear);
+
+    async function loadNoticeById(id){
+      const snap = await getDoc(doc(db, "notices", id));
+      if (!snap.exists()){
+        setNoticeMsg("Aviso não encontrado.", false);
+        return;
+      }
+      const d = snap.data() || {};
+      nId.value = id;
+      nTitle.value = d.title || "";
+      nTerritory.value = d.territoryId || "";
+      nPriority.value = d.priority || "normal";
+      nActive.value = String(d.active !== false);
+      nTags.value = Array.isArray(d.tags) ? d.tags.join(", ") : (d.tags || "");
+      nBody.value = d.body || "";
+      setNoticeMsg(`Editando: ${id}`, true);
+      notify("Aviso carregado ✏️");
+    }
+
+    btnNoticeSave.addEventListener("click", async () => {
+      const id = norm(nId.value);
+      const data = {
+        title: norm(nTitle.value) || null,
+        territoryId: norm(nTerritory.value) || null,
+        priority: norm(nPriority.value) || "normal",
+        active: (String(nActive.value) === "true"),
+        tags: norm(nTags.value) ? norm(nTags.value).split(",").map(s => norm(s)).filter(Boolean) : [],
+        body: norm(nBody.value) || null,
+        updatedAt: serverTimestamp()
+      };
+
+      if (!data.title || !data.body){
+        setNoticeMsg("Informe título e mensagem.", false);
+        return;
+      }
+
+      btnNoticeSave.disabled = true;
+      btnNoticeSave.textContent = "Salvando...";
 
       try{
-        btn.disabled = true;
-
-        if (action === "edit"){
-          editingContentId = id;
-          chipContentMode.textContent = "✏️ editando";
-          cTitle.value = c.title || "";
-          cTypeEdit.value = c.type || "guia";
-          cTerritoryEdit.value = c.territoryId || "";
-          cStatusEdit.value = c.status || "draft";
-          cSummary.value = c.summary || "";
-          cBody.value = c.body || "";
-          cUrl.value = c.url || "";
-          btnContentSave.textContent = "💾 Salvar alterações";
-          btnContentCancel.style.display = "inline-flex";
-          notify("Editando conteúdo ✏️");
-          setSection("contents");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+        if (id){
+          await setDoc(doc(db, "notices", id), { ...data, createdAt: serverTimestamp() }, { merge:true });
+          setNoticeMsg(`Aviso salvo ✅ (ID: ${id})`, true);
+        } else {
+          await addDoc(collection(db, "notices"), { ...data, createdAt: serverTimestamp() });
+          setNoticeMsg("Aviso criado ✅ (auto-id)", true);
         }
+        notify("Aviso salvo ✅");
+        noticeClear();
+      }catch(err){
+        console.error(err);
+        setNoticeMsg(`Erro: ${err.code || err.message}`, false);
+        notify(`Erro: ${err.code || err.message}`);
+      }finally{
+        btnNoticeSave.disabled = false;
+        btnNoticeSave.textContent = "💾 Salvar";
+      }
+    });
 
-        if (action === "publish"){
-          await updateDoc(doc(db, "contents", id), { status: "published", updatedAt: serverTimestamp() });
-          notify("Publicado 🚀");
-        }
+    btnNoticeDelete.addEventListener("click", async () => {
+      const id = norm(nId.value);
+      if (!id){
+        setNoticeMsg("Informe um ID para excluir.", false);
+        return;
+      }
+      if (!confirm(`Excluir aviso ${id}?`)) return;
 
-        if (action === "archive"){
-          await updateDoc(doc(db, "contents", id), { status: "archived", updatedAt: serverTimestamp() });
-          notify("Arquivado 📦");
-        }
-
-        if (action === "delete"){
-          const ok = confirm(`Excluir o conteúdo:\n\n${c.title || id}\n\nIsso não pode ser desfeito.`);
-          if (!ok) return;
-          await deleteDoc(doc(db, "contents", id));
-          if (editingContentId === id) resetContentForm();
-          notify("Conteúdo excluído 🗑️");
-        }
+      try{
+        await deleteDoc(doc(db, "notices", id));
+        notify("Aviso excluído ✅");
+        noticeClear();
       }catch(err){
         console.error(err);
         notify(`Erro: ${err.code || err.message}`);
-        alert(`Erro: ${err.code || err.message}`);
-      }finally{
-        btn.disabled = false;
       }
     });
 
-    [cSearch, cStatus, cType, cTerritory].forEach((el) => {
-      el?.addEventListener("input", renderContents);
-      el?.addEventListener("change", renderContents);
-    });
+    function renderNotices(){
+      const s = lower(nSearchList.value);
+      const fa = lower(nFilterActive.value);
 
-    function startContents(){
-      const qC = query(collection(db, "contents"), limit(1000));
-      unsubContents = onSnapshot(qC, (snap) => {
-        contentsCache = [];
-        snap.forEach((d) => contentsCache.push({ id: d.id, data: d.data() }));
-        renderContents();
-      }, (err) => {
-        console.error(err);
-        renderEmpty(tbodyContents, 5, `Erro ao carregar conteúdos: ${err.code || err.message}`);
-      });
-    }
+      const list = NOTICES_CACHE
+        .map(x => ({ id: x.id, d: x.data || {} }))
+        .filter(x => {
+          if (fa){
+            const isActive = (x.d.active !== false);
+            if (fa === "true" && !isActive) return false;
+            if (fa === "false" && isActive) return false;
+          }
+          if (!s) return true;
+          return (
+            lower(x.d.title).includes(s) ||
+            lower(x.d.body).includes(s) ||
+            lower(x.d.priority).includes(s) ||
+            lower(x.d.territoryId).includes(s)
+          );
+        })
+        .sort((a,b)=> tsToMillis(b.d.updatedAt || b.d.createdAt) - tsToMillis(a.d.updatedAt || a.d.createdAt));
 
-    function stopContents(){
-      if (typeof unsubContents === "function") unsubContents();
-      unsubContents = null;
-    }
+      chipNotice.textContent = `📣 ${list.length}`;
 
-    // =========================
-    // Refresh manual
-    // =========================
-    async function manualRefresh(){
-      try{
-        notify("Atualizando…");
+      if (list.length === 0) renderEmpty(tbodyNotice, 5, "Nenhum aviso (ou filtrado).");
+      else {
+        tbodyNotice.innerHTML = list.map(x => {
+          const d = x.d;
+          const terr = d.territoryId ? d.territoryId : "geral";
+          const pr = lower(d.priority || "normal");
+          const prChip = pr === "alta" ? `<span class="chip warn">⚠️ alta</span>` : `<span class="chip">📌 normal</span>`;
+          const active = (d.active !== false);
+          const aChip = active ? `<span class="chip good">true</span>` : `<span class="chip warn">false</span>`;
 
-        // users
-        const qP = query(collection(db, "users"), where("status", "==", "pending"), limit(300));
-        const qA = query(collection(db, "users"), where("status", "==", "active"),  limit(600));
-        const [p, a] = await Promise.all([getDocs(qP), getDocs(qA)]);
-
-        pendingCache = [];
-        activeCache = [];
-        p.forEach((d) => pendingCache.push({ id: d.id, data: d.data() }));
-        a.forEach((d) => activeCache.push({ id: d.id, data: d.data() }));
-        renderUsers();
-
-        // territories
-        const t = await getDocs(query(collection(db, "territories"), limit(800)));
-        territoriesCache = [];
-        t.forEach((d) => territoriesCache.push({ id: d.id, data: d.data() }));
-        renderTerritories();
-
-        // contents
-        const c = await getDocs(query(collection(db, "contents"), limit(1000)));
-        contentsCache = [];
-        c.forEach((d) => contentsCache.push({ id: d.id, data: d.data() }));
-        refreshContentTerritorySelects();
-        renderContents();
-
-        notify("Atualizado ✅");
-      }catch(err){
-        console.error(err);
-        notify(`Erro ao atualizar: ${err.code || err.message}`);
+          return `
+            <tr>
+              <td>${esc(d.title || "—")}</td>
+              <td><span class="chip">${esc(terr)}</span></td>
+              <td>${prChip}</td>
+              <td>${aChip}</td>
+              <td>
+                <button class="btn" data-act="edit" data-id="${esc(x.id)}">✏️ Editar</button>
+                <button class="btn danger" data-act="del" data-id="${esc(x.id)}">🗑️ Excluir</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
       }
     }
-    btnRefresh?.addEventListener("click", manualRefresh);
 
-    // =========================
-    // Guard
-    // =========================
-    const GOV_ROLES = new Set(["admin","governanca","gestor"]);
+    nSearchList.addEventListener("input", renderNotices);
+    nFilterActive.addEventListener("change", renderNotices);
 
+    tbodyNotice.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-act]");
+      if (!btn) return;
+      const act = btn.dataset.act;
+      const id = btn.dataset.id;
+      if (!id) return;
+
+      if (act === "edit"){
+        await loadNoticeById(id);
+        setSection("notices");
+      }
+      if (act === "del"){
+        if (!confirm(`Excluir aviso ${id}?`)) return;
+        try{
+          await deleteDoc(doc(db, "notices", id));
+          notify("Aviso excluído ✅");
+        }catch(err){
+          console.error(err);
+          notify(`Erro: ${err.code || err.message}`);
+        }
+      }
+    });
+
+    nId.addEventListener("change", async () => {
+      const id = norm(nId.value);
+      if (id) await loadNoticeById(id);
+    });
+
+    // ========= PLANS render (base) =========
+    function renderPlans(){
+      const s = lower(pSearch.value);
+      const list = PLANS_CACHE
+        .map(x => ({ id: x.id, d: x.data || {} }))
+        .filter(x => {
+          if (!s) return true;
+          return lower(x.d.title).includes(s) || lower(x.d.status).includes(s) || lower(x.d.territoryId).includes(s);
+        })
+        .sort((a,b)=> tsToMillis(b.d.updatedAt || b.d.createdAt) - tsToMillis(a.d.updatedAt || a.d.createdAt));
+
+      if (list.length === 0) renderEmpty(tbodyPlans, 4, "Nenhum plano (ou filtrado).");
+      else {
+        tbodyPlans.innerHTML = list.map(x => {
+          const d = x.d;
+          const terr = d.territoryId || "—";
+          const st = d.status || "—";
+          const due = d.dueDate || d.deadline || "—";
+          return `
+            <tr>
+              <td>${esc(d.title || "—")}</td>
+              <td><span class="chip">${esc(terr)}</span></td>
+              <td><span class="chip">${esc(st)}</span></td>
+              <td>${esc(due)}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+    }
+    pSearch.addEventListener("input", renderPlans);
+
+    // ========= Manual refresh =========
+    btnRefresh.addEventListener("click", async () => {
+      notify("Atualizando…");
+      renderKpis();
+      renderUsers();
+      renderRequests();
+      renderTerritories();
+      renderContents();
+      renderNotices();
+      renderPlans();
+      notify("Atualizado ✅");
+    });
+
+    // ========= Guard: gov only =========
     onAuthStateChanged(auth, async (user) => {
       if (!user) return goLogin();
 
       const snap = await getDoc(doc(db, "users", user.uid));
       if (!snap.exists()) return goLogin();
 
-      const profile = snap.data();
+      const profile = snap.data() || {};
       const status = lower(profile.status);
       const role = lower(profile.role);
 
-      if (status !== "active") return goLogin();
-      if (!GOV_ROLES.has(role)) return goLogin();
+      const isGov = (status === "active") && (["admin","governanca","gestor"].includes(role));
+      if (!isGov) return goLogin();
+
+      myUid = user.uid;
+      myUser = profile;
 
       const name = profile.displayName || profile.name || user.email || "Usuário";
       hdrSubtitle.textContent = `Governança • ${name}`;
-      badgeRole.textContent = `Perfil: ${role}`;
+      badgeUser.textContent = `👤 ${name}`;
+      badgeRole.textContent = `role: ${role || "—"}`;
+      chipStatus.textContent = status;
 
-      // start realtime
-      stopUsers();
-      stopTerritories();
-      stopContents();
+      pName.textContent = profile.displayName || profile.name || "—";
+      pEmail.textContent = profile.email || user.email || "—";
+      pRole.textContent = role || "—";
+      pStatus.textContent = status || "—";
+      pUid.textContent = user.uid;
 
+      stopAll();
       startUsers();
+      startRequests();
       startTerritories();
       startContents();
+      startNotices();
+      startPlans();
 
-      // init UI
-      refreshContentTerritorySelects();
-      resetTerrForm();
-      resetContentForm();
+      // defaults
+      setSection("home");
+      setTerrMsg("—", true);
+      setTerrCrudMsg("—", true);
+      setContentMsg("—", true);
+      setNoticeMsg("—", true);
 
       document.documentElement.style.visibility = "visible";
-      setSection("dashboard");
+      notify("Bem-vindo(a), governança ✅");
     });
   </script>
+
+  <!--
+    OBS:
+    - Esta página usa ./assets/firebase.js (app/auth/db).
+    - Collections usadas:
+      users, access_requests, territories, contents, notices, action_plans
+    - Aprovação:
+      access_requests: status pending -> approved/rejected
+      users/{uid}: status active, role, territoryId
+  -->
 </body>
 </html>

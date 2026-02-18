@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- Charts (PowerBI-like) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
   <style>
     :root{
       --green:#1B7F5A;
@@ -116,6 +119,11 @@
       gap: 8px;
       white-space: nowrap;
     }
+    .badge.neutral{
+      background: rgba(13,59,102,.08);
+      border: 1px solid rgba(13,59,102,.14);
+      color: rgba(13,59,102,.92);
+    }
 
     /* LAYOUT */
     .layout{
@@ -129,7 +137,6 @@
     @media (max-width: 980px){
       .layout{ grid-template-columns: 1fr; }
     }
-
     .sidebar{
       position: sticky;
       top: 78px;
@@ -153,7 +160,6 @@
       margin: 4px 0 10px;
       color: rgba(27,127,90,.95);
     }
-
     .nav{
       display:flex;
       flex-direction: column;
@@ -184,7 +190,6 @@
     .nav small{ font-weight: 1000; opacity: .75; }
 
     .content{ min-height: 60vh; }
-
     .section{ display:none; }
     .section.active{ display:block; }
 
@@ -284,6 +289,16 @@
       color: rgba(13,59,102,.92);
       white-space: nowrap;
     }
+    .chip.good{
+      border-color: rgba(76,175,143,.28);
+      background: rgba(76,175,143,.14);
+      color: #0c4d44;
+    }
+    .chip.warn{
+      border-color: rgba(242,201,76,.40);
+      background: rgba(242,201,76,.16);
+      color: rgba(91,74,18,.95);
+    }
 
     .searchbar{
       display:flex;
@@ -306,6 +321,15 @@
       box-shadow: 0 0 0 4px rgba(76,175,143,.14);
       background: rgba(242,246,255,.80);
     }
+    .select{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    textarea.input{ min-height: 84px; resize: vertical; line-height: 1.35; }
 
     .btn{
       border: 1px solid rgba(13,59,102,.18);
@@ -325,6 +349,134 @@
     }
     .btn:disabled{ opacity:.6; cursor:not-allowed; }
 
+    .row-actions{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .materials{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .materials{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px){
+      .materials{ grid-template-columns: 1fr; }
+    }
+    .mcard{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 10px;
+    }
+    .mcard .head{
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      font-weight: 1000;
+      color: rgba(13,59,102,.92);
+      margin-bottom: 8px;
+      font-size: 12.5px;
+    }
+    .mcard input{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(13,59,102,.14);
+      background: rgba(255,255,255,.92);
+      outline:none;
+      font-weight: 1000;
+    }
+    .mcard input:focus{
+      border-color: rgba(76,175,143,.42);
+      box-shadow: 0 0 0 4px rgba(76,175,143,.14);
+    }
+
+    .notice{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .notice h3{
+      margin:0 0 6px;
+      font-family: Poppins, Inter, sans-serif;
+      font-size: 14px;
+      letter-spacing: -.02em;
+    }
+    .notice p{
+      margin: 0;
+      font-size: 12.5px;
+      font-weight: 900;
+      color: rgba(24,32,24,.72);
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+    .notice .meta{
+      margin-top: 8px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    .track{
+      border: 1px solid rgba(13,59,102,.10);
+      background: rgba(245,247,246,.70);
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .track h3{
+      margin:0 0 6px;
+      font-family: Poppins, Inter, sans-serif;
+      font-size: 14px;
+      letter-spacing: -.02em;
+    }
+    .track p{
+      margin: 0;
+      font-size: 12.5px;
+      font-weight: 900;
+      color: rgba(24,32,24,.72);
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+    .track .meta{
+      margin-top: 8px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .track a{
+      font-weight: 1000;
+      color: rgba(13,59,102,.92);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(13,59,102,.35);
+    }
+
+    .muted-note{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(24,32,24,.60);
+      line-height: 1.45;
+    }
+
     .toast{
       position: fixed;
       right: 16px;
@@ -339,15 +491,14 @@
       display:none;
       font-weight: 900;
       color: rgba(24,32,24,.80);
+      white-space: pre-line;
     }
     .toast.show{ display:block; }
 
-    .muted-note{
-      margin-top: 10px;
+    .mini{
       font-size: 12px;
       font-weight: 900;
-      color: rgba(24,32,24,.60);
-      line-height: 1.45;
+      color: rgba(24,32,24,.62);
     }
   </style>
 </head>
@@ -365,6 +516,8 @@
 
       <div class="actions">
         <span class="badge" id="badgeTerritory">Território: —</span>
+        <span class="badge neutral" id="badgeUser">—</span>
+        <button class="pill" id="btnRefresh" type="button">🔄 <span>Atualizar</span></button>
         <button class="pill" id="btnLogout" type="button">🚪 <span>Sair</span></button>
       </div>
     </div>
@@ -377,11 +530,20 @@
         <button data-section="dashboard" class="active">
           <span>📌 Visão geral</span><small>indicadores</small>
         </button>
-        <button data-section="contents">
-          <span>📚 Materiais</span><small>do seu território</small>
+        <button data-section="crgr">
+          <span>🏠 CRGR</span><small>informações</small>
         </button>
-        <button data-section="plans">
-          <span>📌 Planos & Ações</span><small>em breve</small>
+        <button data-section="input">
+          <span>🧾 Input de dados</span><small>triagem + BI</small>
+        </button>
+        <button data-section="indicators">
+          <span>📊 Indicadores</span><small>por material</small>
+        </button>
+        <button data-section="notices">
+          <span>📣 Avisos</span><small>comunicados</small>
+        </button>
+        <button data-section="tracks">
+          <span>📚 Trilhas</span><small>capacitação</small>
         </button>
         <button data-section="profile">
           <span>👤 Meu perfil</span><small>dados</small>
@@ -389,7 +551,7 @@
       </nav>
 
       <p class="muted-note">
-        Você vê apenas dados do seu território (regras do Firebase). Se o seu <b>territoryId</b> estiver vazio, peça à governança.
+        Entrada permitida apenas para <b>cooperativa</b> com <b>status=active</b>. Você vê dados do seu território.
       </p>
     </aside>
 
@@ -399,69 +561,302 @@
         <div class="card">
           <h2>
             <span>Visão geral</span>
-            <span class="chip" id="chipRole">♻️ cooperativa</span>
+            <span class="chip good" id="chipReady">🟢 pronto</span>
           </h2>
           <p class="sub">
-            Aqui você acompanha materiais e informações do seu território. (Depois a gente adiciona indicadores operacionais e metas.)
+            Painel simples e transparente: volume total, destaque por material e últimos registros.
           </p>
 
           <div class="kpi">
             <div class="box">
-              <b id="kpiContents">0</b>
-              <span>Materiais disponíveis</span>
+              <b id="kpiTotal30">0</b>
+              <span>Triado (últimos 30 dias) • kg</span>
             </div>
             <div class="box">
-              <b id="kpiPublished">0</b>
-              <span>Publicados</span>
+              <b id="kpiTopMaterial">—</b>
+              <span>Material destaque (30 dias)</span>
             </div>
             <div class="box">
-              <b id="kpiDrafts">0</b>
-              <span>Rascunhos</span>
+              <b id="kpiEntries">0</b>
+              <span>Registros (últimos 30 dias)</span>
             </div>
           </div>
 
-          <p class="muted-note">
-            Próximo: entrada de dados (pesagens, triagem, rejeito) e acompanhamento de metas por plano.
-          </p>
+          <div class="muted-note" id="dashHint">
+            Dica: registre a triagem diariamente em <b>Input de dados</b>.
+          </div>
         </div>
-      </div>
 
-      <!-- CONTENTS -->
-      <div id="section-contents" class="section">
         <div class="card">
           <h2>
-            <span>Materiais do território</span>
-            <span class="chip" id="chipContents">📚 0</span>
+            <span>Últimos registros</span>
+            <span class="chip" id="chipLast">🧾 0</span>
           </h2>
-          <p class="sub">
-            Lista automática de conteúdos em <b>contents</b> onde <b>territoryId == seu territoryId</b>.
-          </p>
-
-          <div class="searchbar">
-            <input id="cSearch" class="input" placeholder="Buscar por título, tipo, resumo...">
-          </div>
 
           <table class="table">
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Tipo</th>
-                <th>Status</th>
-                <th>Link</th>
+                <th>Data</th>
+                <th>Turno</th>
+                <th>Total (kg)</th>
+                <th>Observações</th>
               </tr>
             </thead>
-            <tbody id="tbodyContents">
+            <tbody id="tbodyLastLogs">
               <tr><td colspan="4" class="mini">Carregando…</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- PLANS (placeholder) -->
-      <div id="section-plans" class="section">
+      <!-- CRGR INFO -->
+      <div id="section-crgr" class="section">
         <div class="card">
-          <h2><span>Planos & Ações</span><span class="chip">📌</span></h2>
-          <p class="sub">Em breve: acompanhamento do seu território na collection <b>action_plans</b>.</p>
+          <h2>
+            <span>Informações gerais da CRGR</span>
+            <span class="chip" id="chipCrgr">🏠</span>
+          </h2>
+          <p class="sub">Informações do seu território (horários, contatos, descrição, links).</p>
+
+          <table class="table">
+            <tbody>
+              <tr><th style="width:220px;">Território</th><td id="crgrName">—</td></tr>
+              <tr><th>Cidade/UF</th><td id="crgrPlace">—</td></tr>
+              <tr><th>CRC / CRGR</th><td id="crgrCrc">—</td></tr>
+              <tr><th>Código</th><td id="crgrCode">—</td></tr>
+              <tr><th>Descrição</th><td id="crgrDesc">—</td></tr>
+              <tr><th>Contatos</th><td id="crgrContacts">—</td></tr>
+              <tr><th>Links</th><td id="crgrLinks">—</td></tr>
+            </tbody>
+          </table>
+
+          <p class="muted-note">
+            A governança pode atualizar esses dados em <b>Territórios</b>.
+          </p>
+        </div>
+      </div>
+
+      <!-- INPUT -->
+      <div id="section-input" class="section">
+
+        <!-- POWERBI-LIKE DASHBOARD -->
+        <div class="card" style="margin-bottom:14px;">
+          <h2>
+            <span>Dashboard • Input (PowerBI-like)</span>
+            <span class="chip" id="chipDash">📊</span>
+          </h2>
+          <p class="sub">
+            Filtros + KPIs + gráficos alimentados pelos registros em <b>daily_logs</b>.
+          </p>
+
+          <!-- Slicers -->
+          <div class="searchbar">
+            <label class="mini"><b>De</b><br>
+              <input id="dashFrom" class="input" type="date" style="min-width:210px;">
+            </label>
+
+            <label class="mini"><b>Até</b><br>
+              <input id="dashTo" class="input" type="date" style="min-width:210px;">
+            </label>
+
+            <label class="mini"><b>Turno</b><br>
+              <select id="dashShift" class="select" style="min-width:210px;">
+                <option value="">Todos</option>
+                <option value="manha">Manhã</option>
+                <option value="tarde">Tarde</option>
+                <option value="noite">Noite</option>
+                <option value="integral">Integral</option>
+              </select>
+            </label>
+
+            <label class="mini"><b>Material</b><br>
+              <select id="dashMaterial" class="select" style="min-width:260px;">
+                <option value="">Todos</option>
+              </select>
+            </label>
+
+            <button class="btn" id="btnDashApply" type="button">Aplicar</button>
+            <button class="btn" id="btnDashReset" type="button">Reset</button>
+          </div>
+
+          <!-- KPI cards -->
+          <div class="kpi" style="grid-template-columns: repeat(4, minmax(0,1fr));">
+            <div class="box">
+              <b id="dashKpiTotal">0</b>
+              <span>Total triado (kg)</span>
+            </div>
+            <div class="box">
+              <b id="dashKpiEntries">0</b>
+              <span>Nº de registros</span>
+            </div>
+            <div class="box">
+              <b id="dashKpiAvgDay">0</b>
+              <span>Média por dia (kg)</span>
+            </div>
+            <div class="box">
+              <b id="dashKpiTop">—</b>
+              <span>Top material</span>
+            </div>
+          </div>
+
+          <!-- Charts grid -->
+          <div class="grid2" style="margin-top:12px;">
+            <div class="mcard" style="background:#fff;">
+              <div class="head"><span>📈 Total por dia</span><span class="chip" id="chipLine">line</span></div>
+              <canvas id="chartLine" height="140"></canvas>
+            </div>
+
+            <div class="mcard" style="background:#fff;">
+              <div class="head"><span>🍩 Participação por material</span><span class="chip" id="chipDonut">donut</span></div>
+              <canvas id="chartDonut" height="140"></canvas>
+            </div>
+          </div>
+
+          <div class="mcard" style="background:#fff; margin-top:10px;">
+            <div class="head"><span>📊 Triagem por material (kg)</span><span class="chip" id="chipBar">bar</span></div>
+            <canvas id="chartBar" height="120"></canvas>
+          </div>
+
+          <p class="muted-note">
+            Esse dashboard fica “PowerBI-like”: você filtra e os visuais mudam na hora.
+          </p>
+        </div>
+
+        <!-- FORM -->
+        <div class="card">
+          <h2>
+            <span>Input de dados • Triagem (recicláveis)</span>
+            <span class="chip" id="chipInput">🧾 diário</span>
+          </h2>
+          <p class="sub">
+            Preencha o que foi triado no dia. Somente <b>recicláveis</b>.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="mini" for="logDate"><b>Data *</b></label>
+              <input id="logDate" class="input" type="date">
+            </div>
+            <div>
+              <label class="mini" for="logShift"><b>Turno</b></label>
+              <select id="logShift" class="select" style="width:100%;">
+                <option value="manha">Manhã</option>
+                <option value="tarde">Tarde</option>
+                <option value="noite">Noite</option>
+                <option value="integral">Integral</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="materials" id="materialsGrid"></div>
+
+          <div style="margin-top:10px;">
+            <label class="mini" for="logNotes"><b>Observações (gargalos / avisos do dia)</b></label>
+            <textarea id="logNotes" class="input" placeholder="Ex: faltou big bag, material acumulado, problema na prensa..."></textarea>
+          </div>
+
+          <div class="row-actions">
+            <span class="badge neutral" id="badgeSum">Total: 0 kg</span>
+            <button class="btn" id="btnClear" type="button">🧹 Limpar</button>
+            <button class="btn primary" id="btnSave" type="button">💾 Salvar registro</button>
+          </div>
+
+          <p class="muted-note" id="writeHint">
+            Se aparecer erro de permissão ao salvar, falta liberar a collection <b>daily_logs</b> nas rules.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>Histórico recente</span>
+            <span class="chip" id="chipHistory">🗂️ 0</span>
+          </h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Turno</th>
+                <th>Total (kg)</th>
+                <th>Top materiais</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyHistory">
+              <tr><td colspan="4" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INDICATORS -->
+      <div id="section-indicators" class="section">
+        <div class="card">
+          <h2>
+            <span>Indicadores por material</span>
+            <span class="chip" id="chipInd">📊 30d</span>
+          </h2>
+          <p class="sub">
+            Somatório por material (últimos 30 dias).
+          </p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Total (kg)</th>
+                <th>% do total</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyAgg">
+              <tr><td colspan="3" class="mini">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NOTICES -->
+      <div id="section-notices" class="section">
+        <div class="card">
+          <h2>
+            <span>Avisos & Comunicados</span>
+            <span class="chip" id="chipNotices">📣 0</span>
+          </h2>
+          <p class="sub">Comunicados do seu território e gerais.</p>
+
+          <div class="searchbar">
+            <input id="nSearch" class="input" placeholder="Buscar aviso...">
+          </div>
+
+          <div id="noticesList">
+            <div class="mini">Carregando…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRACKS -->
+      <div id="section-tracks" class="section">
+        <div class="card">
+          <h2>
+            <span>Trilhas de capacitação</span>
+            <span class="chip" id="chipTracks">📚 0</span>
+          </h2>
+          <p class="sub">
+            Conteúdos do território e materiais gerais.
+          </p>
+
+          <div class="searchbar">
+            <input id="trSearch" class="input" placeholder="Buscar conteúdo...">
+            <select id="trLevel" class="select">
+              <option value="">Todos níveis</option>
+              <option value="iniciante">Iniciante</option>
+              <option value="operacional">Operacional</option>
+              <option value="gestao">Gestão</option>
+            </select>
+          </div>
+
+          <div id="tracksList">
+            <div class="mini">Carregando…</div>
+          </div>
         </div>
       </div>
 
@@ -484,10 +879,11 @@
           </table>
 
           <p class="muted-note">
-            Para alterar território, role ou status, somente governança.
+            Para alterar território/status, solicite à governança.
           </p>
         </div>
       </div>
+
     </section>
   </main>
 
@@ -503,10 +899,13 @@
       query,
       where,
       limit,
-      onSnapshot
+      onSnapshot,
+      addDoc,
+      serverTimestamp,
+      getDocs
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // ===== Menu / sections =====
+    // ========= UI: menu/sections =========
     const navButtons = Array.from(document.querySelectorAll(".nav button[data-section]"));
     const sections = Array.from(document.querySelectorAll(".section"));
     function setSection(key){
@@ -515,18 +914,15 @@
     }
     navButtons.forEach(b => b.addEventListener("click", () => setSection(b.dataset.section)));
 
-    // ===== Toast =====
+    // ========= Toast =========
     const toast = document.getElementById("toast");
     function notify(text){
       toast.textContent = text;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2600);
+      setTimeout(() => toast.classList.remove("show"), 2800);
     }
 
-    const btnLogout = document.getElementById("btnLogout");
-    function goLogin(){ window.location.href = "login.html"; }
-    btnLogout?.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
-
+    // ========= Helpers =========
     function esc(s){
       return String(s ?? "").replace(/[&<>"']/g, (m) => ({
         "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
@@ -534,6 +930,13 @@
     }
     function norm(v){ return String(v ?? "").trim(); }
     function lower(v){ return norm(v).toLowerCase(); }
+    function todayISO(){
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
     function tsToMillis(t){
       if (!t) return 0;
       if (typeof t.toMillis === "function") return t.toMillis();
@@ -542,111 +945,826 @@
       const ms = d.getTime();
       return Number.isFinite(ms) ? ms : 0;
     }
+    function isoDaysAgo(n){
+      const d = new Date();
+      d.setDate(d.getDate() - n);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
 
-    // ===== Header/profile =====
+    // ========= Header =========
     const hdrSubtitle = document.getElementById("hdrSubtitle");
     const badgeTerritory = document.getElementById("badgeTerritory");
+    const badgeUser = document.getElementById("badgeUser");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnRefresh = document.getElementById("btnRefresh");
 
-    const chipRole = document.getElementById("chipRole");
+    function goLogin(){ window.location.href = "login.html"; }
+    btnLogout?.addEventListener("click", async () => { try{ await signOut(auth);} finally{ goLogin(); } });
+
+    // ========= Profile =========
     const chipStatus = document.getElementById("chipStatus");
-
     const pName = document.getElementById("pName");
     const pEmail = document.getElementById("pEmail");
     const pRole = document.getElementById("pRole");
     const pTerr = document.getElementById("pTerr");
     const pUid = document.getElementById("pUid");
 
-    // ===== Contents =====
-    const chipContents = document.getElementById("chipContents");
-    const cSearch = document.getElementById("cSearch");
-    const tbodyContents = document.getElementById("tbodyContents");
-    const kpiContents = document.getElementById("kpiContents");
-    const kpiPublished = document.getElementById("kpiPublished");
-    const kpiDrafts = document.getElementById("kpiDrafts");
+    // ========= CRGR =========
+    const crgrName = document.getElementById("crgrName");
+    const crgrPlace = document.getElementById("crgrPlace");
+    const crgrCrc = document.getElementById("crgrCrc");
+    const crgrCode = document.getElementById("crgrCode");
+    const crgrDesc = document.getElementById("crgrDesc");
+    const crgrContacts = document.getElementById("crgrContacts");
+    const crgrLinks = document.getElementById("crgrLinks");
 
-    let unsubContents = null;
-    let contentsCache = [];
+    // ========= Dashboard KPIs =========
+    const kpiTotal30 = document.getElementById("kpiTotal30");
+    const kpiTopMaterial = document.getElementById("kpiTopMaterial");
+    const kpiEntries = document.getElementById("kpiEntries");
+    const chipLast = document.getElementById("chipLast");
+    const tbodyLastLogs = document.getElementById("tbodyLastLogs");
+    const tbodyHistory = document.getElementById("tbodyHistory");
+    const chipHistory = document.getElementById("chipHistory");
+    const tbodyAgg = document.getElementById("tbodyAgg");
+
+    // ========= Input =========
+    const logDate = document.getElementById("logDate");
+    const logShift = document.getElementById("logShift");
+    const logNotes = document.getElementById("logNotes");
+    const materialsGrid = document.getElementById("materialsGrid");
+    const badgeSum = document.getElementById("badgeSum");
+    const btnClear = document.getElementById("btnClear");
+    const btnSave = document.getElementById("btnSave");
+
+    // ========= Notices =========
+    const chipNotices = document.getElementById("chipNotices");
+    const nSearch = document.getElementById("nSearch");
+    const noticesList = document.getElementById("noticesList");
+
+    // ========= Tracks/Contents =========
+    const chipTracks = document.getElementById("chipTracks");
+    const trSearch = document.getElementById("trSearch");
+    const trLevel = document.getElementById("trLevel");
+    const tracksList = document.getElementById("tracksList");
+
+    // ========= Materiais recicláveis (somente) =========
+    const RECYCLABLES = [
+      { key:"papel", label:"Papel (branco/misto)" },
+      { key:"papelao", label:"Papelão" },
+      { key:"plastico_rigido", label:"Plástico rígido" },
+      { key:"pet", label:"PET" },
+      { key:"pead", label:"PEAD" },
+      { key:"filme", label:"Plástico filme" },
+      { key:"aluminio", label:"Alumínio" },
+      { key:"aco", label:"Aço / ferro" },
+      { key:"vidro", label:"Vidro" },
+      { key:"tetrapak", label:"Longa vida (Tetra Pak)" },
+      { key:"outros_reciclaveis", label:"Outros recicláveis" }
+    ];
+
+    function buildMaterialsUI(){
+      materialsGrid.innerHTML = RECYCLABLES.map(m => `
+        <div class="mcard" data-mkey="${esc(m.key)}">
+          <div class="head">
+            <span>${esc(m.label)}</span>
+            <span class="chip" id="chip_${esc(m.key)}">0 kg</span>
+          </div>
+          <input inputmode="decimal" placeholder="kg (ex: 120.5)" id="kg_${esc(m.key)}">
+        </div>
+      `).join("");
+
+      for (const m of RECYCLABLES){
+        const el = document.getElementById(`kg_${m.key}`);
+        el.addEventListener("input", () => {
+          const v = parseKg(el.value);
+          document.getElementById(`chip_${m.key}`).textContent = `${fmtKg(v)} kg`;
+          updateSum();
+        });
+      }
+      updateSum();
+    }
+
+    function parseKg(v){
+      const s = String(v ?? "").replace(",", ".").replace(/[^\d.]/g, "");
+      const n = Number(s);
+      return Number.isFinite(n) ? Math.max(0, n) : 0;
+    }
+    function fmtKg(n){
+      const x = Math.round((Number(n)||0) * 10) / 10;
+      return x.toFixed(x % 1 === 0 ? 0 : 1);
+    }
+
+    function collectItems(){
+      const items = [];
+      for (const m of RECYCLABLES){
+        const kg = parseKg(document.getElementById(`kg_${m.key}`).value);
+        if (kg > 0) items.push({ materialKey: m.key, materialLabel: m.label, kg });
+      }
+      return items;
+    }
+
+    function updateSum(){
+      const items = collectItems();
+      const total = items.reduce((acc, it) => acc + (Number(it.kg)||0), 0);
+      badgeSum.textContent = `Total: ${fmtKg(total)} kg`;
+    }
+
+    function clearForm(){
+      logDate.value = todayISO();
+      logShift.value = "manha";
+      logNotes.value = "";
+      for (const m of RECYCLABLES){
+        document.getElementById(`kg_${m.key}`).value = "";
+        document.getElementById(`chip_${m.key}`).textContent = `0 kg`;
+      }
+      updateSum();
+    }
+
+    btnClear.addEventListener("click", clearForm);
+
+    // ========= State =========
+    let myUid = null;
     let myTerritoryId = null;
+    let myUser = null;
+    let myTerritory = null;
 
-    function renderEmpty(text){
-      tbodyContents.innerHTML = `<tr><td colspan="4" class="mini">${esc(text)}</td></tr>`;
+    let unsubLogs = null;
+    let logsCache = []; // {id,data}
+    let unsubNoticesA = null;
+    let unsubNoticesB = null;
+    let noticesCache = []; // merged
+    let unsubContentsA = null;
+    let unsubContentsB = null;
+    let contentsCache = []; // merged
+
+    function stopAll(){
+      if (typeof unsubLogs === "function") unsubLogs();
+      if (typeof unsubNoticesA === "function") unsubNoticesA();
+      if (typeof unsubNoticesB === "function") unsubNoticesB();
+      if (typeof unsubContentsA === "function") unsubContentsA();
+      if (typeof unsubContentsB === "function") unsubContentsB();
+      unsubLogs = unsubNoticesA = unsubNoticesB = unsubContentsA = unsubContentsB = null;
     }
 
-    function matchContent(c){
-      const s = lower(cSearch.value);
-      if (!s) return true;
-      return (
-        lower(c.title).includes(s) ||
-        lower(c.type).includes(s) ||
-        lower(c.summary).includes(s) ||
-        lower(c.body).includes(s)
-      );
+    function renderEmpty(tbody, colSpan, text){
+      tbody.innerHTML = `<tr><td colspan="${colSpan}" class="mini">${esc(text)}</td></tr>`;
     }
 
-    function row(c){
-      const link = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">Abrir</a>` : "—";
-      return `
-        <tr>
-          <td>${esc(c.title || "—")}</td>
-          <td><span class="chip">${esc(c.type || "—")}</span></td>
-          <td>${esc(c.status || "draft")}</td>
-          <td>${link}</td>
-        </tr>
-      `;
+    function logTotalKg(log){
+      const items = Array.isArray(log.items) ? log.items : [];
+      return items.reduce((acc, it) => acc + (Number(it.kg)||0), 0);
     }
 
-    function updateKPIs(){
-      const total = contentsCache.length;
-      const published = contentsCache.filter(x => lower(x.status) === "published").length;
-      const drafts = contentsCache.filter(x => !x.status || lower(x.status) === "draft").length;
-
-      kpiContents.textContent = String(total);
-      kpiPublished.textContent = String(published);
-      kpiDrafts.textContent = String(drafts);
-      chipContents.textContent = `📚 ${total}`;
+    function topMaterialsText(log, n=3){
+      const items = (Array.isArray(log.items) ? log.items : [])
+        .slice()
+        .sort((a,b) => (Number(b.kg)||0) - (Number(a.kg)||0))
+        .slice(0,n)
+        .map(it => `${it.materialLabel || it.materialKey}: ${fmtKg(it.kg)}kg`);
+      return items.length ? items.join(" • ") : "—";
     }
 
-    function renderContents(){
-      contentsCache.sort((a,b) => tsToMillis(b.updatedAt || b.createdAt) - tsToMillis(a.updatedAt || a.createdAt));
-      const filtered = contentsCache.filter(matchContent);
+    // ========= POWERBI-LIKE DASHBOARD =========
+    const dashFrom = document.getElementById("dashFrom");
+    const dashTo = document.getElementById("dashTo");
+    const dashShift = document.getElementById("dashShift");
+    const dashMaterial = document.getElementById("dashMaterial");
+    const btnDashApply = document.getElementById("btnDashApply");
+    const btnDashReset = document.getElementById("btnDashReset");
+    const chipDash = document.getElementById("chipDash");
 
-      updateKPIs();
+    const dashKpiTotal = document.getElementById("dashKpiTotal");
+    const dashKpiEntries = document.getElementById("dashKpiEntries");
+    const dashKpiAvgDay = document.getElementById("dashKpiAvgDay");
+    const dashKpiTop = document.getElementById("dashKpiTop");
 
-      if (filtered.length === 0){
-        renderEmpty("Nenhum material para o seu território (ou filtrado).");
-        return;
+    let chartLine = null;
+    let chartBar = null;
+    let chartDonut = null;
+
+    function fmt1(n){
+      const x = Math.round((Number(n)||0) * 10)/10;
+      return x % 1 === 0 ? String(x.toFixed(0)) : String(x.toFixed(1));
+    }
+    function ensureChartLib(){
+      if (!window.Chart){
+        notify("Chart.js não carregou. Verifique internet/CDN.");
+        return false;
       }
-      tbodyContents.innerHTML = filtered.map(row).join("");
+      return true;
+    }
+    function uniq(arr){ return Array.from(new Set(arr)); }
+    function dateInRange(d, from, to){
+      if (from && d < from) return false;
+      if (to && d > to) return false;
+      return true;
     }
 
-    function startContents(){
-      if (!myTerritoryId){
-        contentsCache = [];
-        updateKPIs();
-        renderEmpty("Seu territoryId está vazio. Peça para a governança definir seu território.");
-        return;
+    function buildMaterialSlicerOptions(){
+      const mats = [];
+      for (const x of logsCache){
+        const items = Array.isArray(x.data?.items) ? x.data.items : [];
+        for (const it of items){
+          if (it?.materialKey) mats.push(it.materialKey);
+        }
       }
+      const u = uniq(mats).sort((a,b)=> String(a).localeCompare(String(b)));
+      const sel = dashMaterial.value || "";
+      dashMaterial.innerHTML = `<option value="">Todos</option>` + u.map(k => {
+        const label = (RECYCLABLES.find(m => m.key === k)?.label) || k;
+        return `<option value="${esc(k)}">${esc(label)}</option>`;
+      }).join("");
+      dashMaterial.value = u.includes(sel) ? sel : "";
+    }
 
-      // Cooperativa pode ler só do seu território pelas rules (resource.data.territoryId == myTerritoryId()).
-      const qC = query(collection(db, "contents"), where("territoryId", "==", myTerritoryId), limit(500));
-      unsubContents = onSnapshot(qC, (snap) => {
-        contentsCache = [];
-        snap.forEach((d) => contentsCache.push(d.data()));
-        renderContents();
-      }, (err) => {
-        console.error(err);
-        renderEmpty(`Erro ao carregar: ${err.code || err.message}`);
+    function getFilteredLogs(){
+      const from = dashFrom.value ? dashFrom.value : "";
+      const to = dashTo.value ? dashTo.value : "";
+      const shift = (dashShift.value || "").trim().toLowerCase();
+      const mat = (dashMaterial.value || "").trim();
+
+      const filtered = logsCache
+        .map(x => x.data)
+        .filter(d => d && d.date)
+        .filter(d => dateInRange(String(d.date), from, to))
+        .filter(d => !shift || String(d.shift||"").toLowerCase() === shift)
+        .map(d => {
+          if (!mat) return d;
+          const items = (Array.isArray(d.items) ? d.items : []).filter(it => it.materialKey === mat);
+          const totalKg = items.reduce((a,it)=> a + (Number(it.kg)||0), 0);
+          return { ...d, items, totalKg };
+        })
+        .filter(d => {
+          if (!mat) return true;
+          return (Number(d.totalKg)||0) > 0;
+        });
+
+      return filtered;
+    }
+
+    function aggByDay(logs){
+      const map = new Map();
+      for (const d of logs){
+        const key = String(d.date);
+        const total = Number(d.totalKg ?? logTotalKg(d)) || 0;
+        map.set(key, (map.get(key) || 0) + total);
+      }
+      const days = Array.from(map.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+      return { labels: days.map(x=>x[0]), values: days.map(x=>x[1]) };
+    }
+
+    function aggByMaterial(logs){
+      const map = new Map();
+      for (const d of logs){
+        const items = Array.isArray(d.items) ? d.items : [];
+        for (const it of items){
+          const key = it.materialKey || it.materialLabel || "outro";
+          const label =
+            it.materialLabel ||
+            (RECYCLABLES.find(m => m.key === key)?.label) ||
+            it.materialKey ||
+            "Outro";
+          const kg = Number(it.kg)||0;
+          const prev = map.get(key) || { key, label, kg: 0 };
+          prev.kg += kg;
+          map.set(key, prev);
+        }
+      }
+      return Array.from(map.values()).sort((a,b)=> b.kg - a.kg);
+    }
+
+    function setKpisDash(logs){
+      const total = logs.reduce((a,d)=> a + (Number(d.totalKg ?? logTotalKg(d))||0), 0);
+      const entries = logs.length;
+
+      const dayAgg = aggByDay(logs);
+      const daysCount = dayAgg.labels.length || 0;
+      const avgDay = daysCount ? (total / daysCount) : 0;
+
+      const mats = aggByMaterial(logs);
+      const top = mats[0];
+
+      dashKpiTotal.textContent = fmt1(total);
+      dashKpiEntries.textContent = String(entries);
+      dashKpiAvgDay.textContent = fmt1(avgDay);
+      dashKpiTop.textContent = top ? `${top.label} (${fmt1(top.kg)}kg)` : "—";
+
+      chipDash.textContent = `📊 ${entries} regs`;
+    }
+
+    function destroyCharts(){
+      if (chartLine) { chartLine.destroy(); chartLine = null; }
+      if (chartBar) { chartBar.destroy(); chartBar = null; }
+      if (chartDonut) { chartDonut.destroy(); chartDonut = null; }
+    }
+
+    function renderCharts(logs){
+      if (!ensureChartLib()) return;
+
+      const byDay = aggByDay(logs);
+      const mats = aggByMaterial(logs);
+
+      const ctxLine = document.getElementById("chartLine");
+      const ctxBar = document.getElementById("chartBar");
+      const ctxDonut = document.getElementById("chartDonut");
+
+      destroyCharts();
+
+      chartLine = new Chart(ctxLine, {
+        type: "line",
+        data: {
+          labels: byDay.labels,
+          datasets: [{ label: "Total (kg)", data: byDay.values }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      const matsTop = mats.slice(0, 12);
+      chartBar = new Chart(ctxBar, {
+        type: "bar",
+        data: {
+          labels: matsTop.map(m => m.label),
+          datasets: [{ label: "kg", data: matsTop.map(m => m.kg) }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      const top8 = mats.slice(0, 8);
+      const rest = mats.slice(8).reduce((a,m)=> a + m.kg, 0);
+      const donutLabels = top8.map(m=>m.label).concat(rest > 0 ? ["Outros"] : []);
+      const donutValues = top8.map(m=>m.kg).concat(rest > 0 ? [rest] : []);
+
+      chartDonut = new Chart(ctxDonut, {
+        type: "doughnut",
+        data: { labels: donutLabels, datasets: [{ data: donutValues }] },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom" } }
+        }
       });
     }
 
-    function stopContents(){
-      if (typeof unsubContents === "function") unsubContents();
-      unsubContents = null;
+    function dashApply(){
+      const logs = getFilteredLogs();
+      setKpisDash(logs);
+      renderCharts(logs);
     }
 
-    cSearch.addEventListener("input", renderContents);
+    function dashReset(){
+      dashFrom.value = isoDaysAgo(30);
+      dashTo.value = todayISO();
+      dashShift.value = "";
+      dashMaterial.value = "";
+      dashApply();
+    }
 
-    // ===== Guard coop only =====
+    btnDashApply.addEventListener("click", dashApply);
+    btnDashReset.addEventListener("click", dashReset);
+
+    function refreshDashboardFromLogs(){
+      buildMaterialSlicerOptions();
+      if (!dashFrom.value && !dashTo.value){
+        dashFrom.value = isoDaysAgo(30);
+        dashTo.value = todayISO();
+      }
+      dashApply();
+    }
+
+    // ========= Logs render (tabelas + KPIs gerais) =========
+    function renderLogs(){
+      logsCache.sort((a,b) => String(b.data.date || "").localeCompare(String(a.data.date || "")));
+
+      const last5 = logsCache.slice(0, 5);
+      chipLast.textContent = `🧾 ${last5.length}`;
+
+      if (last5.length === 0){
+        renderEmpty(tbodyLastLogs, 4, "Nenhum registro ainda.");
+      } else {
+        tbodyLastLogs.innerHTML = last5.map(x => {
+          const d = x.data || {};
+          const total = fmtKg(logTotalKg(d));
+          return `
+            <tr>
+              <td>${esc(d.date || "—")}</td>
+              <td>${esc(d.shift || "—")}</td>
+              <td>${esc(total)} kg</td>
+              <td>${esc(d.notes || "—")}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      const hist = logsCache.slice(0, 12);
+      chipHistory.textContent = `🗂️ ${hist.length}`;
+
+      if (hist.length === 0){
+        renderEmpty(tbodyHistory, 4, "Sem histórico ainda.");
+      } else {
+        tbodyHistory.innerHTML = hist.map(x => {
+          const d = x.data || {};
+          const total = fmtKg(logTotalKg(d));
+          return `
+            <tr>
+              <td>${esc(d.date || "—")}</td>
+              <td>${esc(d.shift || "—")}</td>
+              <td>${esc(total)} kg</td>
+              <td>${esc(topMaterialsText(d, 3))}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      // KPIs visão geral (30 dias)
+      const start = isoDaysAgo(30);
+      const logs30 = logsCache
+        .map(x => x.data)
+        .filter(d => d?.date && String(d.date) >= start);
+
+      const total30 = logs30.reduce((acc, d) => acc + logTotalKg(d), 0);
+      kpiTotal30.textContent = fmtKg(total30);
+
+      const agg = new Map();
+      for (const d of logs30){
+        const items = Array.isArray(d.items) ? d.items : [];
+        for (const it of items){
+          const key = it.materialKey || it.materialLabel || "outro";
+          const label = it.materialLabel || it.materialKey || "Outro";
+          const kg = Number(it.kg)||0;
+          const prev = agg.get(key) || { label, kg: 0 };
+          prev.kg += kg;
+          agg.set(key, prev);
+        }
+      }
+
+      const aggArr = Array.from(agg.values()).sort((a,b) => b.kg - a.kg);
+      const top = aggArr[0];
+      kpiTopMaterial.textContent = top ? `${top.label} (${fmtKg(top.kg)}kg)` : "—";
+      kpiEntries.textContent = String(logs30.length);
+
+      if (aggArr.length === 0){
+        renderEmpty(tbodyAgg, 3, "Sem dados nos últimos 30 dias.");
+      } else {
+        tbodyAgg.innerHTML = aggArr.map(r => {
+          const pct = total30 > 0 ? Math.round((r.kg / total30) * 100) : 0;
+          return `
+            <tr>
+              <td>${esc(r.label)}</td>
+              <td>${esc(fmtKg(r.kg))} kg</td>
+              <td>${esc(pct)}%</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      // Atualiza dashboard PowerBI-like
+      refreshDashboardFromLogs();
+    }
+
+    function startLogs(){
+      if (!myTerritoryId){
+        logsCache = [];
+        renderEmpty(tbodyLastLogs, 4, "Seu territoryId está vazio. Peça para a governança definir seu território.");
+        renderEmpty(tbodyHistory, 4, "Seu territoryId está vazio. Peça para a governança definir seu território.");
+        renderEmpty(tbodyAgg, 3, "Seu territoryId está vazio. Peça para a governança definir seu território.");
+        kpiTotal30.textContent = "0";
+        kpiTopMaterial.textContent = "—";
+        kpiEntries.textContent = "0";
+        refreshDashboardFromLogs();
+        return;
+      }
+
+      const qL = query(collection(db, "daily_logs"), where("territoryId", "==", myTerritoryId), limit(800));
+      unsubLogs = onSnapshot(qL, (snap) => {
+        logsCache = [];
+        snap.forEach(d => logsCache.push({ id: d.id, data: d.data() }));
+        renderLogs();
+      }, (err) => {
+        console.error(err);
+        renderEmpty(tbodyLastLogs, 4, `Erro: ${err.code || err.message}`);
+        renderEmpty(tbodyHistory, 4, `Erro: ${err.code || err.message}`);
+        renderEmpty(tbodyAgg, 3, `Erro: ${err.code || err.message}`);
+      });
+    }
+
+    async function saveLog(){
+      if (!myTerritoryId){
+        alert("Seu territoryId está vazio. Peça para a governança definir seu território.");
+        return;
+      }
+
+      const date = norm(logDate.value);
+      if (!date){
+        alert("Informe a data.");
+        return;
+      }
+
+      const items = collectItems();
+      const total = items.reduce((a,it)=> a + (Number(it.kg)||0), 0);
+      if (total <= 0){
+        alert("Preencha pelo menos um material (kg).");
+        return;
+      }
+
+      btnSave.disabled = true;
+      btnSave.textContent = "Salvando...";
+
+      try{
+        await addDoc(collection(db, "daily_logs"), {
+          territoryId: myTerritoryId,
+          date,
+          shift: lower(logShift.value) || "manha",
+          items,
+          totalKg: total,
+          notes: norm(logNotes.value) || null,
+          createdBy: myUid,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        notify("Registro salvo ✅");
+        clearForm();
+      }catch(err){
+        console.error(err);
+        notify(`Erro ao salvar: ${err.code || err.message}`);
+        alert(`Erro ao salvar: ${err.code || err.message}`);
+      }finally{
+        btnSave.disabled = false;
+        btnSave.textContent = "💾 Salvar registro";
+      }
+    }
+
+    btnSave.addEventListener("click", saveLog);
+
+    // ========= Notices =========
+    function mergeById(list){
+      const map = new Map();
+      for (const x of list) map.set(x.id, x);
+      return Array.from(map.values());
+    }
+
+    function renderNotices(){
+      const s = lower(nSearch.value);
+      const list = noticesCache
+        .slice()
+        .sort((a,b) => tsToMillis(b.data.createdAt) - tsToMillis(a.data.createdAt))
+        .filter(x => {
+          if (!s) return true;
+          const d = x.data || {};
+          return (
+            lower(d.title).includes(s) ||
+            lower(d.body).includes(s) ||
+            lower(d.priority).includes(s)
+          );
+        });
+
+      chipNotices.textContent = `📣 ${list.length}`;
+
+      if (list.length === 0){
+        noticesList.innerHTML = `<div class="mini">Nenhum aviso (ou filtrado).</div>`;
+        return;
+      }
+
+      noticesList.innerHTML = list.map(x => {
+        const d = x.data || {};
+        const pr = lower(d.priority || "normal");
+        const prChip = pr === "alta" || pr === "high"
+          ? `<span class="chip warn">⚠️ alta</span>`
+          : `<span class="chip">📌 ${esc(pr || "normal")}</span>`;
+
+        return `
+          <div class="notice">
+            <h3>${esc(d.title || "Aviso")}</h3>
+            <p>${esc(d.body || "")}</p>
+            <div class="meta">
+              ${prChip}
+              <span class="chip">${esc(d.territoryId ? "território" : "geral")}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function startNotices(){
+      const qA = myTerritoryId
+        ? query(collection(db, "notices"), where("territoryId", "==", myTerritoryId), limit(200))
+        : null;
+
+      const qB = query(collection(db, "notices"), where("territoryId", "==", null), limit(200));
+
+      let aCache = [];
+      let bCache = [];
+
+      if (qA){
+        unsubNoticesA = onSnapshot(qA, (snap) => {
+          aCache = [];
+          snap.forEach(d => aCache.push({ id: d.id, data: d.data() }));
+          noticesCache = mergeById([...aCache, ...bCache]);
+          renderNotices();
+        }, (err) => {
+          console.error(err);
+          noticesList.innerHTML = `<div class="mini">Erro ao carregar avisos: ${esc(err.code || err.message)}</div>`;
+        });
+      } else {
+        aCache = [];
+      }
+
+      unsubNoticesB = onSnapshot(qB, (snap) => {
+        bCache = [];
+        snap.forEach(d => bCache.push({ id: d.id, data: d.data() }));
+        noticesCache = mergeById([...aCache, ...bCache]);
+        renderNotices();
+      }, (err) => {
+        console.error(err);
+        noticesList.innerHTML = `<div class="mini">Erro ao carregar avisos gerais: ${esc(err.code || err.message)}</div>`;
+      });
+    }
+
+    nSearch.addEventListener("input", renderNotices);
+
+    // ========= Contents/Tracks =========
+    function renderTracks(){
+      const s = lower(trSearch.value);
+      const lv = lower(trLevel.value);
+
+      const list = contentsCache
+        .slice()
+        .filter(x => {
+          const d = x.data || {};
+          const status = lower(d.status || "published");
+          if (status !== "published") return false;
+
+          const level = lower(d.level || d.nivel || "");
+          if (lv && level !== lv) return false;
+
+          if (!s) return true;
+          return (
+            lower(d.title).includes(s) ||
+            lower(d.type).includes(s) ||
+            lower(d.summary).includes(s) ||
+            lower(d.body).includes(s)
+          );
+        })
+        .sort((a,b) => tsToMillis(b.data.updatedAt || b.data.createdAt) - tsToMillis(a.data.updatedAt || a.data.createdAt));
+
+      chipTracks.textContent = `📚 ${list.length}`;
+
+      if (list.length === 0){
+        tracksList.innerHTML = `<div class="mini">Nenhum conteúdo (ou filtrado).</div>`;
+        return;
+      }
+
+      tracksList.innerHTML = list.map(x => {
+        const d = x.data || {};
+        const type = d.type || "material";
+        const level = d.level || d.nivel || "—";
+        const link = d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">Abrir</a>` : "";
+
+        return `
+          <div class="track">
+            <h3>${esc(d.title || "Conteúdo")}</h3>
+            <p>${esc(d.summary || "")}</p>
+            <div class="meta">
+              <span class="chip">📎 ${esc(type)}</span>
+              <span class="chip">🎯 ${esc(level)}</span>
+              ${d.territoryId ? `<span class="chip">🗺️ território</span>` : `<span class="chip">🌍 geral</span>`}
+              ${link ? `<span class="chip">${link}</span>` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function startContents(){
+      const qA = myTerritoryId
+        ? query(collection(db, "contents"), where("territoryId", "==", myTerritoryId), limit(400))
+        : null;
+
+      const qB = query(collection(db, "contents"), where("territoryId", "==", null), limit(400));
+
+      let aCache = [];
+      let bCache = [];
+
+      if (qA){
+        unsubContentsA = onSnapshot(qA, (snap) => {
+          aCache = [];
+          snap.forEach(d => aCache.push({ id: d.id, data: d.data() }));
+          contentsCache = mergeById([...aCache, ...bCache]);
+          renderTracks();
+        }, (err) => {
+          console.error(err);
+          tracksList.innerHTML = `<div class="mini">Erro ao carregar conteúdos do território: ${esc(err.code || err.message)}</div>`;
+        });
+      } else {
+        aCache = [];
+      }
+
+      unsubContentsB = onSnapshot(qB, (snap) => {
+        bCache = [];
+        snap.forEach(d => bCache.push({ id: d.id, data: d.data() }));
+        contentsCache = mergeById([...aCache, ...bCache]);
+        renderTracks();
+      }, (err) => {
+        console.error(err);
+        tracksList.innerHTML = `<div class="mini">Erro ao carregar conteúdos gerais: ${esc(err.code || err.message)}</div>`;
+      });
+    }
+
+    trSearch.addEventListener("input", renderTracks);
+    trLevel.addEventListener("change", renderTracks);
+
+    // ========= CRGR render =========
+    function renderCRGR(){
+      if (!myTerritory){
+        crgrName.textContent = "—";
+        crgrPlace.textContent = "—";
+        crgrCrc.textContent = "—";
+        crgrCode.textContent = "—";
+        crgrDesc.textContent = "—";
+        crgrContacts.textContent = "—";
+        crgrLinks.textContent = "—";
+        return;
+      }
+
+      const t = myTerritory || {};
+      crgrName.textContent = t.name || myTerritoryId || "—";
+      crgrPlace.textContent = [t.city, t.state].filter(Boolean).join(" / ") || "—";
+      crgrCrc.textContent = t.crcName || "—";
+      crgrCode.textContent = t.code || "—";
+      crgrDesc.textContent = t.description || t.desc || "—";
+
+      const contacts = t.contacts || t.contatos || null;
+      if (contacts && typeof contacts === "object"){
+        const lines = [];
+        for (const [k,v] of Object.entries(contacts)){
+          if (v) lines.push(`${k}: ${v}`);
+        }
+        crgrContacts.textContent = lines.length ? lines.join(" • ") : "—";
+      } else {
+        crgrContacts.textContent = contacts ? String(contacts) : "—";
+      }
+
+      const links = t.links || t.linhas || t.urls || null;
+      if (Array.isArray(links)){
+        crgrLinks.innerHTML = links.length
+          ? links.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(u)}</a>`).join("<br>")
+          : "—";
+      } else if (links && typeof links === "object"){
+        const lines = [];
+        for (const [k,v] of Object.entries(links)){
+          if (v) lines.push(`<a href="${esc(v)}" target="_blank" rel="noopener noreferrer">${esc(k)}</a>`);
+        }
+        crgrLinks.innerHTML = lines.length ? lines.join("<br>") : "—";
+      } else {
+        crgrLinks.textContent = links ? String(links) : "—";
+      }
+    }
+
+    async function loadTerritory(){
+      if (!myTerritoryId) {
+        myTerritory = null;
+        renderCRGR();
+        return;
+      }
+      const tsnap = await getDoc(doc(db, "territories", myTerritoryId));
+      myTerritory = tsnap.exists() ? (tsnap.data() || {}) : null;
+      renderCRGR();
+    }
+
+    // ========= Refresh manual =========
+    async function manualRefresh(){
+      try{
+        notify("Atualizando…");
+        await loadTerritory();
+
+        if (myTerritoryId){
+          const snap = await getDocs(query(collection(db, "daily_logs"), where("territoryId", "==", myTerritoryId), limit(800)));
+          logsCache = [];
+          snap.forEach(d => logsCache.push({ id: d.id, data: d.data() }));
+          renderLogs();
+        }
+        renderNotices();
+        renderTracks();
+
+        notify("Atualizado ✅");
+      }catch(err){
+        console.error(err);
+        notify(`Erro: ${err.code || err.message}`);
+      }
+    }
+    btnRefresh.addEventListener("click", manualRefresh);
+
+    // ========= Guard coop only =========
     onAuthStateChanged(auth, async (user) => {
       if (!user) return goLogin();
 
@@ -660,13 +1778,15 @@
       if (status !== "active") return goLogin();
       if (role !== "cooperativa") return goLogin();
 
-      const name = profile.displayName || profile.name || user.email || "Usuário";
+      myUid = user.uid;
+      myUser = profile;
       myTerritoryId = profile.territoryId || null;
 
+      const name = profile.displayName || profile.name || user.email || "Usuário";
       hdrSubtitle.textContent = `Cooperativa • ${name}`;
+      badgeUser.textContent = `👤 ${name}`;
       badgeTerritory.textContent = `Território: ${myTerritoryId || "—"}`;
 
-      chipRole.textContent = "♻️ cooperativa";
       chipStatus.textContent = status;
 
       pName.textContent = profile.displayName || profile.name || "—";
@@ -675,13 +1795,44 @@
       pTerr.textContent = myTerritoryId || "—";
       pUid.textContent = user.uid;
 
-      stopContents();
+      buildMaterialsUI();
+      clearForm();
+      stopAll();
+      await loadTerritory();
+      startLogs();
+      startNotices();
       startContents();
 
       document.documentElement.style.visibility = "visible";
       setSection("dashboard");
-      notify("Bem-vindo(a)!");
+      notify("Bem-vindo(a)! ✅");
     });
   </script>
+
+  <!--
+    =============================
+    REGRAS FIRESTORE (necessário)
+    =============================
+    Para o input funcionar, crie rules para daily_logs:
+
+    match /daily_logs/{logId} {
+      allow create: if isCoop()
+        && request.resource.data.territoryId == myTerritoryId()
+        && request.resource.data.createdBy == me();
+
+      allow get, list: if isCoop()
+        && resource.data.territoryId == myTerritoryId();
+
+      allow update: if isCoop()
+        && resource.data.territoryId == myTerritoryId()
+        && resource.data.createdBy == me();
+
+      allow delete: if isCoop()
+        && resource.data.territoryId == myTerritoryId()
+        && resource.data.createdBy == me();
+
+      allow read, write: if isGov();
+    }
+  -->
 </body>
 </html>
